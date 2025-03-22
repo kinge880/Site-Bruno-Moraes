@@ -1,0 +1,102 @@
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <div class="{{ classdiv }}" data-appear="{{ anim }}">    
+        <button type="button" class="{{ classbutton }}" data-toggle="modal" data-target="#minhaHistoriaModal">
+            {{ text }}
+        </button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="minhaHistoriaModal" tabindex="-1" role="dialog" aria-labelledby="minhaHistoriaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="minhaHistoriaModalLabel">Gerenciar minha história</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="cadastro_projetos" method="POST" enctype="multipart/form-data" action="{% url 'post_minha_historia' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12 text-center mb-3">
+                                <div class="image-preview-container" style="position: relative; display: inline-block;">
+                                    <img id="imagePreviewMinhaHist" 
+                                        src="{% if historia %}{{ historia.imagem.url }}{% endif %}" 
+                                        alt="Imagem" 
+                                        class="preview-image" 
+                                        style="max-width: 100%; height: 150px; object-fit: cover; margin-top: 10px; border-radius: 10px; cursor: pointer;" />
+                                    {{ formMinhaHist.imagem }}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                    {{ formMinhaHist.link }}
+                                </div>
+                            </div>
+                        </div>
+                        <div id="editor-descricao" class="quill-editor mb-3" data-target="descricao"></div>
+                        {{ formMinhaHist.descricao }}
+                        <div class="modal-footer mt-3">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- JavaScript para a pré-visualização da imagem e permitir troca ao clicar -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const imageInput = document.querySelector(".image-upload-minhahist");
+        const imagePreview = document.querySelector("#imagePreviewMinhaHist");
+
+        // Cria um objeto File a partir da URL da imagem
+        var imageUrl = imagePreview.src;
+        
+        fetch(imageUrl)
+            .then(res => res.blob())
+            .then(blob => {
+                var file = new File([blob], "image.jpg", { type: blob.type });
+                var dataTransfer = new DataTransfer(); // Cria uma nova instância do DataTransfer
+                dataTransfer.items.add(file); // Adiciona o arquivo
+                imageInput.files = dataTransfer.files; // Atribui o arquivo ao input file
+                console.log(imageInput.files)
+            })
+            .catch(err => console.log(err));
+    
+        if (imageInput && imagePreview) {
+            // Se já houver uma imagem carregada do banco, ela será exibida
+            if (imagePreview.src && imagePreview.src.trim() !== "") {
+                imagePreview.style.display = "block"; // Garante que a imagem apareça
+            }
+    
+            // Ao clicar na imagem, abre o input de upload
+            imagePreview.addEventListener("click", function () {
+                imageInput.click();
+            });
+    
+            // Upload de imagem com preview
+            imageInput.addEventListener("change", function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        imagePreview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+
+</script>
+

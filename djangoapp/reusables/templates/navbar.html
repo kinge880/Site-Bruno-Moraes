@@ -1,0 +1,112 @@
+{% load static %}
+{% block content %}
+
+
+{% if fixed == 'S' %}
+    <!-- Header -->
+    <header>
+        <!-- Header desktop -->
+        <nav class="navbar navbar-expand-lg navbar-light wrap-menu-header gradient1 trans-0-4">
+            <!-- Logo -->
+            <div class="logo">
+                <a href="/">
+                    <img src="{% static 'images/icons/logo.png' %}" alt="IMG-LOGO"
+                        data-logofixed="{% static 'images/icons/logo2.png' %}">
+                </a>
+            </div>
+
+            <!-- Botão Navbar Toggler para Mobile -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu -->
+            <div class="collapse navbar-collapse menu" id="navbarContent">
+                <ul class="navbar-nav main_menu">
+                    <li class="nav-item"><a class="" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="" href="#minha-historia">História</a></li>
+                    <li class="nav-item"><a class="" href="#meus-projetos-e-propostas">Fala comigo/ Projetos</a></li>
+                    <li class="nav-item"><a class="" href="#minhas-bandeiras">Bandeiras</a></li>
+                    <li class="nav-item"><a class="" href="#campanhas">Campanha</a></li>
+                    <li class="nav-item"><a class="" href="#novidades">Novidades</a></li>
+
+                    {% if request.user.username %} 
+                        <li class="dropdown nav-item">
+                            <div class="social flex-w flex-l-m p-r-20">
+                                <button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="" href="/login">Login</a></li> 
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+{% else %}
+
+    <!-- Header -->
+    <header class="p-b-25">
+        <!-- Header desktop -->
+        <nav class="navbar navbar-expand-lg navbar-light menu-header ">
+            <!-- Logo -->
+            <div class="logo">
+                <a href="/">
+                    <img src="{% static 'images/icons/logo2.png' %}" alt="IMG-LOGO"
+                        data-logofixed="{% static 'images/icons/logo2.png' %}">
+                </a>
+            </div>
+
+            <!-- Botão Navbar Toggler para Mobile -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu -->
+            <div class="collapse navbar-collapse menu" id="navbarContent">
+                <ul class="navbar-nav main_menu_top">
+                    <li class="nav-item"><a class="" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="" href="#minha-historia">História</a></li>
+                    <li class="nav-item"><a class="" href="#meus-projetos-e-propostas">Projetos</a></li>
+                    <li class="nav-item"><a class="" href="#minhas-bandeiras">Bandeiras</a></li>
+                    <li class="nav-item"><a class="" href="#campanhas">Campanha</a></li>
+                    <li class="nav-item"><a class="" href="#novidades">Novidades</a></li>
+
+                    {% if request.user.username %} 
+                        <li class="dropdown nav-item">
+                            <div class="social flex-w flex-l-m p-r-20">
+                                <button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="" href="/login">Login</a></li> 
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+{% endif %}
+
+<!-- Sidebar -->
+<aside class="sidebar trans-0-4">
+    <ul class="menu-sidebar p-t-30 p-b-70">
+        {% if request.user.is_superuser %}
+            <li class="t-center m-b-13">
+                <a href="/admin/" class="txt19">Painel administrativo</a>
+            </li>
+        {% endif %}
+
+        <li class="t-center m-b-13">
+            <a class="txt19" href="/deslogar">Deslogar</a>
+        </li>
+        <li class="t-center m-b-13">
+            <button class="btn-hide-sidebar btn btn-dark">Fechar</button>
+        </li>
+    </ul>
+</aside>
+
+{% endblock %}

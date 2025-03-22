@@ -1,0 +1,73 @@
+services:
+  djangoapp:
+    container_name: djangoapp
+    build:
+      context: .
+    ports:
+      - 8000:8000
+    volumes:
+      - ./djangoapp:/djangoapp
+      - ./data/web/static:/data/web/static/
+      - ./data/web/staticfiles:/data/web/staticfiles
+      - ./data/web/media:/data/web/media/
+    env_file:
+      - ./dotenv_files/.env
+    depends_on:
+      - psql
+    networks:
+      - gabriel1_net
+    deploy:
+      resources:
+        limits:
+          cpus: '1'  # Maximum of 0.5 CPU core
+          memory: 1G  # Maximum of 100MB memory
+    
+  psql:
+    container_name: psql
+    image: postgres:13-alpine
+    volumes:
+      - ./data/postgres/data:/var/lib/postgresql/data/
+      - ./data/postgres/backups:/var/lib/postgresql/backups/
+    env_file:
+      - ./dotenv_files/.env
+    networks:
+      - gabriel1_net
+    ports:
+      - "54320:5432"
+    deploy:
+      resources:
+        limits:
+          cpus: '1'  # Maximum of 0.5 CPU core
+          memory: 1G  # Maximum of 100MB memory
+
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    networks:
+      - gabriel1_net
+    deploy:
+      resources:
+        limits:
+          cpus: '1'  # Maximum of 0.5 CPU core
+          memory: 1G
+  
+  nginxconf:
+    image: nginx:latest
+    container_name: nginxconf
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./data/web/static:/data/web/static/
+      - ./data/web/staticfiles:/data/web/staticfiles
+      - ./data/web/media:/data/web/media/
+    ports:
+      - "1337:80"
+    depends_on:
+      - djangoapp
+    networks:
+      - gabriel1_net
+    
+
+networks:
+  gabriel1_net:
+    driver: bridge

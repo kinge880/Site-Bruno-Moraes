@@ -1,0 +1,14 @@
+{% load static %}
+{% block content %}
+    
+{% if processamento == 'aspf' %}
+    <script>
+        $(document).ready(function () {
+            var scrollSpy = new bootstrap.ScrollSpy(document.body, {
+                target: '#navbarDash'
+            })
+        });
+    </script>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,365 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Titulo da página{% endblock %}
+{% block content %}
+<body class="animsition">
+	<!-- Inicio -->
+	<section id="inicio" class="section-slide bg1-pattern">
+		<div class="wrap-slick1">
+			<div class="slick1" id="inicioBanner">
+				{% for banners in banners_inicio %}
+					<div class="item-slick1 item1-slick1" style="background-image: url('{% if banners.imagem %} {{banners.imagem.url}} {% else %} https://placehold.co/1366x789 {% endif %}');">
+						<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+							<span class="caption1-slide1 txt1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
+								{{banners.titulo}} 
+							</span>
+							<h2 class="caption2-slide1 tit1 t-center animated visible-false m-b-37" data-appear="fadeInUp">
+								{{banners.subtitulo}} 
+							</h2>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+	
+			<div class="wrap-slick1-dots"></div>
+		</div>
+		{% include 'components/message.html' %}
+		{% if request.user.is_authenticated %}
+		{% with id="carrocelinicialModal" text="Editar Banner" classbutton="mt-3 btn1 flex-c-m size1 txt3 trans-0-4" classdiv="col-12 d-flex justify-content-center " anim="zoomIn" textModal="Editar banners no inicio da tela" %}
+			{% include 'components/formCarroucel.html' %}
+		{% endwith %}
+		{% endif %}
+	</section>
+
+	<!-- Minha história -->
+	<section id="minha-historia" class="section-welcome bg1-pattern p-t-80 p-b-105">
+		<div class="container">
+			<div class="col-12 text-center mb-3">
+				<span class="tit2 t-center">
+					Conheça Minha história
+				</span>
+			</div>
+			<div class="row">
+				<!-- Imagem substituindo o vídeo -->
+				<div class="col-md-4 d-flex justify-content-center align-items-center">
+					<div class="play-container bo-rad-10 m-l-r-auto" style="cursor: pointer;" data-toggle="modal" data-target="#videoModal">
+						<img src="{% if historia.imagem %}{{ historia.imagem.url }}{% else %}https://placehold.co/1000x2000{% endif %}" alt="Minha História" class="img-fluid bo-rad-10">
+						
+						<!-- Ícone de Play -->
+						<i class="fa fa-play-circle play-overlay"></i>
+					</div>
+				</div>
+	
+				<div class="col-md-8">
+					<div class="wrap-text-welcome text-justify">
+						{{historia.descricao | safe}}
+					</div>
+				</div>
+				<div class="col-12 text-center mb-3">
+					<a href="/sobre" class="txt4 text-center">
+						Mais sobre mim
+						<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		{% if request.user.is_authenticated %}
+		{% with id="carrocelinicialModal" text="Editar história" classbutton="mt-3 btn1 flex-c-m size1 txt3 trans-0-4" classdiv="col-12 d-flex justify-content-center " anim="zoomIn" textModal="Editar minha história" %} 
+			{% include 'sobre_mim/formMinhaHistoria.html' %} 
+		{% endwith %}
+		{% endif %}
+	</section>
+	
+	<!-- Modal do vídeo -->
+	<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="videoModalLabel">Meu Vídeo</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item" src="{{historia.link}}" allowfullscreen></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Projetos e demandas -->
+	<section id="meus-projetos-e-propostas" class="section-intro">
+		<div class="header-intro parallax100 t-center p-t-135 p-b-158" style="background-image: url({% static 'images/bg-intro-01.jpg' %});">
+			<span class="tit2 p-l-15 p-r-15">
+				Conheça
+			</span>
+
+			<h3 class="tit4 t-center p-l-15 p-r-15 p-t-3">
+				O meu trabalho
+			</h3>
+		</div>
+
+		<div class="content-intro bg-white p-t-77 p-b-133">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 p-t-30">
+						<!-- Block1 -->
+						<div class="blo1">
+							<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom">
+								<a href="/fale"><img src="{% static 'images/faleconosco.jpg' %}" alt="IMG-INTRO"></a>
+							</div>
+
+							<div class="wrap-text-blo1 p-t-35 text-center">
+								<a href="/fale">
+									<h4 class="txt5 color0-hov trans-0-4 m-b-13 text-center">
+										Fale comigo
+									</h4>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6 p-t-30">
+						<!-- Block1 -->
+						<div class="blo1">
+							<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom">
+								<a href="/propostas"><img src="{% static 'images/minhaspropostas.jpg' %}" alt="IMG-INTRO"></a>
+							</div>
+
+							<div class="wrap-text-blo1 p-t-35 text-center">
+								<a href="/propostas"><h4 class="txt5 color0-hov trans-0-4 m-b-13 text-center">
+									Minhas propostas e projetos
+								</h4></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Minhas bandeiras -->
+	<section id="minhas-bandeiras" class="section-ourmenu bg2-pattern p-t-115 p-b-120">
+		<div class="container">
+			<div class="title-section-ourmenu t-center m-b-22">
+				<span class="tit2 t-center">
+					Vamos juntos
+				</span>
+
+				<h3 class="tit5 t-center m-t-2">
+					Rio branco vai cuidar de quem precisa!
+				</h3>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-sm-4">
+							<!-- Item our menu -->
+							<div class="item-ourmenu bo-rad-10 hov-img-zoom pos-relative m-t-30">
+								<img src="{% static 'images/our-menu-01.jpg' %}" alt="IMG-MENU">
+
+								<!-- Button2 -->
+								<a href="#" class="btn2 flex-c-m txt5 ab-c-m size4">
+									Esportes
+								</a>
+							</div>
+						</div>
+
+						<div class="col-sm-4">
+							<!-- Item our menu -->
+							<div class="item-ourmenu bo-rad-10 hov-img-zoom pos-relative m-t-30">
+								<img src="{% static 'images/our-menu-02.jpg' %}" alt="IMG-MENU">
+
+								<!-- Button2 -->
+								<a href="#" class="btn2 flex-c-m txt5 ab-c-m p-2 text-center">
+									Crianças e adolescentes
+								</a>
+							</div>
+						</div>
+
+						<div class="col-sm-4">
+							<!-- Item our menu -->
+							<div class="item-ourmenu bo-rad-10 hov-img-zoom pos-relative m-t-30">
+								<img src="{% static 'images/our-menu-03.jpg' %}" alt="IMG-MENU">
+
+								<!-- Button2 -->
+								<a href="#" class="btn2 flex-c-m txt5 ab-c-m p-2 text-center">
+									Serviços publicos
+								</a>
+							</div>
+						</div>
+
+						<div class="col-6">
+							<!-- Item our menu -->
+							<div class="item-ourmenu bo-rad-10 hov-img-zoom pos-relative m-t-30">
+								<img src="{% static 'images/our-menu-04.jpg' %}" alt="IMG-MENU">
+
+								<!-- Button2 -->
+								<a href="#" class="btn2 flex-c-m txt20 ab-c-m p-2 ">
+									Mulheres em defesa das mulheres
+								</a>
+							</div>
+						</div>
+
+						<div class="col-6">
+							<!-- Item our menu -->
+							<div class="item-ourmenu bo-rad-10 hov-img-zoom pos-relative m-t-30">
+								<img src="{% static 'images/our-menu-05.jpg' %}" alt="IMG-MENU">
+
+								<!-- Button2 -->
+								<a href="#" class="btn2 flex-c-m txt20 ab-c-m p-2">
+									Orgulho de ser terceirizado!
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Banner com vídeo da campanha -->
+	<section id="campanhas" class="section-video parallax100" style="background-image: url({% if banner_campanha.imagemcampanha %}{{ banner_campanha.imagemcampanha.url }}{% else %}https://placehold.co/1920x600 {% endif %});">
+		<div class="content-video t-center p-t-225 p-b-250">
+	
+			<div class="btn-play ab-center size16 hov-pointer m-l-r-auto m-t-43 m-b-33" data-toggle="modal" data-target="#videoModalBanner">
+				<div class="flex-c-m sizefull bo-cir bgwhite color1 hov1 trans-0-4">
+					<i class="fa fa-play fs-18 m-l-2" aria-hidden="true"></i>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Modal do vídeo BANNER-->
+	<div class="modal fade" id="videoModalBanner" tabindex="-1" role="dialog" aria-labelledby="videoModalBannerLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe width="1536" height="730" src="{{ banner_campanha.link }}" title="Entrevista com Fagner Calegário no Jornal Gazeta 93" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% if request.user.is_authenticated %}
+		{% with id="carrocelinicialModal" text="Editar banner de campanha" classbutton="mt-3 btn1 flex-c-m size1 txt3 trans-0-4" classdiv="col-12 d-flex justify-content-center " anim="zoomIn" textModal="Gerenciar banner de campanha " %} 
+			{% include 'home/formBannerCampanha.html' %} 
+		{% endwith %}
+	{% endif %}
+
+	<!-- Noticias -->
+	<section id="novidades" class="section-blog bg-white p-t-115 p-b-123">
+		<div class="container">
+			<div class="title-section-ourmenu t-center m-b-22">
+				{% comment %} <span class="tit2 t-center">
+					últimas novidades
+				</span> {% endcomment %}
+	
+				<h3 class="tit5 t-center m-t-2">
+					Últimas novidades
+				</h3>
+			</div>
+	
+			<div class="row">
+				<div class="col-md-4 p-t-30">
+					<!-- Block1 -->
+					<div class="blo1">
+						<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom pos-relative">
+							<a href="blog-detail.html"><img src="{% static 'images/blog-01.jpg' %}" alt="IMG-INTRO"></a>
+	
+							<div class="time-blog">
+								21 Dez 2024
+							</div>
+						</div>
+	
+						<div class="wrap-text-blo1 p-t-35">
+							<a href="blog-detail.html"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
+								Câmara Municipal abre os trabalhos
+							</h4></a>
+	
+							<p class="m-b-20">
+								A Câmara Municipal de Rio Branco realizou, na manhã desta segunda-feira, no auditório da Ordem dos Advogados do Brasil (OAB), a Sessão Solene de Abertura dos Trabalhos Legislativos da 16ª Legislatura.
+							</p>
+	
+							<a href="blog-detail.html" class="txt4">
+								Continue lendo
+								<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+	
+				<div class="col-md-4 p-t-30">
+					<!-- Block1 -->
+					<div class="blo1">
+						<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom pos-relative">
+							<a href="blog-detail.html"><img src="{% static 'images/blog-02.jpg' %}" alt="IMG-INTRO"></a>
+	
+							<div class="time-blog">
+								30 Jan 2025
+							</div>
+						</div>
+	
+						<div class="wrap-text-blo1 p-t-35">
+							<a href="blog-detail.html"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
+								Vereadores participam de capacitação
+							</h4></a>
+	
+							<p class="m-b-20">
+								os vereadores da 16ª Legislatura da Câmara Municipal de Rio Branco participaram de uma capacitação promovida pela Casa Legislativa. O treinamento tem como objetivo aprimorar o conhecimento.
+							</p>
+	
+							<a href="blog-detail.html" class="txt4">
+								Continue lendo
+								<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+	
+				<div class="col-md-4 p-t-30">
+					<!-- Block1 -->
+					<div class="blo1">
+						<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom pos-relative">
+							<a href="blog-detail.html"><img src="{% static 'images/blog-03.jpg' %}" alt="IMG-INTRO"></a>
+	
+							<div class="time-blog">
+								12 Fev 2025
+							</div>
+						</div>
+	
+						<div class="wrap-text-blo1 p-t-35">
+							<a href="blog-detail.html"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
+								Time SUB-17 de Kung Fu recebem Moção de Aplauso
+							</h4></a>
+	
+							<p class="m-b-20">
+								A pedido do vereador N. Lima (PP), a Câmara Municipal de Rio Branco realizou uma Tribuna Popular no qual homenageou com uma Moção de Aplauso o Time SUB-17 de Kung Fu.
+							</p>
+	
+							<a href="blog-detail.html" class="txt4">
+								Continue Lendo
+								<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+	
+			</div>
+		</div>
+	</section>
+
+	<!-- Container Selection1 -->
+	<div id="dropDownSelect1"></div>
+
+{% endblock %}
