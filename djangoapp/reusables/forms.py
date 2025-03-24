@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+from django.utils.safestring import mark_safe
 
 class HomeBannerInicioForm(forms.ModelForm):
     class Meta:

@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'simple_history',
     'auditlog',
+    'blog'
 ]
 
 MIDDLEWARE = [
@@ -151,8 +152,6 @@ LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Rio_Branco'
 
 USE_I18N = True
-
-USE_L10N = True
 
 USE_TZ = True
 

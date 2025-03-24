@@ -54,7 +54,27 @@ def is_strong_password(password):
         strength += symbol_weight
 
     return strength >= 4  # Retorna True se a força for 4 ou mais, False caso contrário
-    
+
+def extrair_youtube_id(link):
+    """
+    Extrai o ID do vídeo de qualquer link válido do YouTube e retorna no formato embed.
+    """
+    # Padrão que captura qualquer formato de link do YouTube
+    pattern = re.search(
+        r'(?:https?://)?(?:www\.)?(?:youtube\.com/(?:watch\?v=|embed/|shorts/|live/|user/.*?/|channel/.*?/|@.*?/)?|youtu\.be/)([a-zA-Z0-9_-]{11})',
+        link
+    )
+
+    # Se encontrou um ID válido, retorna no formato embed
+    if pattern:
+        print('search')
+        video_id = pattern.group(1)
+        print(video_id)
+        return f"https://www.youtube.com/embed/{video_id}"
+
+    return None  # Se não for um link válido do YouTube
+
+
 #metodo para obter as permissões de todo o app
 def obterPermissao(request, id, valorperm):
     conexao = conexao_postgresql.conectar_banco()
@@ -311,17 +331,29 @@ def listar_banners(request):
 def post_minha_historia(request):
     """ View separada para tratar POST de envio da história. """
     if request.method == 'POST':
-        print(request.FILES)
-        print(request.POST)
         form = HomeMinhaHistoriaForm(request.POST, request.FILES)
         if form.is_valid():
-            # Verifica se já existe um registro e apaga o anterior
-            if HomeMinhaHistoria.objects.exists():
+            link = form.cleaned_data.get("link")
+            if link:
+                novo_link = extrair_youtube_id(link)
+                print(novo_link)
+                form.cleaned_data["link"] = novo_link  # Atuliza o link
+                if not novo_link:
+                    messages.error(request, "O link do YouTube é inválido. Use um link válido do formato 'https://www.youtube.com/watch?v=ID'.")
+                    return redirect('paginicial')
+                
+                # Apaga qualquer registro existente
                 HomeMinhaHistoria.objects.all().delete()
 
-            # Salva o novo registro
-            form.save()
-            messages.success(request, "História salva com sucesso!")
+                # Cria a instância do modelo e salva
+                historia = form.save(commit=False)  # Cria o objeto, mas não salva ainda
+                historia.link = novo_link  # Atualiza o campo "link"
+                historia.save()  # Agora salva no banco
+
+                messages.success(request, "História salva com sucesso!")
+            else:
+                messages.error(request, "Link informado é invalido, busque um link válido do youtube")
+                return redirect('paginicial')
         else:
             # Monta uma mensagem com os erros específicos dos campos
             error_messages = []
@@ -339,17 +371,29 @@ def post_minha_historia(request):
 def post_banner_campanha(request):
     """ View separada para tratar POST de envio da história. """
     if request.method == 'POST':
-        print(request.FILES)
-        print(request.POST)
         form = HomeBannerCampanhaForm(request.POST, request.FILES)
         if form.is_valid():
-            # Verifica se já existe um registro e apaga o anterior
-            if HomeBannerCampanha.objects.exists():
+            link = form.cleaned_data.get("link")
+            if link:
+                novo_link = extrair_youtube_id(link)
+                print(novo_link)
+                form.cleaned_data["link"] = novo_link  # Atuliza o link
+                if not novo_link:
+                    messages.error(request, "O link do YouTube é inválido. Use um link válido do formato 'https://www.youtube.com/watch?v=ID'.")
+                    return redirect('paginicial')
+                
+                # Apaga qualquer registro existente
                 HomeBannerCampanha.objects.all().delete()
 
-            # Salva o novo registro
-            form.save()
-            messages.success(request, "Banner e vídeo de campanha salvos com sucesso!")
+                # Cria a instância do modelo e salva
+                banner = form.save(commit=False)  # Cria o objeto, mas não salva ainda
+                banner.link = novo_link  # Atualiza o campo "link"
+                banner.save()  # Agora salva no banco
+
+                messages.success(request, "Banner e vídeo de campanha salvos com sucesso!")
+            else:
+                messages.error(request, "Link informado é invalido, busque um link válido do youtube")
+                return redirect('paginicial')
         else:
             # Monta uma mensagem com os erros específicos dos campos
             error_messages = []
@@ -369,8 +413,6 @@ def listar_propostas(request):
     projetos = PropostaProjetoLei.objects.filter(categoria='Projeto').order_by('-criado_em')
     leis = PropostaProjetoLei.objects.filter(categoria='Lei').order_by('-criado_em')
     
-    paginator = Paginator(propostas, 30)
-    page_number = request.GET.get('page')
     form = PropostaProjetoLeiForm()
     
     context = defineNavLinks('menu_fixo')

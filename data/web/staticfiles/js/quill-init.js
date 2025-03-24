@@ -2,15 +2,18 @@ document.addEventListener("DOMContentLoaded", function () {
     function initializeQuill(selector) {
         const quillContainer = document.querySelector(selector);
         if (!quillContainer) return;
-
+    
+        // Evita reinicialização se já existir um Quill dentro do container
+        if (quillContainer.__quill) return;
+    
         const textarea = document.querySelector(`[name="${quillContainer.dataset.target}"]`);
         if (!textarea) return;
-
+    
         // Inicializa o editor Quill
         const quill = new Quill(selector, {
             theme: 'snow',
             modules: {
-                toolbar: [
+                toolbar: quillContainer.dataset.toolbar !== "false" ? [
                     [{ header: [1, 2, 3, 4, 5, 6, false] }],
                     [{ font: [] }],
                     [{ size: [] }],
@@ -24,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     ['blockquote', 'code-block'],
                     ['link'],
                     ['clean']
-                ],
+                ] : false,
                 clipboard: { matchVisual: false },
                 history: { delay: 1000, maxStack: 500, userOnly: true },
                 syntax: true, // Suporte a highlight.js
@@ -32,24 +35,24 @@ document.addEventListener("DOMContentLoaded", function () {
             placeholder: 'Digite seu texto aqui...',
             readOnly: false
         });
-
+    
+        // Armazena a instância no elemento para evitar reexecuções
+        quillContainer.__quill = quill;
+    
         quillContainer.style.height = '400px';
-
-        // Se o <textarea> já tem valor (exemplo: edição), carregá-lo no Quill
+    
         if (textarea.value.trim() !== "") {
             quill.root.innerHTML = textarea.value;
         }
-
-        // Atualiza o campo de texto real sempre que o Quill for alterado
+    
         quill.on('text-change', function () {
             textarea.value = quill.root.innerHTML;
         });
-
-        // Garante que o valor seja salvo no submit
+    
         document.querySelector('form').onsubmit = function () {
             textarea.value = quill.root.innerHTML;
         };
-    }
+    }    
 
     // Inicializa todos os editores na página
     document.querySelectorAll('.quill-editor').forEach(function (editor) {

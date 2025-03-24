@@ -1,0 +1,62 @@
+{% load static %}
+{% block content %}
+<!-- Sidebar -->
+<div class="col-md-4 col-lg-3">
+    <div class="sidebar2 p-t-80 p-b-80 p-l-20 p-l-0-md p-t-0-md">
+        
+        {% if user.is_authenticated %}
+            <div class="w-100 text-center mb-5">
+                {% if request.path == '/blog/postar/' %}
+                    <button onclick="window.location.href='{% url 'base_blog' %}';" class="btn3 size31 txt11 trans-0-4 w-100">
+                        Retornar
+                    </button>
+                {% else %}
+                    <button onclick="window.location.href='{% url 'create_blog_post' %}';" class="btn3 size31 txt11 trans-0-4 w-100">
+                        Nova Postagem
+                    </button>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <!-- Pesquisar -->
+        <form method="GET" action="{% url 'base_blog' %}">
+            <div class="search-sidebar2 size12 bo2 pos-relative">
+                <input class="input-search-sidebar2 txt10 p-l-20 p-r-55" type="text" name="search" 
+                       placeholder="Pesquisar" value="{{ search_query }}">
+                <button type="submit" class="btn-search-sidebar2 flex-c-m ti-search trans-0-4"></button>
+            </div>
+        </form>
+        
+        <!-- Categorias -->
+        <div class="categories">
+            <h4 class="txt33 bo5-b p-b-35 p-t-58">Categorias</h4>
+            <ul>
+                {% for cat in categorias %}
+                    <li class="flex-sb-m bo5-b p-t-8 p-b-8">
+                        <a href="{% url 'category_filter' cat.slug %}" class="txt27">
+                            {{ cat.slug }} 
+                        </a>
+                        <span class="txt29">({{ cat.post_count }})</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Arquivo -->
+        <div class="archive">
+            <h4 class="txt33 p-b-20 p-t-43">Arquivo</h4>
+            <ul>
+                {% for arq in arquivos %}
+                    <li class="flex-sb-m p-t-8 p-b-8">
+                        <a href="{% url 'archive_filter' arq.year arq.month %}" class="txt27">
+                            {{ arq.month_name }} {{ arq.year }}
+                        </a>
+                        <span class="txt29">({{ arq.count }})</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
