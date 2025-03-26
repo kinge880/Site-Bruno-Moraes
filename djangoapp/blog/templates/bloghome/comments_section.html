@@ -1,0 +1,369 @@
+{% load humanize %}
+
+<div class="comments-container mt-5 mb-5">
+    <div class="d-flex justify-content-left row">
+        <div class="d-flex flex-column col-12">
+            <!-- Formulário de Comentário -->
+            <form id="comment-form" method="POST" action="comment/" class="mt-3 d-flex justify-content-between mb-3">
+                {% csrf_token %}
+            
+                {% if not user.is_authenticated %}
+                    <input type="hidden" name="name" value="Anônimo">
+                    <input type="hidden" name="email" value="anonimo@agmail.com">
+                {% else %}
+                    <input type="hidden" name="name" value="{{ user.username }}">
+                    <input type="hidden" name="email" value="{{ user.email }}">
+                {% endif %}
+            
+                <div class="search-sidebar2 size12 bo2 pos-relative">
+                    {{ form.content }}
+                    <button type="submit" class="btn-search-sidebar5 flex-c-m ti-2 trans-0-4 p-1">Comentar</button>
+                </div>
+            </form>
+            
+            <div id="comments-section" class="comments-section">
+                
+            </div>
+            <button id="load-more" class="btn btn-primary mt-3" style="display:none;">Carregar Mais</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    
+    .comments-container {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+    }
+    
+    /* Estilização do box do comentário */
+    .comment-box {
+        position: relative; /* Define posição relativa para alinhar o botão */
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        background-color: #fff;
+    }
+    
+    /* Estilização do perfil do usuário */
+    .comment-profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+    
+    /* Nome do usuário */
+    .comment-user h6 {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 2px;
+    }
+    
+    /* Data e hora do comentário */
+    .comment-user small {
+        font-size: 12px;
+        color: #777;
+    }
+    
+    /* Texto do comentário */
+    .comment-text {
+        font-size: 14px;
+        color: #333;
+        margin-top: 8px;
+    }
+    
+    /* Seção de ações (curtir, deletar) */
+    .comment-actions {
+        font-size: 14px;
+        color: #777;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Botão de curtir */
+    .btn-like {
+        background: none;
+        border: none;
+        color: #007bff;
+        cursor: pointer;
+        padding: 5px;
+    }
+    
+    .btn-like:hover {
+        text-decoration: underline;
+    }
+    
+    /* Botão de deletar flutuante no canto superior direito */
+    .comment-actions .btn-delete {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        color: #dc3545;
+        font-size: 14px;
+        cursor: pointer;
+        padding: 5px;
+    }
+    
+    .comment-actions .btn-delete:hover {
+        color: #a71d2a;
+    }
+    
+    /* Ícones dentro dos botões */
+    .btn-delete i, .btn-like i {
+        margin-right: 3px;
+    }
+    
+    /* Estilização da contagem de curtidas */
+    .like-count {
+        font-size: 14px;
+        color: #555;
+        margin-left: 5px;
+    }
+    
+    .g-color-gray-dark-v4 {
+        color: #777 !important;
+    }
+    .g-font-size-12 {
+        font-size: 0.85714rem !important;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+{% comment %} obter mais comentários {% endcomment %}
+<script>
+    $(document).ready(function () {
+        var currentPage = 1;
+
+        // Função para carregar os comentários
+        function loadComments(page) {
+            // Mostrar indicador de carregamento
+            $('#loading').show();
+
+            $.ajax({
+                url: 'get-comments/',  // URL da sua view de comentários
+                data: { 'page': page },
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    // Esconder o indicador de carregamento
+                    $('#loading').hide();
+
+                    // Carregar os comentários no HTML
+                    var commentsHtml = '';
+                    response.comments.forEach(function (comment) {
+                        var deleteButton = '';
+                        if (comment.can_delete) {
+                            deleteButton = ` 
+                                <div class="comment-actions">
+                                    <button class="btn-delete" data-comment-id="${comment.id}">
+                                        <i class="fa fa-trash"> Deletar</i>
+                                    </button>
+                                </div>`;
+                        }
+
+                        commentsHtml += `
+                            <div class="comment-box bg-white p-3 mb-2" data-comment-id="${comment.id}">
+                                ${deleteButton}
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="comment-profile">
+                                        <img class="rounded-circle" src="https://i.imgur.com/qdiP4DB.jpg" width="40">
+                                    </div>
+                                    <div class="comment-user ml-3">
+                                        <h6 class="mb-0">${comment.name}</h6>
+                                        <small>${comment.created_at}</small>
+                                    </div>
+                                </div>
+                                <div class="text-wrap">
+                                    <p class="comment-text mt-2">${comment.content}</p>
+                                </div>
+                                <div class="comment-actions d-flex flex-row align-items-center">
+                                    <ul class="list-inline d-sm-flex my-0">
+                                        <li class="list-inline-item g-mr-10">
+                                            <button class="btn btn-like">
+                                                <span class="g-color-gray-dark-v4">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                </span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                    <span class="like-count mr-2">${comment.likes}</span>
+                                </div>
+                            </div>`;
+                    });
+
+                    // Adicionar os comentários ao container
+                    $('#comments-section').append(commentsHtml);
+
+                    // Mostrar ou esconder o botão de "Carregar Mais"
+                    if (response.has_next) {
+                        $('#load-more').show();
+                    } else {
+                        $('#load-more').hide();
+                    }
+                },
+                error: function () {
+                    // Esconder o indicador de carregamento em caso de erro
+                    $('#loading').hide();
+                    alert('Erro ao carregar os comentários');
+                }
+            });
+        }
+
+        // Carregar os primeiros 10 comentários
+        loadComments(currentPage);
+
+        // Carregar mais comentários ao clicar no botão
+        $('#load-more').click(function () {
+            currentPage += 1;
+            loadComments(currentPage);
+        });
+    });
+</script>
+
+<!-- Indicador de carregamento com o spinner do Bootstrap -->
+<div id="loading" style="display:none; text-align: center;">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Carregando...</span>
+    </div>
+</div>
+
+{% comment %} postar novo comentário {% endcomment %}
+<script>
+    $(document).ready(function () {
+        $("form#comment-form").submit(function (event) {
+            event.preventDefault();  // Impede o recarregamento da página
+    
+            var formData = $(this).serialize();  // Serializa os dados do formulário
+            var actionUrl = $(this).attr("action");
+    
+            $.ajax({
+                type: "POST",
+                url: actionUrl,
+                data: formData,
+                dataType: "json",
+                headers: { "X-Requested-With": "XMLHttpRequest" },
+                success: function (response) {
+                    if (response.success) {
+                        var deleteButton = "";
+                        
+                        // Verifica se o usuário tem permissão para deletar
+                        if (response.can_delete) {
+                            deleteButton = `
+                                <div class="comment-actions">
+                                    <button class="btn-delete" data-comment-id="${response.id}">
+                                        <i class="fa fa-trash"> Deletar</i>
+                                    </button>
+                                </div>`;
+                        }
+    
+                        var newComment = `
+                            <div class="comment-box bg-white p-3 mb-2" data-comment-id="${response.id}">
+                                ${deleteButton}
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="comment-profile">
+                                        <img class="rounded-circle" src="https://i.imgur.com/qdiP4DB.jpg" width="40">
+                                    </div>
+                                    <div class="comment-user ml-3">
+                                        <h6 class="mb-0">${response.name}</h6>
+                                        <small>${response.created_at}</small>
+                                    </div>
+                                </div>
+                                <div class="text-wrap">
+                                    <p class="comment-text mt-2">${response.content}</p>
+                                </div>
+                                <div class="comment-actions d-flex flex-row align-items-center">
+                                    <ul class="list-inline d-sm-flex my-0">
+                                        <li class="list-inline-item g-mr-10">
+                                            <button class="btn btn-like">
+                                                <span class="g-color-gray-dark-v4">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                </span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                    <span class="like-count mr-2">${response.likes}</span>
+                                </div>
+                            </div>`;
+    
+                        $(".comments-section").prepend(newComment);  // Adiciona o novo comentário ao início da lista
+                        $("form#comment-form")[0].reset();  // Reseta o formulário
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseJSON.errors);
+                }
+            });
+        });
+    });
+</script>
+
+{% comment %} deletar comentario {% endcomment %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".btn-delete").forEach(button => {
+            button.addEventListener("click", function () {
+                let commentId = this.getAttribute("data-comment-id");
+                let commentBox = this.closest(".comment-box");
+    
+                if (confirm("Tem certeza que deseja excluir este comentário?")) {
+                    fetch(`comment/${commentId}/delete/`, {
+                        method: "POST",
+                        headers: {
+                            "X-CSRFToken": "{{ csrf_token }}",
+                            "X-Requested-With": "XMLHttpRequest"
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            commentBox.remove(); // Remove o comentário da tela
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => console.error("Erro ao excluir comentário:", error));
+                }
+            });
+        });
+    });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            // Função para dar/remover like
+            $(".btn-like").click(function (event) {
+                event.preventDefault();
+                
+                var button = $(this);
+                var commentId = button.closest('.comment-box').data("comment-id");
+                var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+                
+                $.ajax({
+                    type: "POST",
+                    url: `comment/${commentId}/like/`,  // Ajuste a URL conforme sua URL de view
+                    data: {
+                        'comment_id': commentId,
+                        'csrfmiddlewaretoken': csrfToken,
+                    },
+                    success: function (response) {
+                        if (response.action === 'added') {
+                            button.addClass('liked'); // Marca o botão de like
+                            var likeCount = parseInt(button.closest('.comment-box').find('.like-count').text()) + 1;
+                            button.closest('.comment-box').find('.like-count').text(likeCount);  // Atualiza o contador de likes
+                        } else if (response.action === 'removed') {
+                            button.removeClass('liked'); // Desmarca o botão de like
+                            var likeCount = parseInt(button.closest('.comment-box').find('.like-count').text()) - 1;
+                            button.closest('.comment-box').find('.like-count').text(likeCount);  // Atualiza o contador de likes
+                        }
+                    },
+                    error: function () {
+                        alert("Erro na requisição.");
+                    }
+                });
+            });
+        });
+    </script>

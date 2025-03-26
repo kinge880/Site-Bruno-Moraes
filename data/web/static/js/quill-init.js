@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const textarea = document.querySelector(`[name="${quillContainer.dataset.target}"]`);
         if (!textarea) return;
     
+        // Pega o placeholder do textarea
+        const placeholder = textarea.getAttribute('placeholder') || 'Digite seu texto aqui...';
+    
         // Inicializa o editor Quill
         const quill = new Quill(selector, {
             theme: 'snow',
@@ -32,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 history: { delay: 1000, maxStack: 500, userOnly: true },
                 syntax: true, // Suporte a highlight.js
             },
-            placeholder: 'Digite seu texto aqui...',
+            placeholder: placeholder, // Usando o placeholder do textarea original
             readOnly: false
         });
     

@@ -2230,6 +2230,10 @@
 .c-white {color: white;}
 .c-black {color: black;}
 
+.text-wrap{
+	word-wrap: break-word;
+    word-break: break-word;
+}
 .c-hov-white:hover {color: white;}
 
 /* ------------------------------------ */
@@ -3858,4 +3862,15 @@ RESPONSIVE  RESPONSIVE  RESPONSIVE  RESPONSIVE   RESPONSIVE
 
 #editor {
     font-family: 'Roboto', 'Open Sans', 'Lato', 'Montserrat', 'Poppins', 'Arial', 'Helvetica', 'Times New Roman', 'Georgia', 'Courier New', 'Verdana', sans-serif;
+}
+
+
+.delete-comment {
+    color: #ff4d4d; /* Cor vermelha para a lixeira */
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.delete-comment:hover {
+    color: #d11a2a; /* Cor vermelha mais forte ao passar o mouse */
 }

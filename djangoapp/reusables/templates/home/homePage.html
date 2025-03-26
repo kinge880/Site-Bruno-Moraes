@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}Titulo da página{% endblock %}
 {% block content %}
+
 <body class="animsition">
 	<!-- Inicio -->
 	<section id="inicio" class="section-slide bg1-pattern">
@@ -246,109 +247,50 @@
 		{% endwith %}
 	{% endif %}
 
-	<!-- Noticias -->
+	<!-- Notícias -->
 	<section id="novidades" class="section-blog bg-white p-t-115 p-b-123">
 		<div class="container">
 			<div class="title-section-ourmenu t-center m-b-22">
-				{% comment %} <span class="tit2 t-center">
-					últimas novidades
-				</span> {% endcomment %}
-	
 				<h3 class="tit5 t-center m-t-2">
 					Últimas novidades
 				</h3>
 			</div>
-	
+
 			<div class="row">
-				<div class="col-md-4 p-t-30">
-					<!-- Block1 -->
-					<div class="blo1">
-						<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom pos-relative">
-							<a href="blog-detail.html"><img src="{% static 'images/blog-01.jpg' %}" alt="IMG-INTRO"></a>
-	
-							<div class="time-blog">
-								21 Dez 2024
+				{% for post in ultimas_postagens %}
+					<div class="col-md-4 p-t-30">
+						<!-- Bloco de Notícia -->
+						<div class="blo1">
+							<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom pos-relative">
+								<a href="/blog/{{post.categories.slug}}/{{post.slug}}">
+									<img src="{{ post.image.url }}" alt="{{ post.titulo }}">
+								</a>
+								<div class="time-blog">
+									{{ post.published_at|date:"d M Y" }}
+								</div>
+							</div>
+
+							<div class="wrap-text-blo1 p-t-35">
+								<a href="/blog/{{post.categories.slug}}/{{post.slug}}">
+									<h4 class="txt5 color0-hov trans-0-4 m-b-13">
+										{{ post.title }}
+									</h4>
+								</a>
+
+								<p class="m-b-20">
+									{{ post.excerpt|truncatewords:20 }}
+								</p>
+
+								<a href="/blog/{{post.categories.slug}}/{{post.slug}}" class="txt4">
+									Continue lendo
+									<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
+								</a>
 							</div>
 						</div>
-	
-						<div class="wrap-text-blo1 p-t-35">
-							<a href="blog-detail.html"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
-								Câmara Municipal abre os trabalhos
-							</h4></a>
-	
-							<p class="m-b-20">
-								A Câmara Municipal de Rio Branco realizou, na manhã desta segunda-feira, no auditório da Ordem dos Advogados do Brasil (OAB), a Sessão Solene de Abertura dos Trabalhos Legislativos da 16ª Legislatura.
-							</p>
-	
-							<a href="blog-detail.html" class="txt4">
-								Continue lendo
-								<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-							</a>
-						</div>
 					</div>
-				</div>
-	
-				<div class="col-md-4 p-t-30">
-					<!-- Block1 -->
-					<div class="blo1">
-						<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom pos-relative">
-							<a href="blog-detail.html"><img src="{% static 'images/blog-02.jpg' %}" alt="IMG-INTRO"></a>
-	
-							<div class="time-blog">
-								30 Jan 2025
-							</div>
-						</div>
-	
-						<div class="wrap-text-blo1 p-t-35">
-							<a href="blog-detail.html"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
-								Vereadores participam de capacitação
-							</h4></a>
-	
-							<p class="m-b-20">
-								os vereadores da 16ª Legislatura da Câmara Municipal de Rio Branco participaram de uma capacitação promovida pela Casa Legislativa. O treinamento tem como objetivo aprimorar o conhecimento.
-							</p>
-	
-							<a href="blog-detail.html" class="txt4">
-								Continue lendo
-								<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-	
-				<div class="col-md-4 p-t-30">
-					<!-- Block1 -->
-					<div class="blo1">
-						<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom pos-relative">
-							<a href="blog-detail.html"><img src="{% static 'images/blog-03.jpg' %}" alt="IMG-INTRO"></a>
-	
-							<div class="time-blog">
-								12 Fev 2025
-							</div>
-						</div>
-	
-						<div class="wrap-text-blo1 p-t-35">
-							<a href="blog-detail.html"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
-								Time SUB-17 de Kung Fu recebem Moção de Aplauso
-							</h4></a>
-	
-							<p class="m-b-20">
-								A pedido do vereador N. Lima (PP), a Câmara Municipal de Rio Branco realizou uma Tribuna Popular no qual homenageou com uma Moção de Aplauso o Time SUB-17 de Kung Fu.
-							</p>
-	
-							<a href="blog-detail.html" class="txt4">
-								Continue Lendo
-								<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-	
+				{% endfor %}
 			</div>
 		</div>
 	</section>
-
-	<!-- Container Selection1 -->
-	<div id="dropDownSelect1"></div>
-
+	
 {% endblock %}

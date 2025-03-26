@@ -76,10 +76,24 @@ class BlogPost(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(BlogPost, on_delete=models.CASCADE, related_name="comments")
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
-    content = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name="comments")  # Campo para associar usuário logado
+    name = models.CharField(max_length=100, blank=True)  # Campo de nome (para usuários deslogados)
+    email = models.EmailField(max_length=100, blank=True)  # Campo de email (para usuários deslogados)
+    content = models.TextField(max_length=15000)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
+        if self.user:
+            return f'Comentário de {self.user.username} em {self.post.title}'
         return f'Comentário de {self.name} em {self.post.title}'
+
+class CommentLike(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name="likes")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('comment', 'user')  # Impede múltiplos likes do mesmo usuário no mesmo comentário
+
+    def __str__(self):
+        return f'{self.user.username} curtiu o comentário {self.comment.id}'

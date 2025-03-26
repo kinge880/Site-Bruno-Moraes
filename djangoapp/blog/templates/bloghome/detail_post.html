@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 col-lg-9">
+                    <div class="p-t-80 p-b-124 bo5-r p-r-50 h-full p-r-0-md bo-none-md">
+                        
+                        <!-- Detalhes do Post -->
+                        <div class="blo4 p-b-63">
+                            <div class="pic-blo4 hov-img-zoom bo-rad-10 pos-relative">
+                                {% if post.image %}
+                                    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                                {% else %}
+                                    <img src="{% static 'images/default-blog.jpg' %}" alt="Imagem Padrão">
+                                {% endif %}
+
+                                <div class="date-blo4 flex-col-c-m">
+                                    <span class="txt30 m-b-4">
+                                        {{ post.published_at|date:"d" }}
+                                    </span>
+                                    <span class="txt31">
+                                        {{ post.published_at|date:"M, Y" }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Conteúdo -->
+                            <div class="text-blo4 p-t-33">
+                                <h4 class="p-b-16">
+                                    {{ post.title }}
+                                </h4>
+
+                                <div class="txt32 flex-w p-b-24">
+                                    <span>Por {{ post.author.username }} <span class="m-r-6 m-l-4">|</span></span>
+                                    <span>{{ post.published_at|date:"d M, Y" }} <span class="m-r-6 m-l-4">|</span></span>
+                                    <span>{{ post.categories.name }} <span class="m-r-6 m-l-4">|</span></span>
+                                    <span>Tags: {{ post.tags }}</span>
+                                </div>
+
+                                <p>
+                                    {{ post.content|safe }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Comentários -->
+                        {% include 'bloghome/comments_section.html' %}
+                    </div>
+                </div>
+
+                {% include 'utils/divMenu.html' %}
+            </div>
+        </div>
+    </section>
+
+    {% include 'utils/quill_init.html' %}
+{% endblock %}

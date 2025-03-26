@@ -15,6 +15,7 @@ from project import conexao_postgresql
 from .models import *
 from .forms import *
 from .ploty import *
+from blog.models import *
 from project.conexao_postgresql import *
 import re
 from django.shortcuts import get_object_or_404
@@ -24,6 +25,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
+
 
 def is_strong_password(password):
     length_weight = 0.15
@@ -113,8 +115,11 @@ def defineNavLinks(value):
     return navbar_links
 
 def basehome(request):
-    """ View responsável por exibir a página inicial com os banners e a última história salva. """
     context = defineNavLinks('homepage')
+    ultimas_postagens = BlogPost.objects.order_by('-published_at')[:3]
+    
+    print(ultimas_postagens)
+    context['ultimas_postagens'] = ultimas_postagens
     context['banners_inicio'] = HomeBannerInicio.objects.all().order_by('posicao')
 
     # Verifica se já existe uma história salva e carrega no formulário

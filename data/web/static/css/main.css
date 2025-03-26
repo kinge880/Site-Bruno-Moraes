@@ -1611,6 +1611,22 @@ body {padding-right: 0px !important;}
 /*[ Search sidebar2 ]
 -----------------------------------------------------------
 */
+.btn-search-sidebar5 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 46px;
+  background-color: #333333;
+  color: white;
+  font-size: 18px;
+
+  box-shadow: 0 0 0px 1px #333333;
+  -moz-box-shadow: 0 0 0px 1px #333333;
+  -webkit-box-shadow: 0 0 0px 1px #333333;
+  -o-box-shadow: 0 0 0px 1px #333333;
+  -ms-box-shadow: 0 0 0px 1px #333333;
+}
+
 .btn-search-sidebar2 {
   position: absolute;
   top: 0;
@@ -1635,6 +1651,10 @@ body {padding-right: 0px !important;}
 }
 
 .btn-search-sidebar2:hover {
+  color: #0077B6;
+}
+
+.btn-search-sidebar5:hover {
   color: #0077B6;
 }
 

@@ -63,7 +63,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'simple_history',
     'auditlog',
-    'blog'
+    'blog',
+    'django.contrib.humanize',
+    'instagram_profile'
 ]
 
 MIDDLEWARE = [
@@ -82,6 +84,13 @@ MIDDLEWARE = [
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+INSTAGRAM_PROFILE = {
+    # You will get these from your registered instagram app
+    'app_id': '635860576023265',
+    'secret': '454bef5ab68b988f2024d1da4402dd59',
+    'redirect_url': 'https://www.example.com/your-admin/saturnonaarea/profile/authorized',        
+}
 
 CSRF_TRUSTED_ORIGINS = [
     'http://200.129.173.118:1337',  # Para HTTP
@@ -192,12 +201,3 @@ CACHES = {
 }
 
 AUDITLOG_INCLUDE_ALL_MODELS=True
-
-
-# Celery Settings
-CELERY_BROKER_URL = 'redis://redis:6379/0'  # or your broker URL
-CELERY_RESULT_BACKEND = 'redis://redis:6379/0'  # or your result backend
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'America/Rio_Branco'  # or your timezone

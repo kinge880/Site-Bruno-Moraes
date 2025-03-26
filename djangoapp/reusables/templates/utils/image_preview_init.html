@@ -1,0 +1,50 @@
+{% load static %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function initImagePreview(imageInputSelector, imagePreviewSelector) {
+            const imageInput = document.querySelector(imageInputSelector);
+            const imagePreview = document.querySelector(imagePreviewSelector);
+
+            if (imageInput && imagePreview) {
+                var imageUrl = imagePreview.src;
+
+                if (imageUrl && imageUrl.trim() !== "" && !imageUrl.includes("placeholder")) {
+                    fetch(imageUrl)
+                        .then(res => res.blob())
+                        .then(blob => {
+                            var file = new File([blob], "image.jpg", { type: blob.type });
+                            var dataTransfer = new DataTransfer();
+                            dataTransfer.items.add(file);
+                            imageInput.files = dataTransfer.files;
+                        })
+                        .catch(err => console.log(err));
+
+                    imagePreview.style.display = "block";
+                }
+
+                imagePreview.addEventListener("click", function () {
+                    imageInput.click();
+                });
+
+                imageInput.addEventListener("change", function () {
+                    const file = this.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            imagePreview.src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+        }
+
+        // Inicializa automaticamente todas as imagens que possuem o atributo `data-image-preview`
+        document.querySelectorAll("[data-image-preview]").forEach(function (previewElement) {
+            const inputSelector = previewElement.getAttribute("data-input");
+            if (inputSelector) {
+                initImagePreview(inputSelector, `#${previewElement.id}`);
+            }
+        });
+    });
+</script>

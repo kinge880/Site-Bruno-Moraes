@@ -15,3 +15,6 @@ django-auditlog==3.0.0
 celery==5.4.0
 celery-progress==0.3
 gunicorn==23.0.0
+django-instagram-profile==1.0.3
+requests==2.32.3
+instaloader==4.14.1
