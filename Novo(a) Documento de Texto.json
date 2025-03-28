@@ -1,0 +1,8 @@
+{
+    "build": {
+      "dockerfile": "Dockerfile"
+    },
+    "deploy": {
+      "startCommand": "gunicorn --bind 0.0.0.0:8000 seu_projeto.wsgi:application"
+    }
+  }

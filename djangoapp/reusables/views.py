@@ -25,7 +25,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
-
+import requests
 
 def is_strong_password(password):
     length_weight = 0.15
@@ -56,6 +56,21 @@ def is_strong_password(password):
         strength += symbol_weight
 
     return strength >= 4  # Retorna True se a força for 4 ou mais, False caso contrário
+
+def get_instagram_profile():
+    # Buscando informações do perfil, incluindo profile_picture_url, username e media_count.
+    url = f"https://graph.instagram.com/me?fields=id,username,profile_picture_url,media_count&access_token={settings.INSTAGRAM_ACCESS_TOKEN}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    return {}
+
+def get_instagram_posts():
+    url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,like_count,comments_count&limit=8&access_token={settings.INSTAGRAM_ACCESS_TOKEN}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json().get("data", [])
+    return []
 
 def extrair_youtube_id(link):
     """
@@ -140,6 +155,8 @@ def basehome(request):
     context['historia'] = historia  # Passa a última história para o template
     context['formMinhaHist'] = form  # Passa o formulário preenchido para o template
 
+    context['posts'] = get_instagram_posts()          # Retorna a lista de posts
+    context['profile'] = get_instagram_profile()
     return render(request, 'home/homePage.html', context)
 
 @login_required(login_url='/login')
@@ -467,3 +484,18 @@ def fale_comigo(request):
 def sobre_mim(request):
     context = defineNavLinks('menu_fixo')
     return render(request, 'sobre_mim/sobre_mim.html', context)
+
+def webhook(request):
+    verify_token = "MEU_TOKGHGHFGFHEN_SFGHGHECRETOGFGHFGH_123FGHFH"  # Defina um token para verificação
+
+    if request.method == "GET":
+        mode = request.GET.get("hub.mode")
+        token = request.GET.get("hub.verify_token")
+        challenge = request.GET.get("hub.challenge")
+
+        if mode == "subscribe" and token == verify_token:
+            return HttpResponse(challenge, content_type="text/plain")
+        else:
+            return HttpResponse("Token inválido", status=403)
+    
+    return HttpResponse("Método não permitido", status=405)

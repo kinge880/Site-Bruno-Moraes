@@ -24,7 +24,7 @@ urlpatterns = [
     path('fale/', views.fale_comigo, name='fale_comigo'),
     
     path('sobre/', views.sobre_mim, name='sobre_mim'),
-
+    path("webhook/", views.webhook),
 ]
 
 if settings.DEBUG:

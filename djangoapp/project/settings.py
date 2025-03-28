@@ -48,6 +48,7 @@ ALLOWED_HOSTS = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
+INSTAGRAM_ACCESS_TOKEN = os.getenv("INSTAGRAM_ACCESS_TOKEN")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -95,6 +96,7 @@ INSTAGRAM_PROFILE = {
 CSRF_TRUSTED_ORIGINS = [
     'http://200.129.173.118:1337',  # Para HTTP
     'https://200.129.173.118:1337', # Para HTTPS (se for o caso)
+    'https://b964-189-23-33-146.ngrok-free.app'
 ]
 
 ROOT_URLCONF = 'project.urls'

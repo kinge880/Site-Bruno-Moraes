@@ -73,3 +73,4 @@ class FaleComigo(models.Model):
 
     def __str__(self):
         return f"{self.nome} - {self.email} ({'Lido' if self.visualizado else 'Não Lido'})"
+    
