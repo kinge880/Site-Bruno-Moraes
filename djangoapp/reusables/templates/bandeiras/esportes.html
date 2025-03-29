@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Esportes{% endblock %}
+{% block content %}
+
+<div class="container my-5">
+  <!-- Parágrafo 1: Imagem à esquerda, texto à direita -->
+  <div class="row align-items-center mb-4">
+    <div class="col-md-4">
+      <img src="{% static 'images/esporte1.jpg' %}" alt="Fagner Calegário - trabalho" class="img-fluid">
+    </div>
+    <div class="col-md-8">
+      <p>
+        O deputado Fagner Calegário tem se destacado por defender a prática e o incentivo aos esportes como ferramenta de inclusão social e desenvolvimento integral. Para ele, o esporte vai muito além da atividade física, sendo um veículo de transformação social.
+      </p>
+    </div>
+  </div>
+  
+  <!-- Parágrafo 2: Imagem à direita, texto à esquerda -->
+  <div class="row align-items-center mb-4">
+    <div class="col-md-8 order-md-1">
+      <p>
+        Em seu mandato, o parlamentar atua para democratizar o acesso às atividades esportivas, incentivando tanto os esportes tradicionais quanto as modalidades emergentes, como os esportes eletrônicos, que promovem o desenvolvimento intelectual e cultural.
+      </p>
+    </div>
+    <div class="col-md-4 order-md-2">
+      <img src="{% static 'images/esporte2.jpg' %}" alt="Fagner Calegário - Esportes" class="img-fluid">
+    </div>
+  </div>
+  
+  <!-- Parágrafo 3: Imagem à esquerda, texto à direita -->
+  <div class="row align-items-center mb-4">
+    <div class="col-md-4">
+      <img src="{% static 'images/esporte3.jpg' %}" alt="Fagner Calegário - Debate" class="img-fluid">
+    </div>
+    <div class="col-md-8">
+      <p>
+        Ele acredita que o esporte tem o poder de transformar realidades, oferecendo novas oportunidades para os jovens e contribuindo para a redução das desigualdades sociais e a melhoria da qualidade de vida.
+      </p>
+    </div>
+  </div>
+  
+  <!-- Parágrafo 4: Imagem à direita, texto à esquerda -->
+  <div class="row align-items-center mb-4">
+    <div class="col-md-8 order-md-1">
+      <p>
+        A prática regular de atividades esportivas fortalece a saúde física e mental, promovendo uma sociedade mais ativa, participativa e resiliente – um compromisso que reforça as políticas públicas defendidas pelo deputado.
+      </p>
+    </div>
+    <div class="col-md-4 order-md-2">
+      <img src="{% static 'images/esporte4.jpg' %}" alt="Fagner Calegário - Atividades" class="img-fluid">
+    </div>
+  </div>
+</div>
+
+{% endblock %}

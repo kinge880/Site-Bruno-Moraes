@@ -25,6 +25,8 @@ urlpatterns = [
     
     path('sobre/', views.sobre_mim, name='sobre_mim'),
     path("webhook/", views.webhook),
+    
+    path("bandeiras/esporte/", views.esportes,  name='esportes'),
 ]
 
 if settings.DEBUG:

@@ -135,10 +135,13 @@
 
 <div class="instagram-feed-container">
     <div class="instagram-header">
-        <img src="{% if profile.profile_picture_url %}{{ profile.profile_picture_url }}{% else %}{% static 'images/instagram_profile.jpg' %}{% endif %}" alt="Foto do perfil">
-        <div class="account-info">
-          <h2>{{ profile.username|default:'@seu_usuario' }}</h2>
-          <p>{{ profile.media_count|default:'0' }} publicações</p>
+        <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/{{ profile.username|default:'@seu_usuario' }}"> 
+            <img src="{% if profile.profile_picture_url %}{{ profile.profile_picture_url }}{% else %}{% static 'images/instagram_profile.jpg' %}{% endif %}" alt="Foto do perfil">
+        </a>
+        <div class="profile-info">
+            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/{{ profile.username|default:'@seu_usuario' }}" class="h2 text-dark">
+                {{ profile.username|default:'@seu_usuario' }}
+            </a>
         </div>
     </div>
   <!-- Grid de Posts -->

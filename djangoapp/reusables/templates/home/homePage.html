@@ -3,6 +3,80 @@
 {% block title %}Titulo da página{% endblock %}
 {% block content %}
 
+<style>
+	.tech-card {
+		transition: all 0.3s ease;
+		position: relative;
+		background: white;
+		z-index: 2;
+	}
+	
+	.hover-transform:hover {
+		transform: translateY(-10px);
+	}
+	
+	.connector-lines {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: 1;
+	}
+	
+	.line {
+		position: absolute;
+		background: linear-gradient(45deg, #6a11cb, #2575fc);
+	}
+	
+	.horizontal {
+		width: 80%;
+		height: 2px;
+		top: 50%;
+		left: 10%;
+	}
+	
+	.vertical {
+		width: 2px;
+		height: 40%;
+		left: 50%;
+		top: 30%;
+	}
+	
+	@media (max-width: 768px) {
+		.horizontal { display: none; }
+		.vertical { height: 60%; top: 20%; }
+	}
+	
+	.text-gradient-primary {
+		background: -webkit-linear-gradient(#2575fc, #6a11cb);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+	
+	.text-gradient-success {
+		background: -webkit-linear-gradient(#1abc9c, #2ecc71);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+	
+	.text-gradient-info {
+		background: -webkit-linear-gradient(#e74c3c, #e67e22);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+	
+	.icon-wrapper {
+		width: 60px;
+		height: 60px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 12px;
+		background: rgba(39, 103, 245, 0.1);
+	}
+	</style>
+	
 <body class="animsition">
 	<!-- Inicio -->
 	<section id="inicio" class="section-slide bg1-pattern">
@@ -37,7 +111,7 @@
 		<div class="container">
 			<div class="col-12 text-center mb-3">
 				<span class="tit2 t-center">
-					Conheça Minha história
+					Minha história
 				</span>
 			</div>
 			<div class="row">
@@ -86,7 +160,7 @@
 
 	<!-- Projetos e demandas -->
 	<section id="meus-projetos-e-propostas" class="section-intro">
-		<div class="header-intro parallax100 t-center p-t-135 p-b-158" style="background-image: url({% static 'images/bg-intro-01.jpg' %});">
+		{% comment %} <div class="header-intro parallax100 t-center p-t-135 p-b-158" style="background-image: url({% static 'images/bg-intro-01.jpg' %});">
 			<span class="tit2 p-l-15 p-r-15">
 				Conheça
 			</span>
@@ -94,10 +168,15 @@
 			<h3 class="tit4 t-center p-l-15 p-r-15 p-t-3">
 				O meu trabalho
 			</h3>
-		</div>
+		</div> {% endcomment %}
 
 		<div class="content-intro bg-white p-t-77 p-b-133">
 			<div class="container">
+				<div class="col-12 text-center mb-3">
+					<span class="tit2 t-center">
+						Meu trabalho
+					</span>
+				</div>
 				<div class="row">
 					<div class="col-md-6 p-t-30">
 						<!-- Block1 -->
@@ -145,72 +224,62 @@
 				</span>
 
 				<h3 class="tit5 t-center m-t-2">
-					Rio branco vai cuidar de quem precisa!
+					Hora de lutar pelo que rio branco precisa!
 				</h3>
 			</div>
-
-			<div class="row">
-				<div class="col-md-12">
-					<div class="row">
-						<div class="col-sm-4">
-							<!-- Item our menu -->
-							<div class="item-ourmenu bo-rad-10 hov-img-zoom pos-relative m-t-30">
-								<img src="{% static 'images/our-menu-01.jpg' %}" alt="IMG-MENU">
-
-								<!-- Button2 -->
-								<a href="#" class="btn2 flex-c-m txt5 ab-c-m size4">
-									Esportes
-								</a>
-							</div>
-						</div>
-
-						<div class="col-sm-4">
-							<!-- Item our menu -->
-							<div class="item-ourmenu bo-rad-10 hov-img-zoom pos-relative m-t-30">
-								<img src="{% static 'images/our-menu-02.jpg' %}" alt="IMG-MENU">
-
-								<!-- Button2 -->
-								<a href="#" class="btn2 flex-c-m txt5 ab-c-m p-2 text-center">
-									Crianças e adolescentes
-								</a>
-							</div>
-						</div>
-
-						<div class="col-sm-4">
-							<!-- Item our menu -->
-							<div class="item-ourmenu bo-rad-10 hov-img-zoom pos-relative m-t-30">
-								<img src="{% static 'images/our-menu-03.jpg' %}" alt="IMG-MENU">
-
-								<!-- Button2 -->
-								<a href="#" class="btn2 flex-c-m txt5 ab-c-m p-2 text-center">
-									Serviços publicos
-								</a>
-							</div>
-						</div>
-
-						<div class="col-6">
-							<!-- Item our menu -->
-							<div class="item-ourmenu bo-rad-10 hov-img-zoom pos-relative m-t-30">
-								<img src="{% static 'images/our-menu-04.jpg' %}" alt="IMG-MENU">
-
-								<!-- Button2 -->
-								<a href="#" class="btn2 flex-c-m txt20 ab-c-m p-2 ">
-									Mulheres em defesa das mulheres
-								</a>
-							</div>
-						</div>
-
-						<div class="col-6">
-							<!-- Item our menu -->
-							<div class="item-ourmenu bo-rad-10 hov-img-zoom pos-relative m-t-30">
-								<img src="{% static 'images/our-menu-05.jpg' %}" alt="IMG-MENU">
-
-								<!-- Button2 -->
-								<a href="#" class="btn2 flex-c-m txt20 ab-c-m p-2">
-									Orgulho de ser terceirizado!
-								</a>
-							</div>
-						</div>
+				
+			<div class="row timeline-connection">
+            
+				<!-- Linha vertical central -->
+				<div class="timeline-line"></div>
+			
+				<!-- Esportes -->
+				<div class="col-md-6 mb-5">
+					<div class="tech-card left-card shadow-lg p-4 h-100">
+						<div class="connector-dot"></div>
+						<i class="fas fa-trophy fa-2x mb-3 text-danger"></i>
+						<h3>Esporte Transformador</h3>
+						<p class="text-muted">Promoção de políticas esportivas como ferramenta de inclusão social e desenvolvimento comunitário em Rio Branco...</p>
+					</div>
+				</div>
+			
+				<!-- Crianças e Adolescentes -->
+				<div class="col-md-6 offset-md-6 mb-5">
+					<div class="tech-card right-card shadow-lg p-4 h-100">
+						<div class="connector-dot"></div>
+						<i class="fas fa-child fa-2x mb-3 text-primary"></i>
+						<h3>Futuro da Juventude</h3>
+						<p class="text-muted">Programas de proteção integral e capacitação profissional para jovens em situação de vulnerabilidade social...</p>
+					</div>
+				</div>
+			
+				<!-- Serviços Públicos -->
+				<div class="col-md-6 mb-5">
+					<div class="tech-card left-card shadow-lg p-4 h-100">
+						<div class="connector-dot"></div>
+						<i class="fas fa-hands-helping fa-2x mb-3 text-success"></i>
+						<h3>Serviços Públicos</h3>
+						<p class="text-muted">Modernização da gestão pública com foco em saúde, educação e infraestrutura básica para a população acreana...</p>
+					</div>
+				</div>
+			
+				<!-- Mulheres em Defesa -->
+				<div class="col-md-6 offset-md-6 mb-5">
+					<div class="tech-card right-card shadow-lg p-4 h-100">
+						<div class="connector-dot"></div>
+						<i class="fas fa-hand-holding-heart fa-2x mb-3 text-warning"></i>
+						<h3>Mulheres em defesa das mulheres</h3>
+						<p class="text-muted">Rede de apoio contra violência doméstica e promoção de autonomia econômica através de cooperativas femininas...</p>
+					</div>
+				</div>
+			
+				<!-- Terceirizados -->
+				<div class="col-md-6 mb-5">
+					<div class="tech-card left-card shadow-lg p-4 h-100">
+						<div class="connector-dot"></div>
+						<i class="fas fa-users fa-2x mb-3 text-info"></i>
+						<h3>Orgulho de ser Terceirizado</h3>
+						<p class="text-muted">Defesa dos direitos trabalhistas e melhores condições para profissionais terceirizados em órgãos públicos...</p>
 					</div>
 				</div>
 			</div>
@@ -250,10 +319,10 @@
 	<!-- Notícias -->
 	<section id="novidades" class="section-blog bg-white p-t-10">
 		<div class="container">
-			<div class="title-section-ourmenu t-center m-b-22">
-				<h3 class="tit5 t-center m-t-2">
+			<div class="col-12 text-center mt-3">
+				<span class="tit2 t-center">
 					Últimas novidades
-				</h3>
+				</span>
 			</div>
 
 			<div class="row">

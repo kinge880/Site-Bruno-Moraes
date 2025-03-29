@@ -499,3 +499,7 @@ def webhook(request):
             return HttpResponse("Token inválido", status=403)
     
     return HttpResponse("Método não permitido", status=405)
+
+def esportes(request):
+    context = defineNavLinks('menu_fixo')
+    return render(request, 'bandeiras/esportes.html', context)
