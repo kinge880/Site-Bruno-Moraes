@@ -503,3 +503,19 @@ def webhook(request):
 def esportes(request):
     context = defineNavLinks('menu_fixo')
     return render(request, 'bandeiras/esportes.html', context)
+
+def juventude(request):
+    context = defineNavLinks('menu_fixo')
+    return render(request, 'bandeiras/juventude.html', context)
+
+def servicospublicos(request):
+    context = defineNavLinks('menu_fixo')
+    return render(request, 'bandeiras/servicospublicos.html', context)
+
+def tercerizados(request):
+    context = defineNavLinks('menu_fixo')
+    return render(request, 'bandeiras/tercerizados.html', context)
+
+def mulheres(request):
+    context = defineNavLinks('menu_fixo')
+    return render(request, 'bandeiras/mulheres.html', context)

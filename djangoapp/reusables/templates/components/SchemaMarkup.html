@@ -1,0 +1,27 @@
+{% load static %}
+{% block content %}
+<!-- Schema Markup -->
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Fagner Calegário",
+      "jobTitle": "Deputado Estadual",
+      "worksFor": {
+        "@type": "GovernmentOrganization",
+        "name": "Assembleia Legislativa do Acre"
+      },
+      "memberOf": {
+        "@type": "PoliticalParty",
+        "name": "Podemos"
+      },
+      "image": "{% static 'images/fagner-calegario-oficial.jpg' %}",
+      "sameAs": [
+        "https://www.instagram.com/fagnercalegario",
+        "https://www.facebook.com/fagnercalegariooficial",
+        "https://www.youtube.com/@fagnercalegario",
+        "https://www.linkedin.com/in/fagnercalegario"
+      ]
+    }
+</script>
+{% endblock %}

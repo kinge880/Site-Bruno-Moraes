@@ -1703,3 +1703,65 @@ body {padding-right: 0px !important;}
 .play-container:hover .play-overlay {
   color: rgba(255, 255, 255, 1); /* Brilho ao passar o mouse */
 }
+
+
+/* timeline conections */
+.timeline-connection {
+  position: relative;
+  min-height: 100vh;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, #6a11cb, #2575fc);
+}
+
+.tech-card {
+  position: relative;
+  background: white;
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+}
+
+.tech-card:hover {
+  transform: translateY(-5px);
+}
+
+.connector-dot {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #2575fc;
+  border-radius: 50%;
+  top: 50%;
+}
+
+.left-card .connector-dot {
+  right: -40px;
+  transform: translateY(-50%);
+}
+
+.right-card .connector-dot {
+  left: -40px;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 768px) {
+  .timeline-line,
+  .connector-dot {
+      display: none;
+  }
+  
+  .col-md-6 {
+      max-width: 100% !important;
+      flex: 0 0 100% !important;
+  }
+  
+  .offset-md-6 {
+      margin-left: 0;
+  }
+}

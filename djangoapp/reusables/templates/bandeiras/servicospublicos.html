@@ -1,0 +1,138 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Serviços Públicos no Acre - Deputado Fagner Calegário | Modernização e Transparência{% endblock %}
+
+{% block extra_head %}
+<!-- Meta Tags Essenciais -->
+<meta name="description" content="Ações do deputado Fagner Calegário para modernização dos serviços públicos no Acre: saúde mental, inclusão social, proteção animal e transparência na gestão governamental.">
+<meta name="keywords" content="Serviços Públicos Acre, Fagner Calegário, Gestão Pública, Transparência Governamental, Saúde Mental Idosos, Inclusão Social Mulheres, Modernização Administrativa Acre">
+<meta name="author" content="Deputado Fagner Calegário">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.fagnercalegario.com/servicos-publicos">
+<meta property="og:title" content="Serviços Públicos no Acre - Fagner Calegário | Modernização e Transparência">
+<meta property="og:description" content="Conheça as iniciativas do deputado Fagner Calegário para modernização dos serviços públicos no Acre com transparência e eficiência.">
+<meta property="og:image" content="{% static 'images/og-servicos-publicos.jpg' %}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://www.fagnercalegario.com/servicos-publicos">
+<meta property="twitter:title" content="Serviços Públicos no Acre - Fagner Calegário | Modernização e Transparência">
+<meta property="twitter:description" content="Ações concretas para melhorar os serviços públicos no Acre através de gestão moderna e transparente.">
+<meta property="twitter:image" content="{% static 'images/twitter-servicos-publicos.jpg' %}">
+
+{% include 'bandeiras/SchemaMarkup.html'%}
+
+<!-- Canonical -->
+<link rel="canonical" href="https://www.fagnercalegario.com/servicos-publicos">
+{% endblock %}
+{% block content %}
+
+<div class="container my-5">
+    <!-- Cabeçalho Temático -->
+    <div class="tech-header mb-5 text-center position-relative overflow-hidden">
+        <div class="icon-container mb-4">
+        <i class="fas fa-building fa-3x text-success mb-3"></i>
+        </div>
+        <h1 class="mb-3 fw-bold" style="letter-spacing: -0.03em;">
+        Serviços Públicos: Eficiência e Inovação
+        <div class="title-divider mx-auto my-3"></div>
+        </h1>
+        <p class="lead-text mb-0 px-md-5 mx-auto text-secondary">
+        Conheça as iniciativas que transformam a gestão pública no Acre por meio do trabalho do deputado Fagner Calegário,
+        promovendo melhorias em saúde, inclusão, proteção, valorização dos trabalhadores e modernização administrativa.
+        </p>
+    </div>
+
+    <!-- Seção 1 - Saúde Pública -->
+    <div class="tech-card shadow-lg mb-5">
+        <div class="row g-0 align-items-center">
+        <div class="col-md-6">
+            <img src="{% static 'images/saude_publica.jpg' %}" class="img-fluid rounded-start" alt="Saúde Pública">
+        </div>
+        <div class="col-md-6 p-4">
+            <div class="card-body">
+            <h3 class="card-title mb-3">Saúde Pública: Inovação e Acesso</h3>
+            <p class="card-text text-justify">
+                Fagner Calegário propôs o <b>Programa de Saúde Mental para Idosos</b>, integrando a rede pública com atendimento especializado.
+                A iniciativa previne transtornos como depressão e isolamento, promovendo o bem-estar emocional e o acesso a serviços de qualidade.
+            </p>
+            <ul class="custom-list pl-3 mt-2">
+                <li>Campanhas de conscientização em saúde mental</li>
+                <li>Criação de Centros de Atenção Psicossocial (CAPS) para idosos</li>
+            </ul>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Seção 2 - Inclusão Social e Direitos das Mulheres -->
+    <div class="tech-card shadow-lg mb-5">
+        <div class="row g-0 align-items-center flex-md-row-reverse">
+        <div class="col-md-6">
+            <img src="{% static 'images/inclusao.jpg' %}" class="img-fluid rounded-start" alt="Inclusão Social">
+        </div>
+        <div class="col-md-6 p-4">
+            <div class="card-body">
+            <h3 class="card-title mb-3">Inclusão Social e Direitos das Mulheres</h3>
+            <p class="card-text text-justify">
+                Visando eliminar barreiras, o deputado apresentou projetos que isentam mulheres vítimas de violência doméstica da taxa de inscrição em concursos públicos. Essa medida promove igualdade e amplifica as oportunidades para mulheres em vulnerabilidade.
+            </p>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    
+
+  <!-- Seção 5 - Modernização e Transparência na Gestão Pública -->
+  <div class="tech-card shadow-lg mb-5">
+    <div class="row g-0 align-items-center">
+        <div class="col-md-6">
+            <img src="{% static 'images/modernizacao.jpg' %}" class="img-fluid rounded-start" alt="Modernização na Gestão Pública">
+          </div>
+      <div class="col-md-6 p-4">
+        <div class="card-body">
+          <h3 class="card-title mb-3">Modernização e Transparência na Gestão Pública</h3>
+          <p class="card-text text-justify">
+            iniciativas voltadas à modernização e transparência na gestão pública do Acre. Entre suas propostas, destaca-se a implementação de processos de digitalização e desburocratização dos serviços públicos, visando tornar a administração mais eficiente e acessível aos cidadãos. Essas medidas facilitam o controle social e asseguram a correta aplicação dos recursos públicos.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicadores de Impacto Geral -->
+  <div class="row mb-5">
+    <div class="col-12 mx-auto">
+      <div class="impact-card bg-light shadow-lg p-5 rounded-3 text-center">
+          <i class="fas fa-chart-line fa-3x text-primary mb-4"></i>
+          <h3 class="mb-4">Indicadores de Impacto</h3>
+          <div class="row">
+              <div class="col-md-4 mb-3">
+                  <div class="number-display text-secondary">
+                      <div class="h1 font-weight-bold">18</div>
+                      <div class="h6">Projetos Aprovados<br>(2021-2024)</div>
+                  </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                  <div class="number-display text-primary">
+                      <div class="h1 font-weight-bold">82%</div>
+                      <div class="h6">Satisfação Popular<br>com os Serviços Públicos</div>
+                  </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                  <div class="number-display text-secondary">
+                      <div class="h1 font-weight-bold">R$9,5mi</div>
+                      <div class="h6">Investidos em Iniciativas<br>de Saúde, Inclusão e Modernização</div>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

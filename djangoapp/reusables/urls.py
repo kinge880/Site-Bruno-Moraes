@@ -26,7 +26,11 @@ urlpatterns = [
     path('sobre/', views.sobre_mim, name='sobre_mim'),
     path("webhook/", views.webhook),
     
-    path("bandeiras/esporte/", views.esportes,  name='esportes'),
+    path("bandeiras/esporte-transformador/", views.esportes,  name='esportes'),
+    path("bandeiras/futuro-da-juventude/", views.juventude,  name='juventude'),
+    path("bandeiras/servicos-publicos/", views.servicospublicos,  name='servicospublicos'),
+    path("bandeiras/orgulho-tercerizados/", views.tercerizados,  name='tercerizados'),
+    path("bandeiras/mulheres-em-defesa-das-mulheres/", views.mulheres,  name='mulheres'),
 ]
 
 if settings.DEBUG:

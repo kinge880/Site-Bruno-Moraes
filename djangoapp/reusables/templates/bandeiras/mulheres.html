@@ -1,0 +1,138 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Defesa dos Direitos das Mulheres - Deputado Fagner Calegário | Ações e Proteção{% endblock %}
+
+{% block extra_head %}
+<!-- Meta Tags Essenciais -->
+<meta name="description" content="Ações legislativas e iniciativas do deputado Fagner Calegário em defesa dos direitos das mulheres no Acre: combate à violência, igualdade de gênero e empoderamento feminino">
+<meta name="keywords" content="Direitos das Mulheres Acre, Fagner Calegário, Combate à Violência Doméstica, Igualdade de Gênero, Proteção Feminina, Empoderamento Mulheres">
+<meta name="author" content="Deputado Fagner Calegário">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.fagnercalegario.com/defesa-mulheres">
+<meta property="og:title" content="Defesa dos Direitos das Mulheres - Fagner Calegário | Ações no Acre">
+<meta property="og:description" content="Conheça o trabalho do deputado Fagner Calegário na proteção e promoção dos direitos das mulheres acreanas">
+<meta property="og:image" content="{% static 'images/og-defesa-mulheres.jpg' %}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://www.fagnercalegario.com/defesa-mulheres">
+<meta property="twitter:title" content="Defesa dos Direitos das Mulheres - Fagner Calegário | Ações no Acre">
+<meta property="twitter:description" content="Iniciativas legislativas e projetos de proteção às mulheres no estado do Acre">
+<meta property="twitter:image" content="{% static 'images/twitter-defesa-mulheres.jpg' %}">
+
+{% include 'bandeiras/SchemaMarkup.html'%}
+
+<!-- Canonical -->
+<link rel="canonical" href="https://www.fagnercalegario.com/defesa-mulheres">
+{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+    <!-- Cabeçalho Temático -->
+    <div class="tech-header mb-5 text-center position-relative overflow-hidden">
+        <div class="icon-container mb-4">
+            <i class="fas fa-hand-holding-heart fa-3x mb-3 text-warning"></i>
+        </div>
+        <h1 class="mb-3 fw-bold" style="letter-spacing: -0.03em;">
+            Defesa e Proteção dos Direitos das Mulheres
+            <div class="title-divider mx-auto my-3"></div>
+        </h1>
+        <p class="lead-text mb-0 px-md-5 mx-auto text-secondary">
+            Atuação legislativa comprometida com a igualdade de gênero, combate à violência doméstica e promoção de políticas públicas para mulheres no Acre
+        </p>
+    </div>
+
+    <!-- Seção 1 - Combate à Violência -->
+    <div class="tech-card shadow-lg mb-5">
+        <div class="row g-0 align-items-center">
+            <div class="col-md-6">
+                <img src="{% static 'images/combate-violencia.jpg' %}" class="img-fluid rounded-start" alt="Apoio a vítimas de violência doméstica no Acre">
+            </div>
+            <div class="col-md-6 p-4">
+                <div class="card-body">
+                    <h3 class="card-title mb-3">Proteção às Vítimas de Violência</h3>
+                    <p class="card-text text-justify">
+                        Através de propostas legislativas, Fagner Calegário fortalece a rede de proteção às mulheres, com medidas que incluem:
+                    </p>
+                    <ul class="custom-list pl-3 mt-2">
+                        <li>Ampliação de serviços especializados de atendimento</li>
+                        <li>Garantia de acesso prioritário a políticas públicas</li>
+                        <li>Fortalecimento de medidas protetivas emergenciais</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção 2 - Igualdade de Oportunidades -->
+    <div class="tech-card shadow-lg mb-5">
+        <div class="row g-0 align-items-center flex-md-row-reverse">
+            <div class="col-md-6">
+                <img src="{% static 'images/igualdade-genero.jpg' %}" class="img-fluid rounded-start" alt="Mulheres em capacitação profissional no Acre">
+            </div>
+            <div class="col-md-6 p-4">
+                <div class="card-body">
+                    <h3 class="card-title mb-3">Promoção da Igualdade de Gênero</h3>
+                    <p class="card-text text-justify">
+                        Iniciativas para garantir equidade nas oportunidades:
+                    </p>
+                    <ul class="custom-list pl-3 mt-2">
+                        <li>Projetos de incentivo à liderança feminina</li>
+                        <li>Combate à discriminação no mercado de trabalho</li>
+                        <li>Estímulo à participação política das mulheres</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção 3 - Saúde da Mulher -->
+    <div class="tech-card shadow-lg mb-5">
+        <div class="row g-0 align-items-center">
+            <div class="col-md-6">
+                <img src="{% static 'images/saude-mulher.jpg' %}" class="img-fluid rounded-start" alt="Atendimento ginecológico no SUS Acre">
+            </div>
+            <div class="col-md-6 p-4">
+                <div class="card-body">
+                    <h3 class="card-title mb-3">Saúde Integral Feminina</h3>
+                    <p class="card-text text-justify">
+                        Ações para melhoria dos serviços de saúde específicos:
+                    </p>
+                    <ul class="custom-list pl-3 mt-2">
+                        <li>Ampliação da rede de prevenção ao câncer feminino</li>
+                        <li>Qualificação de profissionais para atendimento humanizado</li>
+                        <li>Garantia de acesso a serviços de saúde reprodutiva</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção 4 - Educação e Empoderamento -->
+    <div class="tech-card shadow-lg mb-5">
+        <div class="row g-0 align-items-center flex-md-row-reverse">
+            <div class="col-md-6">
+                <img src="{% static 'images/educacao-mulheres.jpg' %}" class="img-fluid rounded-start" alt="Oficina de capacitação para mulheres">
+            </div>
+            <div class="col-md-6 p-4">
+                <div class="card-body">
+                    <h3 class="card-title mb-3">Educação como Ferramenta de Empoderamento</h3>
+                    <p class="card-text text-justify">
+                        Estratégias para promover autonomia feminina:
+                    </p>
+                    <ul class="custom-list pl-3 mt-2">
+                        <li>Programas de qualificação profissional específicos</li>
+                        <li>Incentivo à educação técnica e superior</li>
+                        <li>Campanhas de combate à evasão escolar feminina</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
