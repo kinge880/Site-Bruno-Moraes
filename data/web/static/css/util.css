@@ -2979,10 +2979,10 @@ TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT
 }
 
 .tit2 {
-	font-family: Courgette;
+	font-family: Metrópolis;
 	font-size: 30px;
 	line-height: 1.2;
-	color: #51a1e1;
+	color: #68458C;
 }
 
 .tit3 {
@@ -3007,7 +3007,7 @@ TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT
 }
 
 .tit5 {
-	font-family: Poppins;
+	font-family: Metrópolis;
 	font-weight: 700;
 	font-size: 50px;
 	line-height: 1.2;
@@ -3103,7 +3103,7 @@ TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT
 	font-weight: 400;
 	font-size: 12px;
 	line-height: 1.1;
-	color: #0077B6;
+	color: #68458C;
 	text-transform: uppercase;
 }
 
@@ -3138,7 +3138,7 @@ TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT
 	font-family: Montserrat;
 	font-weight: 700;
 	font-size: 50px;
-	color: #0077B6;
+	color: #68458C;
 	line-height: 1.1;
 	text-transform: uppercase;
 	letter-spacing: 3px;
@@ -3206,7 +3206,7 @@ TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT
 	font-family: Montserrat;
 	font-weight: 400;
 	font-size: 13px;
-	color: #0077B6;
+	color: #68458C;
 	line-height: 1.7;
 }
 
@@ -3281,7 +3281,7 @@ TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT
 	font-weight: 400;
 	font-size: 15px;
 	line-height: 1.7;
-	color: #0077B6;
+	color: #68458C;
 }
 
 .txt25 {
@@ -3388,12 +3388,12 @@ TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT
 /*[ Color ]
 -----------------------------------------------------------
 */
-.color0 {color: #0077B6;}
+.color0 {color: #68458C;}
 .color1 {color: #222222;}
 .color2 {color: #cccccc;}
 .color3 {color: #333333;}
 
-.color0-hov:hover {color: #0077B6;}
+.color0-hov:hover {color: #68458C;}
 
 
 
@@ -3592,11 +3592,11 @@ SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE
 /*[ Background Color ]
 -----------------------------------------------------------
 */
-.bg0 {background-color: #0077B6;}
+.bg0 {background-color: #68458C;}
 .bg1 {background-color: #222222;}
 .bg2 {background-color: #111111;}
 
-.bg0-hov:hover {background-color: #0077B6;}
+.bg0-hov:hover {background-color: #68458C;}
 
 .bg1-overlay {background-color: rgba(0,0,0,0.35);}
 
@@ -3606,7 +3606,7 @@ SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE
 */
 .bo1 {border: 1px solid #ebebeb;}
 .bo2 {border: 2px solid #d9d9d9;}
-.bo4 {border: 4px solid #0077B6;}
+.bo4 {border: 4px solid #68458C;}
 
 .bo5-b {border-bottom: 1px solid #e6e6e6;}
 .bo5-r {border-right: 1px solid #e6e6e6;}

@@ -26,6 +26,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 import requests
+from django.core.cache import cache
 
 def is_strong_password(password):
     length_weight = 0.15
@@ -133,26 +134,46 @@ def basehome(request):
     context = defineNavLinks('homepage')
     ultimas_postagens = BlogPost.objects.order_by('-published_at')[:3]
     
-    print(ultimas_postagens)
+    # Cache para últimas postagens (15 minutos)
+    ultimas_postagens = cache.get('ultimas_postagens')
+    if not ultimas_postagens:
+        ultimas_postagens = BlogPost.objects.order_by('-published_at')[:3]
+        cache.set('ultimas_postagens', ultimas_postagens, 3600)
     context['ultimas_postagens'] = ultimas_postagens
-    context['banners_inicio'] = HomeBannerInicio.objects.all().order_by('posicao')
+    
+    # Cache para banners inicial (15 minutos)
+    banners_inicio = cache.get('home_banners')
+    if not banners_inicio:
+        banners_inicio = HomeBannerInicio.objects.order_by('posicao').only('imagem', 'titulo', 'subtitulo')
+        cache.set('home_banners', banners_inicio, 3600)
+    context['banners_inicio'] = banners_inicio
 
     # Verifica se já existe uma história salva e carrega no formulário
-    historia = HomeMinhaHistoria.objects.last()
+    # Cache para história (1 hora)
+    historia = cache.get('home_historia')
+    if not historia:
+        historia = HomeMinhaHistoria.objects.last()
+        cache.set('home_historia', historia, 3600)
+    context['historia'] = historia
+    
     if historia:
         form = HomeMinhaHistoriaForm(instance=historia)  # Preenche o formulário com a última história
     else:
         form = HomeMinhaHistoriaForm()  # Cria um novo formulário em branco, se não houver história
     
-    banner = HomeBannerCampanha.objects.last()
-    if banner:
-        formBanner = HomeBannerCampanhaForm(instance=banner)  # Preenche o formulário com a última história
+    # Cache para banner campanha (1 hora)
+    banner_campanha = cache.get('home_banner_campanha')
+    if not banner_campanha:
+        banner_campanha = HomeBannerCampanha.objects.last()
+        cache.set('home_banner_campanha', banner_campanha, 3600)
+    context['banner_campanha'] = banner_campanha
+    
+    if banner_campanha:
+        formBanner = HomeBannerCampanhaForm(instance=banner_campanha)  # Preenche o formulário com a última história
     else:
         formBanner = HomeBannerCampanhaForm()  # Cria um novo formulário em branco, se não houver história
-
-    context['banner_campanha'] = banner
+    
     context['formBanner'] = formBanner  # Passa o formulário preenchido para o template
-    context['historia'] = historia  # Passa a última história para o template
     context['formMinhaHist'] = form  # Passa o formulário preenchido para o template
 
     context['posts'] = get_instagram_posts()          # Retorna a lista de posts

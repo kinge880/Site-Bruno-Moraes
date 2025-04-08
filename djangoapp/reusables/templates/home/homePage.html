@@ -1,8 +1,25 @@
 {% extends 'index.html' %}
 {% load static %}
-{% block title %}Titulo da página{% endblock %}
-{% block content %}
+{% block title %}Fagner Caligário - ORGULHO DE SER TERCEIRIZADO{% endblock %}
 
+{% block extra_head %}
+    {% include 'includes/meta_tags.html' with 
+        meta_description="Fagner Calegário - Vereador de Rio Branco com propostas para esporte, juventude, serviços públicos e direitos das mulheres. Conheça minhas bandeiras e projetos atuais."
+        meta_keywords="Fagner Calegário, Vereador Rio Branco, Propostas Políticas, Esporte Transformador, Juventude Acreana, Serviços Públicos, Direitos das Mulheres, Terceirizados"
+        meta_author="Fagner Calegário"
+        meta_url=SITE_DOMAIN|add:"/"
+        meta_title="Fagner Calegário - Vereador de Rio Branco | Propostas e Projetos"
+        meta_og_description="Atuação parlamentar com foco em desenvolvimento social, esporte como ferramenta de transformação e defesa dos direitos dos trabalhadores terceirizados."
+        meta_og_image=SITE_DOMAIN|add:"static/images/og-home.jpg"
+        meta_twitter_title="Fagner Calegário - Ações e Projetos em Rio Branco"
+        meta_twitter_description="Conheça as principais iniciativas legislativas e comunitárias do vereador Fagner Calegário"
+        meta_twitter_image=SITE_DOMAIN|add:"static/images/twitter-home.jpg"
+        meta_robots="index, follow"
+        meta_viewport="width=device-width, initial-scale=1.0"
+    %}
+{% endblock %}
+
+{% block content %}
 <style>
 	.tech-card {
 		transition: all 0.3s ease;
@@ -79,7 +96,7 @@
 	
 <body class="animsition">
 	<!-- Inicio -->
-	<section id="inicio" class="section-slide bg1-pattern">
+	<section id="inicio" class="section-slide bg1-pattern" aria-label="Banner principal">
 		<div class="wrap-slick1">
 			<div class="slick1" id="inicioBanner">
 				{% for banners in banners_inicio %}
@@ -107,7 +124,7 @@
 	</section>
 
 	<!-- Minha história -->
-	<section id="minha-historia" class="section-welcome bg1-pattern p-t-80 p-b-105">
+	<section id="minha-historia" class="section-welcome bg1-pattern p-t-80 p-b-105" aria-label="Minha história">
 		<div class="container">
 			<div class="col-12 text-center mb-3">
 				<span class="tit2 t-center">

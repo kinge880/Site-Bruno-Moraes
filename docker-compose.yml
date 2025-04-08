@@ -14,6 +14,7 @@ services:
       - ./dotenv_files/.env
     depends_on:
       - psql
+      - redis
     networks:
       - gabriel1_net
     deploy:

@@ -2,7 +2,19 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 import re
+from django.core.cache import cache
+from django.db.models.signals import post_save, post_delete
 
+# Signal genérico para limpar cache
+def invalidate_cache(sender, **kwargs):
+    model_name = sender.__name__
+    cache_keys = {
+        'BlogPost': ['ultimas_postagens'],
+    }
+    if model_name in cache_keys:
+        for key in cache_keys[model_name]:
+            cache.delete(key)
+            
 class Category(models.Model):
     name = models.CharField(max_length=70, unique=True)
     slug = models.SlugField(unique=True, blank=True)
@@ -97,3 +109,8 @@ class CommentLike(models.Model):
 
     def __str__(self):
         return f'{self.user.username} curtiu o comentário {self.comment.id}'
+    
+# Registra os signals para todos os modelos
+for model in [BlogPost]:
+    post_save.connect(invalidate_cache, sender=model)
+    post_delete.connect(invalidate_cache, sender=model)

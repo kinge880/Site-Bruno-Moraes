@@ -3,29 +3,21 @@
 {% block title %}Serviços Públicos no Acre - Deputado Fagner Calegário | Modernização e Transparência{% endblock %}
 
 {% block extra_head %}
-<!-- Meta Tags Essenciais -->
-<meta name="description" content="Ações do deputado Fagner Calegário para modernização dos serviços públicos no Acre: saúde mental, inclusão social, proteção animal e transparência na gestão governamental.">
-<meta name="keywords" content="Serviços Públicos Acre, Fagner Calegário, Gestão Pública, Transparência Governamental, Saúde Mental Idosos, Inclusão Social Mulheres, Modernização Administrativa Acre">
-<meta name="author" content="Deputado Fagner Calegário">
+{% include 'includes/meta_tags.html' with 
+    meta_description="Ações do deputado Fagner Calegário para modernização dos serviços públicos no Acre: saúde mental, inclusão social, proteção animal e transparência na gestão governamental."
+    meta_keywords="Serviços Públicos Acre, Fagner Calegário, Gestão Pública, Transparência Governamental, Saúde Mental Idosos, Inclusão Social Mulheres, Modernização Administrativa Acre"
+    meta_author="Deputado Fagner Calegário"
+    meta_url=SITE_DOMAIN|add:"servicos-publicos"
+    meta_title="Serviços Públicos no Acre - Fagner Calegário | Modernização e Transparência"
+    meta_og_description="Conheça as iniciativas do deputado Fagner Calegário para modernização dos serviços públicos no Acre com transparência e eficiência."
+    meta_og_image=SITE_DOMAIN|add:"static/images/og-servicos-publicos.jpg"
+    meta_twitter_title="Serviços Públicos no Acre - Fagner Calegário | Modernização e Transparência"
+    meta_twitter_description="Ações concretas para melhorar os serviços públicos no Acre através de gestão moderna e transparente."
+    meta_twitter_image=SITE_DOMAIN|add:"static/images/twitter-servicos-publicos.jpg"
+%}
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.fagnercalegario.com/servicos-publicos">
-<meta property="og:title" content="Serviços Públicos no Acre - Fagner Calegário | Modernização e Transparência">
-<meta property="og:description" content="Conheça as iniciativas do deputado Fagner Calegário para modernização dos serviços públicos no Acre com transparência e eficiência.">
-<meta property="og:image" content="{% static 'images/og-servicos-publicos.jpg' %}">
+{% include 'bandeiras/SchemaMarkup.html' %}
 
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://www.fagnercalegario.com/servicos-publicos">
-<meta property="twitter:title" content="Serviços Públicos no Acre - Fagner Calegário | Modernização e Transparência">
-<meta property="twitter:description" content="Ações concretas para melhorar os serviços públicos no Acre através de gestão moderna e transparente.">
-<meta property="twitter:image" content="{% static 'images/twitter-servicos-publicos.jpg' %}">
-
-{% include 'bandeiras/SchemaMarkup.html'%}
-
-<!-- Canonical -->
-<link rel="canonical" href="https://www.fagnercalegario.com/servicos-publicos">
 {% endblock %}
 {% block content %}
 

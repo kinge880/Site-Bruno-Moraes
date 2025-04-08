@@ -3,124 +3,127 @@
 {% block title %}Orgulho de ser Terceirizado - Deputado Fagner Calegário | Valorização Profissional{% endblock %}
 
 {% block extra_head %}
-<!-- Meta Tags Essenciais -->
-<meta name="description" content="Ações transformadoras do deputado Fagner Calegário na defesa dos direitos e dignidade dos trabalhadores terceirizados no Acre">
-<meta name="keywords" content="Terceirizados Acre, Direitos Trabalhistas, Fagner Calegário, Valorização Profissional, Condições de Trabalho">
-<meta name="author" content="Deputado Fagner Calegário">
+{% include 'includes/meta_tags.html' with 
+    meta_description="Ações transformadoras do deputado Fagner Calegário na defesa dos direitos e dignidade dos trabalhadores terceirizados no Acre"
+    meta_keywords="Terceirizados Acre, Direitos Trabalhistas, Fagner Calegário, Valorização Profissional, Condições de Trabalho"
+    meta_author="Deputado Fagner Calegário"
+    meta_url=SITE_DOMAIN|add:"orgulho-terceirizado"
+    meta_title="Orgulho de Ser Terceirizado - Fagner Calegário | Conquistas no Acre"
+    meta_og_description="Iniciativas pioneiras para dignidade e reconhecimento dos profissionais terceirizados"
+    meta_og_image=SITE_DOMAIN|add:"static/images/og-terceirizados.jpg"
+    meta_twitter_title="Orgulho de Ser Terceirizado - Fagner Calegário | Conquistas no Acre"
+    meta_twitter_description="Políticas públicas históricas para trabalhadores terceirizados"
+    meta_twitter_image=SITE_DOMAIN|add:"static/images/twitter-terceirizados.jpg"
+%}
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.fagnercalegario.com/orgulho-terceirizado">
-<meta property="og:title" content="Orgulho de Ser Terceirizado - Fagner Calegário | Conquistas no Acre">
-<meta property="og:description" content="Iniciativas pioneiras para dignidade e reconhecimento dos profissionais terceirizados">
-<meta property="og:image" content="{% static 'images/og-terceirizados.jpg' %}">
+{% include 'bandeiras/SchemaMarkup.html' %}
 
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://www.fagnercalegario.com/orgulho-terceirizado">
-<meta property="twitter:title" content="Orgulho de Ser Terceirizado - Fagner Calegário | Conquistas no Acre">
-<meta property="twitter:description" content="Políticas públicas históricas para trabalhadores terceirizados">
-<meta property="twitter:image" content="{% static 'images/twitter-terceirizados.jpg' %}">
-
-{% include 'bandeiras/SchemaMarkup.html'%}
-
-<!-- Canonical -->
-<link rel="canonical" href="https://www.fagnercalegario.com/orgulho-terceirizado">
 {% endblock %}
 
 {% block content %}
 
 <div class="container my-5">
     <!-- Cabeçalho Temático -->
-    <div class="tech-header mb-5 text-center position-relative overflow-hidden">
+    <header class="tech-header mb-5 text-center position-relative overflow-hidden">
         <div class="icon-container mb-4">
-            <i class="fas fa-hands-helping fa-3x mb-3" style="color: #2A5C82;"></i>
+            <i class="fas fa-hands-helping fa-3x mb-3" style="color: #2A5C82;" aria-hidden="true"></i>
         </div>
         <h1 class="mb-3 fw-bold" style="letter-spacing: -0.03em;">
-            Dignidade e Reconhecimento para os Terceirizados
+            Orgulho de ser Terceirizado!
             <div class="title-divider mx-auto my-3" style="border-color: #2A5C82;"></div>
         </h1>
         <p class="lead-text mb-0 px-md-5 mx-auto text-secondary">
-            Uma trajetória de lutas e conquistas pelos direitos dos profissionais que movem o Acre
+            Conheça as principais iniciativas do deputado estadual Fagner Calegário na defesa dos direitos trabalhistas e na valorização profissional dos terceirizados acreanos
         </p>
-    </div>
+    </header>
 
-    <!-- Seção 1 -->
-    <div class="tech-card shadow-lg mb-5">
-        <div class="row g-0 align-items-center">
-            <div class="col-md-6">
-                <img src="{% static 'images/terceirizados-uniao.jpg' %}" 
-                     class="img-fluid rounded-start" 
-                     alt="Grupo de trabalhadores terceirizados em atividade coletiva">
-            </div>
-            <div class="col-md-6 p-4">
-                <div class="card-body">
-                    <h3 class="card-title mb-3">A Revolução dos Direitos Trabalhistas</h3>
-                    <p class="card-text text-justify">
-                        Na vanguarda das transformações sociais, o deputado Fagner Calegário estabeleceu novos parâmetros para a relação entre poder público e trabalhadores terceirizados. Sua atuação parlamentar resultou na criação de mecanismos que garantem equiparação salarial progressiva, estabelecendo pontes entre os direitos dos contratados temporários e os servidores efetivos. Essas medidas históricas combatem a precarização laboral através de auditorias regulares nos contratos de terceirização, assegurando o cumprimento rigoroso das normas trabalhistas.
-                    </p>
+    <!-- Seção 1: A Revolução dos Direitos Trabalhistas -->
+    <section aria-labelledby="direitos-trabalhistas">
+        <div class="tech-card shadow-lg mb-5">
+            <div class="row g-0 align-items-center">
+                <div class="col-md-6">
+                    <img src="{% static 'images/terceirizados-uniao.jpg' %}" 
+                        class="img-fluid rounded-start" 
+                        alt="Grupo de trabalhadores terceirizados em atividade coletiva"
+                        loading="lazy">
+                </div>
+                <div class="col-md-6 p-4">
+                    <div class="card-body">
+                        <h3 id="direitos-trabalhistas" class="card-title mb-3">A Revolução dos Direitos Trabalhistas</h3>
+                        <p class="card-text text-justify">
+                            Na vanguarda das transformações sociais, o deputado Fagner Calegário estabeleceu novos parâmetros para a relação entre poder público e trabalhadores terceirizados. Sua atuação parlamentar resultou na criação de mecanismos que garantem equiparação salarial progressiva, estabelecendo pontes entre os direitos dos contratados temporários e os servidores efetivos. Essas medidas históricas combatem a precarização laboral através de auditorias regulares nos contratos de terceirização, assegurando o cumprimento rigoroso das normas trabalhistas.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- Seção 2 -->
-    <div class="tech-card shadow-lg mb-5">
-        <div class="row g-0 align-items-center flex-md-row-reverse">
-            <div class="col-md-6">
-                <img src="{% static 'images/capacitacao-terceirizados.jpg' %}" 
-                     class="img-fluid rounded-start" 
-                     alt="Oficina de capacitação profissional para terceirizados">
-            </div>
-            <div class="col-md-6 p-4">
-                <div class="card-body">
-                    <h3 class="card-title mb-3">Ascensão Profissional Garantida</h3>
-                    <p class="card-text text-justify">
-                        Transformando realidades através da educação, as iniciativas do parlamentar criaram caminhos concretos para o desenvolvimento contínuo dos trabalhadores. Programas estruturados de qualificação técnica permitem a migração para áreas especializadas, enquanto projetos de certificação profissional reconhecem oficialmente saberes adquiridos na prática. Essas ações rompem barreiras históricas, oferecendo oportunidades reais de crescimento na carreira e estabilidade financeira para milhares de famílias acreanas.
-                    </p>
+    <section aria-labelledby="capacitacao-profissional">
+        <div class="tech-card shadow-lg mb-5">
+            <div class="row g-0 align-items-center flex-md-row-reverse">
+                <div class="col-md-6">
+                    <img src="{% static 'images/capacitacao-terceirizados.jpg' %}" 
+                        class="img-fluid rounded-start" 
+                        alt="Oficina de capacitação profissional para terceirizados"
+                        loading="lazy">
+                </div>
+                <div class="col-md-6 p-4">
+                    <div class="card-body">
+                        <h3 id="capacitacao-profissional" class="card-title mb-3">Ascensão Profissional Garantida</h3>
+                        <p class="card-text text-justify">
+                            Transformando realidades através da educação, as iniciativas do parlamentar criaram caminhos concretos para o desenvolvimento contínuo dos trabalhadores. Programas estruturados de qualificação técnica permitem a migração para áreas especializadas, enquanto projetos de certificação profissional reconhecem oficialmente saberes adquiridos na prática. Essas ações rompem barreiras históricas, oferecendo oportunidades reais de crescimento na carreira e estabilidade financeira para milhares de famílias acreanas.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- Seção 3 -->
-    <div class="tech-card shadow-lg mb-5">
-        <div class="row g-0 align-items-center">
-            <div class="col-md-6">
-                <img src="{% static 'images/seguranca-terceirizados.jpg' %}" 
-                     class="img-fluid rounded-start" 
-                     alt="Inspeção de segurança no trabalho com EPIs">
-            </div>
-            <div class="col-md-6 p-4">
-                <div class="card-body">
-                    <h3 class="card-title mb-3">Proteção Integral ao Trabalhador</h3>
-                    <p class="card-text text-justify">
-                        Na defesa incansável pela integridade física e mental, medidas inéditas estabeleceram padrões elevados de segurança laboral. Inspeções periódicas nos ambientes de trabalho, conduzidas por comissões mistas, garantem o uso adequado de equipamentos de proteção. A criação da Rede de Apoio Psicossocial oferece atendimento gratuito especializado, combatendo o assédio moral e promovendo saúde mental. Essas conquistas refletem um novo paradigma na valorização do ser humano para além da mão de obra.
-                    </p>
+    <section aria-labelledby="seguranca-trabalho">
+        <div class="tech-card shadow-lg mb-5">
+            <div class="row g-0 align-items-center">
+                <div class="col-md-6">
+                    <img src="{% static 'images/seguranca-terceirizados.jpg' %}" 
+                        class="img-fluid rounded-start" 
+                        alt="Inspeção de segurança no trabalho com EPIs"
+                        loading="lazy">
+                </div>
+                <div class="col-md-6 p-4">
+                    <div class="card-body">
+                        <h3 id="seguranca-trabalho" class="card-title mb-3">Proteção Integral ao Trabalhador</h3>
+                        <p class="card-text text-justify">
+                            Na defesa incansável pela integridade física e mental, medidas inéditas estabeleceram padrões elevados de segurança laboral. Inspeções periódicas nos ambientes de trabalho, conduzidas por comissões mistas, garantem o uso adequado de equipamentos de proteção. A criação da Rede de Apoio Psicossocial oferece atendimento gratuito especializado, combatendo o assédio moral e promovendo saúde mental. Essas conquistas refletem um novo paradigma na valorização do ser humano para além da mão de obra.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- Seção 4 -->
-    <div class="tech-card shadow-lg mb-5">
-        <div class="row g-0 align-items-center flex-md-row-reverse">
-            <div class="col-md-6">
-                <img src="{% static 'images/participacao-terceirizados.jpg' %}" 
-                     class="img-fluid rounded-start" 
-                     alt="Assembleia com trabalhadores discutindo políticas públicas">
-            </div>
-            <div class="col-md-6 p-4">
-                <div class="card-body">
-                    <h3 class="card-title mb-3">Voz Ativa nas Decisões Coletivas</h3>
-                    <p class="card-text text-justify">
-                        Rompendo barreiras da exclusão política, novas legislações garantem assento obrigatório de representantes terceirizados nos principais conselhos gestores estaduais. Essa conquista histórica permite intervenção direta na formulação de políticas públicas, assegurando que suas demandas específicas sejam consideradas em todas as esferas decisórias. Programas de associativismo fortalecido e cooperativas profissionais completam esse ecossistema de empoderamento coletivo.
-                    </p>
+    <section aria-labelledby="voz-ativa-nas-decisões">
+        <div class="tech-card shadow-lg mb-5">
+            <div class="row g-0 align-items-center flex-md-row-reverse">
+                <div class="col-md-6">
+                    <img src="{% static 'images/participacao-terceirizados.jpg' %}" 
+                        class="img-fluid rounded-start" 
+                        alt="Assembleia com trabalhadores discutindo políticas públicas"
+                        loading="lazy">
+                </div>
+                <div class="col-md-6 p-4">
+                    <div class="card-body">
+                        <h3 id="voz-ativa-nas-decisões" class="card-title mb-3">Voz Ativa nas Decisões Coletivas</h3>
+                        <p class="card-text text-justify">
+                            Rompendo barreiras da exclusão política, novas legislações garantem assento obrigatório de representantes terceirizados nos principais conselhos gestores estaduais. Essa conquista histórica permite intervenção direta na formulação de políticas públicas, assegurando que suas demandas específicas sejam consideradas em todas as esferas decisórias. Programas de associativismo fortalecido e cooperativas profissionais completam esse ecossistema de empoderamento coletivo.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
+    </section>
 </div>
 
 {% endblock %}

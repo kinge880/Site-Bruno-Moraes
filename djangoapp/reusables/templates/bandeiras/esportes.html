@@ -1,6 +1,24 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block title %}Esportes{% endblock %}
+
+{% block extra_head %}
+    {% include 'includes/meta_tags.html' with 
+        meta_description="Fagner Calegário, deputado estadual do Acre, implementou projetos de inclusão social e modernização esportiva para mais de 5.000 jovens no Acre. Saiba mais sobre as iniciativas esportivas."
+        meta_keywords="Fagner Calegário, Esporte no Acre, Inclusão Social, Esporte na Escola, Programas Esportivos, Juventude Acreana, Esporte e Educação, Arena Digital, Esporte e Saúde, Capacitação Profissional, Rio Branco"
+        meta_author="Deputado Fagner Calegário"
+        meta_url=SITE_DOMAIN|add:"esportes"
+        meta_title="Esporte Transformador - Fagner Calegário | Projetos Esportivos no Acre"
+        meta_og_description="Fagner Calegário desenvolve projetos esportivos transformadores no Acre, incluindo o programa Esporte na Escola e Esporte Digital, impactando a juventude acreana."
+        meta_og_image=SITE_DOMAIN|add:"static/images/og-esportes.jpg"
+        meta_twitter_title="Esporte Transformador - Fagner Calegário | Projetos Esportivos no Acre"
+        meta_twitter_description="Programas de inclusão social, saúde e capacitação esportiva para a juventude acreana."
+        meta_twitter_image=SITE_DOMAIN|add:"static/images/twitter-esportes.jpg"
+        meta_robots="index, follow"
+        meta_viewport="width=device-width, initial-scale=1.0"
+    %}
+{% endblock %}
+
 {% block content %}
 
 <div class="container my-5">

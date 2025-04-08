@@ -1,7 +1,26 @@
 {% extends 'index.html' %}
 {% load static %}
-{% block title %}Futuro da Juventude{% endblock %}
+{% block title %}Futuro da juventude no Acre: capacitação profissional, educação 4.0 e apoio social{% endblock %}
 {% block content %}
+
+{% block extra_head %}
+{% include 'includes/meta_tags.html' with 
+    meta_description="Iniciativas do deputado Fagner Calegário para o futuro da juventude no Acre: capacitação profissional, educação 4.0 e apoio social"
+    meta_keywords="Juventude Acre, Capacitação Profissional, Educação 4.0, Fagner Calegário, Inclusão Social"
+    meta_author="Deputado Fagner Calegário"
+    meta_url=SITE_DOMAIN|add:"futuro-juventude"
+    meta_title="Futuro da Juventude - Fagner Calegário | Oportunidades no Acre"
+    meta_og_description="Transformação social através da educação e qualificação profissional para jovens no Acre"
+    meta_og_image=SITE_DOMAIN|add:"static/images/og-futuro-juventude.jpg"
+    meta_twitter_title="Futuro da Juventude - Fagner Calegário | Oportunidades no Acre"
+    meta_twitter_description="Programas de capacitação e impacto social para jovens acreanos"
+    meta_twitter_image=SITE_DOMAIN|add:"static/images/twitter-futuro-juventude.jpg"
+%}
+
+{% include 'bandeiras/SchemaMarkup.html' %}
+
+{% endblock %}
+
 
 <div class="container my-5">
     <!-- Cabeçalho Temático -->

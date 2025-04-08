@@ -1,7 +1,24 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
+from django.core.cache import cache
+from django.db.models.signals import post_save, post_delete
 
+# Signal genérico para limpar cache
+def invalidate_cache(sender, **kwargs):
+    model_name = sender.__name__
+    cache_keys = {
+        'HomeBannerInicio': ['home_banners'],
+        'HomeMinhaHistoria': ['home_historia'],
+        'HomeBannerCampanha': ['home_banner_campanha'],
+        'BlogPost': ['ultimas_postagens'],
+        'PropostaProjetoLei': ['propostas_list'],
+        'FaleComigo': ['contatos_recentes']
+    }
+    if model_name in cache_keys:
+        for key in cache_keys[model_name]:
+            cache.delete(key)
+    
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True, null=True, max_length=1000)
@@ -73,4 +90,8 @@ class FaleComigo(models.Model):
 
     def __str__(self):
         return f"{self.nome} - {self.email} ({'Lido' if self.visualizado else 'Não Lido'})"
-    
+
+# Registra os signals para todos os modelos
+for model in [HomeBannerInicio, HomeMinhaHistoria, HomeBannerCampanha, PropostaProjetoLei, FaleComigo]:
+    post_save.connect(invalidate_cache, sender=model)
+    post_delete.connect(invalidate_cache, sender=model)

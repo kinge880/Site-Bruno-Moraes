@@ -49,6 +49,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 INSTAGRAM_ACCESS_TOKEN = os.getenv("INSTAGRAM_ACCESS_TOKEN")
+SITE_DOMAIN = "https://www.fagnercalegario.com"
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -112,6 +113,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'reusables.context_processors.site_domain',
             ],
         },
     },
@@ -195,10 +197,11 @@ LOGOUT_URL = 'logout'
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": "redis://redis:6379/",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
+        },
+        "KEY_PREFIX": "fagnercache"
     },
 }
 
