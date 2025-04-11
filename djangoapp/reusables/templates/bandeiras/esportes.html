@@ -3,7 +3,7 @@
 {% block title %}Esportes{% endblock %}
 
 {% block extra_head %}
-    {% include 'includes/meta_tags.html' with 
+    {% include 'components/meta_tags.html' with 
         meta_description="Fagner Calegário, deputado estadual do Acre, implementou projetos de inclusão social e modernização esportiva para mais de 5.000 jovens no Acre. Saiba mais sobre as iniciativas esportivas."
         meta_keywords="Fagner Calegário, Esporte no Acre, Inclusão Social, Esporte na Escola, Programas Esportivos, Juventude Acreana, Esporte e Educação, Arena Digital, Esporte e Saúde, Capacitação Profissional, Rio Branco"
         meta_author="Deputado Fagner Calegário"
@@ -17,6 +17,8 @@
         meta_robots="index, follow"
         meta_viewport="width=device-width, initial-scale=1.0"
     %}
+
+    {% include 'components/SchemaMarkup.html' %}
 {% endblock %}
 
 {% block content %}

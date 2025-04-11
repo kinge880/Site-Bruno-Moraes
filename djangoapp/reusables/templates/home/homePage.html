@@ -126,11 +126,6 @@
 	<!-- Minha história -->
 	<section id="minha-historia" class="section-welcome bg1-pattern p-t-80 p-b-105" aria-label="Minha história">
 		<div class="container">
-			<div class="col-12 text-center mb-3">
-				<span class="tit2 t-center">
-					Minha história
-				</span>
-			</div>
 			<div class="row">
 				<!-- Imagem substituindo o vídeo -->
 				<div class="col-md-4 d-flex justify-content-center align-items-center">
@@ -143,15 +138,20 @@
 				</div>
 	
 				<div class="col-md-8">
+					<div class="text-left mb-3">
+						<span class="tit2 t-left">
+							Minha história
+						</span>
+					</div>
 					<div class="wrap-text-welcome text-justify">
 						{{historia.descricao | safe}}
 					</div>
-				</div>
-				<div class="col-12 text-center mb-3">
-					<a href="/sobre" class="txt4 text-center">
-						Mais sobre mim
-						<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-					</a>
+					<div class="text-left mb-3">
+						<a href="/sobre" class="txt4 text-left">
+							Mais sobre mim
+							<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -165,15 +165,15 @@
 	<!-- Modal do vídeo -->
 	<div class="modal fade modal-video-01" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="">
-					<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item" src="{{historia.link}}" allowfullscreen></iframe>
-					</div>
-				</div>
+		  <div class="modal-content">
+			<div class="modal-body p-0">
+			  <div class="embed-responsive embed-responsive-16by9">
+				<iframe class="embed-responsive-item" src="{{ historia.link }}" allowfullscreen></iframe>
+			  </div>
 			</div>
+		  </div>
 		</div>
-	</div>
+	  </div>
 
 	<!-- Projetos e demandas -->
 	<section id="meus-projetos-e-propostas" class="section-intro">
@@ -325,12 +325,12 @@
 		</div>
 	</section>
 	<!-- Modal do vídeo BANNER-->
-	<div class="modal fade modal-video-01" id="videoModalBanner" tabindex="-1" role="dialog" aria-labelledby="videoModalBannerLabel" aria-hidden="true">
+	<div class="modal fade modal-video-01 " id="videoModalBanner" tabindex="-1" role="dialog" aria-labelledby="videoModalBannerLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="">
 					<div class="embed-responsive embed-responsive-16by9">
-						<iframe  src="{{ banner_campanha.link }}" title="Entrevista com Fagner Calegário no Jornal Gazeta 93" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+						<iframe  src="{{ banner_campanha.link }}" title="Entrevista com Fagner Calegário no Jornal Gazeta 93" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>
 					</div>
 				</div>
 			</div>

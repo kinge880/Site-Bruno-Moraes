@@ -144,11 +144,11 @@
             </a>
         </div>
     </div>
-  <!-- Grid de Posts -->
-  <!-- Grid de posts -->
-  <div class="instagram-feed">
+    <!-- Grid de Posts -->
+    <!-- Grid de posts -->
+    <div class="instagram-feed">
     {% for post in posts %}
-      <div class="instagram-card modal-trigger">
+    <div class="instagram-card modal-trigger">
         <a href="{{ post.permalink }}" target="_blank" rel="noopener noreferrer">
             <div class="image-wrapper" >
                 {% if post.media_type == "IMAGE" or post.media_type == "CAROUSEL_ALBUM" %}
@@ -193,9 +193,9 @@
                 </div>
             </div>
         </a>
-      </div>
+    </div>
     {% endfor %}
-  </div>
+    </div>
 </div>
 
 {% endblock %}

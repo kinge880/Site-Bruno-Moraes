@@ -46,8 +46,11 @@ def get_sidebar_data():
 def index(request, categoria=None, year=None, month=None):
     search_query = request.GET.get('search', '')
 
-    posts = BlogPost.objects.filter(status='published').annotate(comments_count=Count('comments'))
-
+    if request.user.is_authenticated:
+        posts = BlogPost.objects.filter(status='published').annotate(comments_count=Count('comments'))
+    else:
+        posts = BlogPost.objects.all().annotate(comments_count=Count('comments'))
+    
     # Aplicando busca
     if search_query:
         posts = posts.filter(
@@ -106,13 +109,20 @@ def get_comments(request, categoria, slug):
     # Crie um dicionário com os dados para retornar
     comment_list = []
     for comment in comments_page:
+        liked_by_user = False
+        if request.user.is_authenticated:
+            liked_by_user = CommentLike.objects.filter(user=request.user, comment=comment).exists()
+            
         comment_list.append({
             'id': comment.id,
             'name': comment.name,
-            'created_at': comment.created_at,
+            'created_at': str(naturaltime(comment.created_at)),
             'content': comment.content,
             'likes': comment.likes.count(),
-            'can_delete': request.user == comment.user or request.user.is_superuser
+            'can_delete': request.user == comment.user or request.user.is_superuser,
+            'liked_by_user': liked_by_user,
+            'authenticated': request.user.is_authenticated
+
         })
 
     return JsonResponse({
@@ -149,7 +159,7 @@ def post_comment(request, categoria, slug):
                     "success": True,
                     "name": name,
                     "content": comment.content,
-                    "created_at": naturaltime(comment.created_at),
+                    'created_at': naturaltime(comment.created_at),
                     "likes": 0,
                     "can_delete": can_delete
                 })

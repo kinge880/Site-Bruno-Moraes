@@ -67,7 +67,7 @@ def get_instagram_profile():
     return {}
 
 def get_instagram_posts():
-    url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,like_count,comments_count&limit=8&access_token={settings.INSTAGRAM_ACCESS_TOKEN}"
+    url = f"https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,like_count,comments_count&limit=4&access_token={settings.INSTAGRAM_ACCESS_TOKEN}"
     response = requests.get(url)
     if response.status_code == 200:
         return response.json().get("data", [])

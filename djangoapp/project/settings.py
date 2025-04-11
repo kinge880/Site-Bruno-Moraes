@@ -66,8 +66,8 @@ INSTALLED_APPS = [
     'simple_history',
     'auditlog',
     'blog',
-    'django.contrib.humanize',
-    'instagram_profile'
+    'instagram_profile',
+    'django.contrib.humanize'
 ]
 
 MIDDLEWARE = [
@@ -95,9 +95,10 @@ INSTAGRAM_PROFILE = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:1337/',
     'http://200.129.173.118:1337',  # Para HTTP
     'https://200.129.173.118:1337', # Para HTTPS (se for o caso)
-    'https://b964-189-23-33-146.ngrok-free.app'
+    'https://2b8e-170-83-175-210.ngrok-free.app'
 ]
 
 ROOT_URLCONF = 'project.urls'

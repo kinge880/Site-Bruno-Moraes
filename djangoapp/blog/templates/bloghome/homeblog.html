@@ -12,59 +12,75 @@
                 <div class="col-md-8 col-lg-9">
                     <div class="p-t-80 p-b-124 bo5-r h-full p-r-50 p-r-0-md bo-none-md">
                         {% for post in posts %}
-                            <div class="blo4 p-b-63">
-                                <div class="pic-blo4 hov-img-zoom bo-rad-10 pos-relative">
-                                    <a href="{{post.categories.slug}}/{{post.slug}}">
-                                        <img src="{{post.image.url}}" alt="IMG-BLOG">
-                                    </a>
-
-                                    <div class="date-blo4 flex-col-c-m">
-                                        <span class="txt30 m-b-4">
-                                            {{ post.published_at|date:"d" }}
-                                        </span>
-
-                                        <span class="txt31">
-                                            {{ post.published_at|date:"M, Y" }}
-                                        </span>
+                            {% if post.status == 'published' %}
+                                {% if post.status != 'published' %}
+                                    <div class="mb-2">
+                                        <span class="badge bg-warning text-dark">RASCUNHO</span>
                                     </div>
-                                </div>
+                                {% endif %}
+                                <div class="blo4 p-b-63">
+                                    <div class="pic-blo4 hov-img-zoom bo-rad-10 pos-relative">
+                                        <a href="{{post.categories.slug}}/{{post.slug}}">
+                                            <img src="{{post.image.url}}" alt="IMG-BLOG">
+                                        </a>
 
-                                <div class="text-blo4 p-t-33">
-                                    <h4 class="p-b-16">
-                                        <a href="{{post.categories.slug}}/{{post.slug}}" class="tit9">{{ post.title }}</a>
-                                    </h4>
+                                        <div class="date-blo4 flex-col-c-m">
+                                            <span class="txt30 m-b-4">
+                                                {{ post.published_at|date:"d" }}
+                                            </span>
 
-                                    <div class="txt32 flex-w p-b-24">
-                                        <span>
-                                            Por {{ post.author }}
-                                            <span class="m-r-6 m-l-4">|</span>
-                                        </span>
-
-                                        <span>
-                                            {{ post.published_at|date:"d M, Y" }}
-                                            <span class="m-r-6 m-l-4">|</span>
-                                        </span>
-
-                                        <span>
-                                            {{ post.categories }}
-                                            <span class="m-r-6 m-l-4">|</span>
-                                        </span>
-
-                                        <span>
-                                            {{ post.comments_count }} Comentários
-                                        </span>
+                                            <span class="txt31">
+                                                {{ post.published_at|date:"M, Y" }}
+                                            </span>
+                                        </div>
                                     </div>
 
-                                    <p>
-                                        {{ post.excerpt | safe }}...
-                                    </p>
+                                    <div class="text-blo4 p-t-33">
+                                        <h4 class="p-b-16">
+                                            <a href="{{post.categories.slug}}/{{post.slug}}" class="tit9">{{ post.title }}</a>
+                                        </h4>
 
-                                    <a href="{{post.categories.slug}}/{{post.slug}}" class="dis-block txt4 m-t-30">
-                                        Continue lendo
-                                        <i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-                                    </a>
+                                        <div class="txt32 flex-w p-b-24">
+                                            <span>
+                                                Por {{ post.author }}
+                                                <span class="m-r-6 m-l-4">|</span>
+                                            </span>
+
+                                            <span>
+                                                {{ post.published_at|date:"d M, Y" }}
+                                                <span class="m-r-6 m-l-4">|</span>
+                                            </span>
+
+                                            <span>
+                                                {{ post.categories }}
+                                                <span class="m-r-6 m-l-4">|</span>
+                                            </span>
+
+                                            <span>
+                                                {{ post.comments_count }} Comentários
+                                            </span>
+                                        </div>
+
+                                        <p>
+                                            {{ post.excerpt | safe }}...
+                                        </p>
+
+                                        <div class="d-flex justify-content-between">
+                                            <a href="{{post.categories.slug}}/{{post.slug}}" class="dis-block txt4 m-t-30">
+                                                Continue lendo
+                                                <i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
+                                            </a>
+
+                                            {% if request.user.is_authenticated %}
+                                                <a href="" class="dis-block txt4 m-t-30 text-danger">
+                                                    Editar post
+                                                    <i class="fa fa-pencil m-l-10" aria-hidden="true"></i>
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
