@@ -1003,7 +1003,7 @@ input[type="date" i] {
 ///////////////////////////////////////////////////////////
 */
 .btn3 {
-  background: #111111;
+  background: #F1A208;
   border-radius: 10px;
 }
 
@@ -1521,7 +1521,7 @@ body {padding-right: 0px !important;}
 }
 
 .is-actived {
-  background-color: #111111;
+  background-color: #F1A208;
   color: white;
 }
 
@@ -1808,8 +1808,6 @@ body {padding-right: 0px !important;}
   position: absolute;
   top: -50%;
   left: -50%;
-  width: 200%;
-  height: 200%;
   background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
   transform: rotate(45deg);
   pointer-events: none;

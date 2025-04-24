@@ -1003,7 +1003,7 @@ input[type="date" i] {
 ///////////////////////////////////////////////////////////
 */
 .btn3 {
-  background: #111111;
+  background: #F1A208;
   border-radius: 10px;
 }
 
@@ -1521,7 +1521,7 @@ body {padding-right: 0px !important;}
 }
 
 .is-actived {
-  background-color: #111111;
+  background-color: #F1A208;
   color: white;
 }
 

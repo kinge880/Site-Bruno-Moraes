@@ -2986,6 +2986,14 @@ TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT
 	color: #68458C;
 }
 
+.tit2new {
+	font-family: 'Metropolis', sans-serif;
+	font-weight: 900; /* Black */
+	font-size: 30px;
+	line-height: 1.2;
+	color: White;
+}
+
 .tit3 {
 	font-family: 'Metropolis', sans-serif;
 	font-weight: 700;

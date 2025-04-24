@@ -6,6 +6,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('', views.basehome, name='paginicial'),
+    path('redes/', views.ancoraLinks, name='ancora_links'),
+    path('redes/cadastrar/', views.cadastrarLink, name='cadastrar_link'),
+    path('redes/deletar/<int:link_id>/', views.deletarLink, name='deletar_link'),
     path('login/', views.login, name='login'),
     path('deslogar/', views.logout_view, name='logou'),
     path('cadastro/banner/inicio/', views.cadastrar_banner_inicio, name='cadastrar_banner_inicio'),
@@ -28,8 +31,9 @@ urlpatterns = [
     
     path("bandeiras/esporte-transformador/", views.esportes,  name='esportes'),
     path("bandeiras/futuro-da-juventude/", views.juventude,  name='juventude'),
-    path("bandeiras/servicos-publicos/", views.servicospublicos,  name='servicospublicos'),
+    path("bandeiras/saude-para-todos/", views.servicospublicos,  name='servicospublicos'),
     path("bandeiras/orgulho-tercerizados/", views.tercerizados,  name='tercerizados'),
+    path("bandeiras/mais-inclusao-tea/", views.maisinclusao,  name='mais-inclusao-tea'),
     path("bandeiras/mulheres-em-defesa-das-mulheres/", views.mulheres,  name='mulheres'),
 ]
 

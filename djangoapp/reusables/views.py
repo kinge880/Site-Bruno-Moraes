@@ -540,3 +540,36 @@ def tercerizados(request):
 def mulheres(request):
     context = defineNavLinks('menu_fixo')
     return render(request, 'bandeiras/mulheres.html', context)
+
+def maisinclusao(request):
+    context = defineNavLinks('menu_fixo')
+    return render(request, 'bandeiras/inclusaotea.html', context)
+
+# View de listagem dos links
+def ancoraLinks(request):
+    context = defineNavLinks('menu_fixo')
+    context['links'] = MeusLinks.objects.all()
+    context['form'] = MeusLinksForm()
+    if request.method == 'POST':
+        form = MeusLinksForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('ancora_links')
+    return render(request, 'home/ancora.html', context)
+
+# View para cadastrar novos links
+def cadastrarLink(request):
+    if request.method == 'POST':
+        form = MeusLinksForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('ancora_links')  # nome da URL da página de listagem
+    else:
+        form = MeusLinksForm()
+    return render(request, 'home/cadastrar_link.html', {'form': form})
+
+# View para deletar um link
+def deletarLink(request, link_id):
+    link = get_object_or_404(MeusLinks, id=link_id)
+    link.delete()
+    return redirect('ancora_links')

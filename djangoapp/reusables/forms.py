@@ -63,3 +63,16 @@ class FaleComigoForm(forms.ModelForm):
                 'required': True
             }),
         }
+    
+class MeusLinksForm(forms.ModelForm):
+    class Meta:
+        model = MeusLinks
+        fields = ['url', 'imagem']
+        widgets = {
+            'url': forms.URLInput(attrs={
+                'class': 'form-control bo-rad-10 sizefull txt10 p-l-20',
+                'placeholder': 'Insira a url de destino',
+                'required': True
+            }),
+            'imagem': forms.FileInput(attrs={'class': 'd-none image-upload'})
+        }

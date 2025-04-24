@@ -92,6 +92,36 @@
 		border-radius: 12px;
 		background: rgba(39, 103, 245, 0.1);
 	}
+
+	.img-fixa {
+		width: 100%;
+		height: 250px; /* Altura fixa que preferir */
+		overflow: hidden;
+		position: relative;
+	}
+	
+	.img-fixa img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover; /* Mantém o corte proporcional */
+		object-position: center; /* Centraliza o foco */
+		display: block;
+	}
+
+	.img-fixa_trabalho {
+		width: 100%;
+		height: 350px; /* Altura fixa que preferir */
+		overflow: hidden;
+		position: relative;
+	}
+	
+	.img-fixa_trabalho img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover; /* Mantém o corte proporcional */
+		object-position: center; /* Centraliza o foco */
+		display: block;
+	}
 	</style>
 	
 <body class="animsition">
@@ -187,10 +217,10 @@
 			</h3>
 		</div> {% endcomment %}
 
-		<div class="content-intro bg-white p-t-77 p-b-133">
+		<div class="content-intro bg0 p-t-77 p-b-133">
 			<div class="container">
 				<div class="col-12 text-center mb-3">
-					<span class="tit2 t-center">
+					<span class="tit2 t-center text-white">
 						Meu trabalho
 					</span>
 				</div>
@@ -198,13 +228,13 @@
 					<div class="col-md-6 p-t-30">
 						<!-- Block1 -->
 						<div class="blo1">
-							<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom">
+							<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom img-fixa_trabalho">
 								<a href="/fale"><img src="{% static 'images/faleconosco.jpg' %}" alt="IMG-INTRO"></a>
 							</div>
 
 							<div class="wrap-text-blo1 p-t-35 text-center">
 								<a href="/fale">
-									<h4 class="txt5 color0-hov trans-0-4 m-b-13 text-center">
+									<h4 class="txt5 color0-hov trans-0-4 m-b-13 text-center text-white">
 										Fale comigo
 									</h4>
 								</a>
@@ -215,12 +245,12 @@
 					<div class="col-md-6 p-t-30">
 						<!-- Block1 -->
 						<div class="blo1">
-							<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom">
+							<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom img-fixa_trabalho">
 								<a href="/propostas"><img src="{% static 'images/minhaspropostas.jpg' %}" alt="IMG-INTRO"></a>
 							</div>
 
 							<div class="wrap-text-blo1 p-t-35 text-center">
-								<a href="/propostas"><h4 class="txt5 color0-hov trans-0-4 m-b-13 text-center">
+								<a href="/propostas"><h4 class="txt5 color0-hov trans-0-4 m-b-13 text-center text-white">
 									Minhas propostas e projetos
 								</h4></a>
 							</div>
@@ -276,12 +306,12 @@
 			
 				<!-- Serviços Públicos -->
 				<div class="col-md-6 mb-5">
-					<a href="bandeiras/servicos-publicos/">
+					<a href="bandeiras/saude-para-todos/">
 						<div class="tech-card left-card shadow-lg p-4 h-100">
 							<div class="connector-dot"></div>
 							<i class="fas fa-hands-helping fa-2x mb-3 text-success"></i>
-							<h3>Serviços Públicos</h3>
-							<p class="text-muted">Modernização da gestão pública com foco em saúde, educação e infraestrutura básica para a população acreana...</p>
+							<h3>Saúde para todos!</h3>
+							<p class="text-muted">Modernização da gestão pública com foco ampliar o acesso à saúde de qualidade...</p>
 						</div>
 					</a>
 				</div>
@@ -292,7 +322,7 @@
 						<div class="tech-card right-card shadow-lg p-4 h-100">
 							<div class="connector-dot"></div>
 							<i class="fas fa-hand-holding-heart fa-2x mb-3 text-warning"></i>
-							<h3>Mulheres em defesa das mulheres</h3>
+							<h3>Em defesa das mulheres</h3>
 							<p class="text-muted">Rede de apoio contra violência doméstica e promoção de autonomia econômica através de cooperativas femininas...</p>
 						</div>
 					</a>
@@ -306,6 +336,18 @@
 							<i class="fas fa-users fa-2x mb-3 text-info"></i>
 							<h3>Orgulho de ser Terceirizado</h3>
 							<p class="text-muted">Defesa dos direitos trabalhistas e melhores condições para profissionais terceirizados em órgãos públicos...</p>
+						</div>
+					</a>
+				</div>
+
+				<!-- Inclusão tea -->
+				<div class="col-md-6 offset-md-6 mb-5">
+					<a href="bandeiras/mais-inclusao-tea/">
+						<div class="tech-card right-card shadow-lg p-4 h-100">
+							<div class="connector-dot"></div>
+							<i class="fas fa-hand-holding-heart fa-2x mb-3 text-warning"></i>
+							<h3>Mais Inclusão: TEA!</h3>
+							<p class="text-muted">Implementando políticas públicas que promovem acessibilidade, atendimento especializado e valorização da neurodiversidade.​..</p>
 						</div>
 					</a>
 				</div>
@@ -344,9 +386,9 @@
 	{% endif %}
 
 	<!-- Notícias -->
-	<section id="novidades" class="section-blog bg-white p-t-10">
+	<section id="novidades" class="section-blog bg2-pattern p-t-10">
 		<div class="container">
-			<div class="col-12 text-center mt-3">
+			<div class="col-12 text-center p-t-50">
 				<span class="tit2 t-center">
 					Últimas novidades
 				</span>
@@ -354,10 +396,10 @@
 
 			<div class="row">
 				{% for post in ultimas_postagens %}
-					<div class="col-md-4 p-t-30">
+					<div class="col-md-4 p-t-30 p-b-80">
 						<!-- Bloco de Notícia -->
 						<div class="blo1">
-							<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom pos-relative">
+							<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom pos-relative img-fixa">
 								<a href="/blog/{{post.categories.slug}}/{{post.slug}}">
 									<img src="{{ post.image.url }}" alt="{{ post.titulo }}">
 								</a>

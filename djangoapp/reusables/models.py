@@ -95,3 +95,10 @@ class FaleComigo(models.Model):
 for model in [HomeBannerInicio, HomeMinhaHistoria, HomeBannerCampanha, PropostaProjetoLei, FaleComigo]:
     post_save.connect(invalidate_cache, sender=model)
     post_delete.connect(invalidate_cache, sender=model)
+    
+class MeusLinks(models.Model):
+    url = models.CharField(max_length=150) 
+    imagem = models.ImageField(upload_to='home/minhahist/')
+    
+    def __str__(self):
+        return f"{self.url}"
