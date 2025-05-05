@@ -1,0 +1,50 @@
+{% load static %}
+{% block content %}
+<!-- Footer Start -->
+<footer class="section-video parallax100" style="background-image: url('{% static "images/bg-01.jpg" %}'); background-size: cover; background-position: center;">
+    <div class="overlay" style="background-color: rgba(0, 0, 0, 0.5); padding: 40px 0;">
+        <div class="container">
+            <!-- Seção Superior do Footer -->
+            <div class="footer-top pt-5 pb-5">
+                <div class="row">
+                    <!-- Sobre -->
+                    <div class="col-lg-4 col-md-4 mb-4">
+                        <div class="footer-widget text-white">
+                            <h3 class="widget-title text-white">Sobre o CAT</h3>
+                            <p class="text-white">
+                                Aqui, cada trabalhador encontra um ponto de apoio real, com atendimento humanizado, escuta ativa e serviços pensados para garantir dignidade, orientação e direitos.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Contato -->
+                    <div class="col-lg-4 col-md-4 mb-4 text-center">
+                        <div class="footer-widget text-white text-center">
+                            <h3 class="widget-title text-white text-center">Contato</h3>
+                            <ul class="list-unstyled text-white text-center">
+                                <li><i class="fa fa-map-marker"></i> Rio Branco, Acre</li>
+                                <li><i class="fa fa-phone"></i> 68 9257-7163</li>
+                                <li><i class="fa fa-email"></i> Email em breve...</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 mb-4 text-right">
+                        <div class="footer-widget text-white text-right">
+                            <h3 class="widget-title text-white text-right">Políticas</h3>
+                            <ul class="list-unstyled text-white text-right">
+                                <li><a class="text-white" href="/politica-de-privacidade/">Política de Privacidade</a></li>
+                                <li><a class="text-white" href="/termos-de-uso/">Termos de Uso</a></li>
+                                <li><a class="text-white" href="/sobre-nos/">Sobre Nós</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Rodapé -->
+            <div class="text-center pt-3 pb-3">
+                <p class="text-white">&copy; 2025 SouTerceirizado. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer End -->
+{% endblock %}

@@ -3,6 +3,25 @@ from django.contrib.auth.models import User
 from django.utils.timezone import now
 from django.core.cache import cache
 from django.db.models.signals import post_save, post_delete
+from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
+
+def compress_image(image_field, quality=85):
+    """
+    Comprime e redimensiona uma imagem sem perder muita qualidade.
+    Retorna uma instância de ContentFile pronta para salvar no campo ImageField.
+    """
+    img = Image.open(image_field)
+
+    if img.mode in ("RGBA", "P"):
+        img = img.convert("RGB")
+
+    buffer = BytesIO()
+    img.save(buffer, format='JPEG', quality=quality, optimize=True)
+    buffer.seek(0)
+
+    return ContentFile(buffer.read())
 
 # Signal genérico para limpar cache
 def invalidate_cache(sender, **kwargs):
@@ -82,9 +101,12 @@ class PropostaProjetoLei(models.Model):
 
 class FaleComigo(models.Model):
     nome = models.CharField(max_length=100)  # Nome geralmente limitado a 100 caracteres
-    email = models.EmailField(max_length=150)  # Emails podem ter até 150 caracteres
-    telefone = models.CharField(max_length=20, blank=True, null=True)  # Formato internacional pode chegar a 20 caracteres
-    descricao = models.TextField(max_length=15000)  # Reduzido para 5000 caracteres (evita carga desnecessária no BD)
+    email = models.EmailField(max_length=150, blank=True, null=True)  # Emails podem ter até 150 caracteres
+    endereco = models.CharField(max_length=255)
+    telefone = models.CharField(max_length=20)  # Formato internacional pode chegar a 20 caracteres
+    descricao = models.TextField(max_length=15000, blank=True, null=True)  # Reduzido para 5000 caracteres (evita carga desnecessária no BD)
+    imagem = models.ImageField(upload_to='fala_comigo/', blank=True, null=True)
+    informacoes_adicionais = models.TextField(max_length=15000, blank=True, null=True)
     dtmov = models.DateTimeField(default=now)  # Define o padrão para a data atual
     visualizado = models.BooleanField(default=False)  # Adicionado um valor padrão
 
@@ -97,8 +119,18 @@ for model in [HomeBannerInicio, HomeMinhaHistoria, HomeBannerCampanha, PropostaP
     post_delete.connect(invalidate_cache, sender=model)
     
 class MeusLinks(models.Model):
-    url = models.CharField(max_length=150) 
-    imagem = models.ImageField(upload_to='home/minhahist/')
-    
+    url = models.CharField(max_length=150)
+    imagem = models.ImageField(upload_to='links/')
+    location_link = models.CharField(default="fagnerhome", max_length=150)
+
     def __str__(self):
         return f"{self.url}"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.imagem:
+            compressed = compress_image(self.imagem)
+            self.imagem.save(self.imagem.name, compressed, save=False)
+
+        super().save(*args, **kwargs)

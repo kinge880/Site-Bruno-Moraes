@@ -1,0 +1,697 @@
+{% extends 'components/index_soucat.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block title %}Programa Sou Terceirizado{% endblock %}
+
+{% block extra_head %}
+    {% include 'includes/meta_tags.html' with 
+        meta_description="Programa de qualificação para jovens e adultos de Rio Branco, promovendo oportunidades de capacitação e empregabilidade."
+        meta_keywords="Programa de Aprendizagem, Qualificação Profissional, Cursos Gratuitos Rio Branco, Fagner Calegário, Sou Terceirizado"
+        meta_author="Programa Sou Terceirizado - Fagner Calegário"
+        meta_url=SITE_DOMAIN|add:"programa/"
+        meta_title="Sou Terceirizado - Programa de Capacitação Profissional"
+        meta_og_description="Conheça o Programa Sou Terceirizado: capacitação gratuita para jovens e adultos em Rio Branco e novas oportunidades de carreira."
+        meta_og_image=SITE_DOMAIN|add:"static/images/og-home.jpg"
+        meta_twitter_title="Sou Terceirizado - Programa de Qualificação em Rio Branco"
+        meta_twitter_description="Projeto de formação para o mercado de trabalho, realizado por Fagner Calegário."
+        meta_twitter_image=SITE_DOMAIN|add:"static/images/twitter-home.jpg"
+        meta_robots="index, follow"
+        meta_viewport="width=device-width, initial-scale=1.0"
+    %}
+{% endblock %}
+
+{% block content %}
+
+<style>
+    #formulario-curso-wizard {
+        background: #ffffff; /* fundo branco clean */
+        padding: 40px 30px;
+        border-radius: 16px; /* bordas arredondadas */
+        box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.12); /* sombra elegante */
+        margin: 0 auto; /* centraliza */
+        animation: fadeIn 1s ease; /* animação suave de entrada */
+    }
+    
+    .wizard-step {
+        display: none;
+    }
+    
+    .wizard-step.active {
+        display: block;
+        animation: slideIn 0.6s ease;
+    }
+    
+    .progress {
+        background-color: #f1f1f1;
+        border-radius: 10px;
+    }
+    
+    .progress-bar {
+        border-radius: 10px;
+        transition: width 0.4s ease;
+    }
+    
+    h3 {
+        font-weight: bold;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    input, select {
+        border-radius: 8px;
+        padding: 12px;
+        border: 1px solid #ced4da;
+        width: 100%;
+        background: #f9f9f9;
+        transition: all 0.3s ease;
+    }
+    
+    input:focus, select:focus {
+        background: #ffffff;
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+    
+    button {
+        border-radius: 30px;
+        padding: 10px 30px;
+    }
+    
+    #prevBtn {
+        background-color: #6c757d;
+        border: none;
+    }
+    
+    #nextBtn {
+        background-color: #007bff;
+        border: none;
+    }
+    
+    #prevBtn:hover, #nextBtn:hover {
+        opacity: 0.9;
+    }
+    
+    /* Animações */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateX(-30px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    </style>
+
+<!-- Modal de Carregando -->
+<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content p-4 text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Enviando...</span>
+            </div>
+            <p class="mt-3">Enviando seus dados...</p>
+        </div>
+    </div>
+</div>
+
+<body class="animsition">
+	<!-- Inicio -->
+	<section id="inicio" class="section-slide bg1-pattern" aria-label="Banner principal">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="{% static 'images/soucat1.png' %}">
+                        <img src="{% static 'images/soucat4.png' %}" class="d-block w-100" alt="Banner 1">
+                    </picture>
+                </div>
+                <div class="carousel-item">
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="{% static 'images/soucat1.png' %}">
+                        <img src="{% static 'images/soucat1.png' %}" class="d-block w-100" alt="Banner 1">
+                    </picture>
+                </div>
+                <div class="carousel-item">
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="{% static 'images/soucat2.png' %}">
+                        <img src="{% static 'images/soucat2.png' %}" class="d-block w-100" alt="Banner 2">
+                    </picture>
+                </div>
+                <div class="carousel-item">
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="{% static 'images/soucat3.png' %}">
+                        <img src="{% static 'images/soucat3.png' %}" class="d-block w-100" alt="Banner 3">
+                    </picture>
+                </div>
+            </div>
+    
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Anterior</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Próximo</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- O que é o Programa de Aprendizagem -->
+    <section id="programa-aprendizagem" class="section-welcome bg-light p-t-80 p-b-105" aria-label="Programa de aprendizagem">
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-lg-10">
+                    <p class="titsoucap mb-4">O que é a Casa de Atendimento ao Terceirizado (CAT)?</p>
+                    <p class="lead text-muted">
+                        A Casa de Atendimento ao Terceirizado (CAT) é um espaço criado especialmente para acolher, ouvir e apoiar quem trabalha como terceirizado. Aqui, cada trabalhador encontra um ponto de apoio real, com atendimento humanizado, escuta ativa e serviços pensados para garantir dignidade, orientação e direitos.
+                    </p>
+                    <p class="lead text-muted">
+                        No CAT, terceirizado não é invisível. Pelo contrário: é protagonista.
+                    </p>
+                    <p class="lead text-muted">
+                        Além de atuar como ouvidoria e canal de apoio, o CAT oferece auxílio para inclusão em programas sociais, promove eventos, formações, e garante atendimentos presenciais, online e itinerantes. Tudo isso com um único propósito: valorizar e fortalecer quem move os serviços públicos e privados todos os dias.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">Objetivo do Programa</h5>
+                            <p class="card-text">
+                                Capacitar gratuitamente os trabalhadores terceirizados com cursos online de qualidade, acessíveis e voltados às demandas reais do mercado de trabalho. O programa busca fortalecer a autonomia profissional e ampliar as oportunidades de crescimento e empregabilidade desse público.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">Impacto Esperado</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-3 d-flex align-items-start align-items-center">
+                                    <i class="fas fa-check-circle cor1 mr-2"></i>
+                                    <span>Aumento da qualificação técnica dos trabalhadores terceirizados;</span>
+                                </li>
+                                <li class="mb-3 d-flex align-items-start align-items-center">
+                                    <i class="fas fa-briefcase cor1 mr-2"></i>
+                                    <span>Melhoria nas condições de trabalho e valorização profissional;</span>
+                                </li>
+                                <li class="mb-3 d-flex align-items-start align-items-center">
+                                    <i class="fas fa-chart-line cor1 mr-2"></i>
+                                    <span>Geração de novas oportunidades de emprego e renda;</span>
+                                </li>
+                                <li class="mb-3 d-flex align-items-start align-items-center">
+                                    <i class="fas fa-graduation-cap cor1 mr-2"></i>
+                                    <span>Redução da vulnerabilidade social por meio da educação continuada;</span>
+                                </li>
+                                <li class="mb-3 d-flex align-items-start align-items-center">
+                                    <i class="fas fa-users cor1 mr-2"></i>
+                                    <span>Reconhecimento social do papel fundamental dos terceirizados na economia local.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>                              
+            </div>
+
+            <div class="row text-center">
+                <div class="col-12 mb-4">
+                    <h3 class="font-weight-bold">Cronograma</h3>
+                </div>
+
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Período de Inscrição</h5>
+                            <p class="card-text text-muted">A partir de 10/06/2025</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Liberação dos Cursos</h5>
+                            <p class="card-text text-muted">Imediato</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Conclusão dos Cursos</h5>
+                            <p class="card-text text-muted">Até 30/06/2025</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Oficinas & Certificados</h5>
+                            <p class="card-text text-muted">Ao encerrar o curso</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <div class="alert alert-info mt-4" role="alert">
+                        <strong>Observação:</strong> O aluno será incluído em um grupo de WhatsApp para mais informações e dúvidas.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+	<!-- Projetos e demandas -->
+    <section id="cursos-disponiveis" class="section-intro">
+        
+        {% if links %}
+            <div class="content-intro bg1-pattern p-t-77 p-b-133">
+                <div class="container">
+                    <div class="col-12 text-center mb-3">
+                        <span class="titsoucap t-center text-white">
+                            Disponíveis para você!
+                        </span>
+                        {% include 'components/formLinks.html' %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="content-intro bg-danger p-t-77 p-b-133">
+                <div class="container">
+                    <div class="col-12 text-center mb-3">
+                        <span class="tit2 t-center text-white">
+                            Nenhuma oportunidade disponível no momento :(
+                        </span>
+                        <p class="mt-3 text-white">
+                            Estamos sempre atualizando nossos projetos. Volte em breve, talvez tenhamos algo incrível te esperando!
+                        </p>
+                    </div>
+                </div>
+                {% include 'components/formLinks.html' %}
+            </div>
+        {% endif %}
+    </section>
+
+    <section id="cursos-incricao" class="section-intro">
+        <div class="content-intro bg1-pattern p-t-77 p-b-133">
+            <div class="container">
+                {% if messages %}
+                    <div class="col-12 mb-4">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center fs-16" role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div id="formulario-curso-wizard" class="col-12">
+                    <form method="POST" action="{% url 'salvar_formulario_curso' %}" id="formulario-curso">
+                        {% csrf_token %}
+    
+                        <!-- Barra de Progresso -->
+                        <div class="progress mb-4" style="height: 8px;">
+                            <div id="progressBar" class="progress-bar bg-primary" role="progressbar" style="width: 0%;"></div>
+                        </div>
+    
+                        <!-- Etapa 0: Tela de Apresentação -->
+                        <div class="wizard-step active" id="step-0">
+                            <h2 class="text-center mb-4" style="font-weight:bold;">Quer fazer parte do CAT?</h2>
+                            <p class="text-center mb-5" style="font-size:1.2rem;">A nossa Casa de Atendimento ao Terceirizado foi criado para atender os trabalhadores terceirizados do Acre. Sendo assim, basta você se cadastrar e o CAT entrará em contato com você.</p>
+                            <p class="text-center mb-5" style="font-size:1.2rem;">Vamos começar?</p>
+                        </div>
+    
+                        <!-- Etapa 1: Identificação Pessoal -->
+                        <div class="wizard-step" id="step-1">
+                            <h3><i class="fas fa-user"></i> Identificação Pessoal</h3>
+    
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                        {{ curso_form.nome_completo|add_class:"form-control bo-rad-10 sizefull txt10 p-l-20" }}
+                                        {% if curso_form.nome_completo.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                {{ curso_form.nome_completo.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                        {{ curso_form.cpf|add_class:"form-control bo-rad-10 sizefull txt10 p-l-20" }}
+                                        {% if curso_form.cpf.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                {{ curso_form.cpf.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                        {{ curso_form.rg|add_class:"form-control bo-rad-10 sizefull txt10 p-l-20" }}
+                                        {% if curso_form.rg.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                {{ curso_form.rg.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                        {{ curso_form.data_nascimento|add_class:"form-control bo-rad-10 sizefull txt10 p-l-20" }}
+                                        {% if curso_form.data_nascimento.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                {{ curso_form.data_nascimento.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                        {{ curso_form.sexo|add_class:"form-control bo-rad-10 sizefull txt10 p-l-20" }}
+                                        {% if curso_form.sexo.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                {{ curso_form.sexo.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Etapa 2: Contato -->
+                    <div class="wizard-step" id="step-2">
+                        <h3><i class="fas fa-phone"></i> Contato</h3>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                    {{ curso_form.telefone|add_class:"form-control bo-rad-10 sizefull txt10 p-l-20" }}
+                                    {% if curso_form.telefone.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ curso_form.telefone.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            {% comment %} <div class="col-md-6">
+                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                    {{ curso_form.email|add_class:"form-control bo-rad-10 sizefull txt10 p-l-20" }}
+                                    {% if curso_form.email.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ curso_form.email.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div> {% endcomment %}
+                        </div>
+                    </div>
+
+                    <!-- Etapa 3: Endereço -->
+                    <div class="wizard-step" id="step-3">
+                        <h3><i class="fas fa-map-marker-alt"></i> Endereço</h3>
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                    {{ curso_form.rua|add_class:"form-control bo-rad-10 sizefull txt10 p-l-20" }}
+                                    {% if curso_form.rua.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ curso_form.rua.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                    {{ curso_form.numero|add_class:"form-control bo-rad-10 sizefull txt10 p-l-20" }}
+                                    {% if curso_form.numero.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ curso_form.numero.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                    {{ curso_form.bairro|add_class:"form-control bo-rad-10 sizefull txt10 p-l-20" }}
+                                    {% if curso_form.bairro.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ curso_form.bairro.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                    {{ curso_form.cidade|add_class:"form-control bo-rad-10 sizefull txt10 p-l-20" }}
+                                    {% if curso_form.cidade.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ curso_form.cidade.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                    {{ curso_form.estado|add_class:"form-control bo-rad-10 sizefull txt10 p-l-20" }}
+                                    {% if curso_form.estado.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ curso_form.estado.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                    {{ curso_form.cep|add_class:"form-control bo-rad-10 sizefull txt10 p-l-20" }}
+                                    {% if curso_form.cep.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ curso_form.cep.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% comment %} <!-- Etapa 4: Cursos Desejados (dividido em 2 sub-etapas internas) -->
+                    <div class="wizard-step" id="step-4">
+                        <h3><i class="fas fa-book"></i> Escolha o Primeiro Curso</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                    {{ curso_form.primeiro_curso|add_class:"form-control bo-rad-10 sizefull txt10 p-l-20" }}
+                                    {% if curso_form.primeiro_curso.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ curso_form.primeiro_curso.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wizard-step" id="step-4b">
+                        <h3><i class="fas fa-book"></i> Agora escolha o Segundo Curso</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                    {{ curso_form.segundo_curso|add_class:"form-control bo-rad-10 sizefull txt10 p-l-20" }}
+                                    {% if curso_form.segundo_curso.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ curso_form.segundo_curso.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div> {% endcomment %}
+
+                    <!-- Etapa 5: Vínculo Trabalhista -->
+                    <div class="wizard-step" id="step-5">
+                        <h3><i class="fas fa-id-card"></i> Vínculo Trabalhista</h3>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                    {{ curso_form.funcionario_terceirizado }}
+                                    {% if curso_form.funcionario_terceirizado.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ curso_form.funcionario_terceirizado.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                    {{ curso_form.filho_funcionario_terceirizado }}
+                                    {% if curso_form.filho_funcionario_terceirizado.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ curso_form.filho_funcionario_terceirizado.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botões de Navegação -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="button" id="prevBtn" class="btn btn-secondary" onclick="nextPrev(-1)">Voltar</button>
+                        <button type="button" id="nextBtn" class="btn btn-primary" onclick="nextPrev(1)">Próximo</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <script>
+        let currentStep = 0;
+        const steps = Array.from(document.getElementsByClassName("wizard-step"));
+        const progressBar = document.getElementById("progressBar");
+    
+        showStep(currentStep);
+        
+        function updateSegundoCursoOptions() {
+            const primeiroCursoSelect = document.getElementById("id_primeiro_curso");
+            const segundoCursoSelect = document.getElementById("id_segundo_curso");
+        
+            if (!primeiroCursoSelect || !segundoCursoSelect) return;
+        
+            const selectedPrimeiro = primeiroCursoSelect.value;
+        
+            // Primeiro, reabilita todas as opções
+            Array.from(segundoCursoSelect.options).forEach(option => {
+                option.hidden = false;
+                option.disabled = false;
+            });
+        
+            // Agora, esconde e desabilita a opção que foi escolhida no primeiro curso
+            Array.from(segundoCursoSelect.options).forEach(option => {
+                if (option.value === selectedPrimeiro && selectedPrimeiro !== "") {
+                    option.hidden = true;
+                    option.disabled = true;
+                }
+            });
+        
+            // Atualiza o valor selecionado no segundo curso
+            // Se o valor atual for inválido ou igual ao primeiro curso, selecionar a primeira opção válida
+            if (segundoCursoSelect.value === selectedPrimeiro || segundoCursoSelect.value === "") {
+                const firstValidOption = Array.from(segundoCursoSelect.options).find(option => !option.disabled && option.value !== "");
+                if (firstValidOption) {
+                    segundoCursoSelect.value = firstValidOption.value;
+                } else {
+                    // Se não houver opções válidas, limpa o campo
+                    segundoCursoSelect.value = "";
+                }
+            }
+        }
+
+        function showStep(n) {
+            for (let i = 0; i < steps.length; i++) {
+                steps[i].style.display = "none";
+            }
+            steps[n].style.display = "block";
+    
+            // Atualizar botão
+            document.getElementById("prevBtn").style.display = n == 0 ? "none" : "inline-block";
+            document.getElementById("nextBtn").innerHTML = (n == (steps.length - 1)) ? "Enviar" : "Próximo";
+    
+            // Atualizar progresso
+            let percent = ((n + 1) / steps.length) * 100;
+            progressBar.style.width = percent + "%";
+        }
+    
+        function nextPrev(n) {
+            if (n == 1 && !validateStep()) return false;
+
+            // Se estamos saindo do step do primeiro curso, atualiza opções do segundo
+            if (steps[currentStep].id === 'step-4') {
+                updateSegundoCursoOptions();
+            }
+
+            currentStep += n;
+
+            if (currentStep >= steps.length) {
+                // Mostra o modal de carregando
+                $('#loadingModal').modal('show');
+            
+                // Dá um pequeno delay para garantir que o modal renderize antes de submeter
+                setTimeout(function() {
+                    document.getElementById("formulario-curso").submit();
+                }, 500);  // meio segundo de delay para suavizar
+                return false;
+            }
+            showStep(currentStep);
+        }
+    
+        function validateStep() {
+            let valid = true;
+            const inputs = steps[currentStep].querySelectorAll("input, select");
+    
+            inputs.forEach(input => {
+                if (input.hasAttribute('required') && input.value === "") {
+                    input.classList.add('is-invalid');
+                    valid = false;
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+    
+            return valid;
+        }
+    </script>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+          $("input[name='cpf']").mask('000.000.000-00');
+          $("input[name='telefone']").mask('(00) 00000-0000');
+          $("input[name='rg']").on('input', function() {
+            let val = $(this).val();
+            if (val.length < 5) {
+              $(this).addClass('is-invalid');
+            } else {
+              $(this).removeClass('is-invalid');
+            }
+          });
+        });
+      </script>
+      
+    
+</body>
+	
+
+{% endblock %}

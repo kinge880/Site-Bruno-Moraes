@@ -1,0 +1,16 @@
+{% extends 'components/index_soucat.html' %}  <!-- Ou seu template base padrão -->
+
+{% block title %}Inscrição Concluída{% endblock %}
+
+{% block content %}
+<section class="d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+    <div class="text-center">
+        <h1 class="mb-4" style="font-size: 2.5rem;">🎉 Inscrição realizada com sucesso!</h1>
+        <p class="mb-4" style="font-size: 1.2rem;">Obrigado por se inscrever. Em breve entraremos em contato!</p>
+        
+        <a href="{% url 'land_home' %}" class="btn btn-primary">
+            Voltar para a página inicial
+        </a>
+    </div>
+</section>
+{% endblock %}

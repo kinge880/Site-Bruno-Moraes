@@ -35,6 +35,7 @@ urlpatterns = [
     path("bandeiras/orgulho-tercerizados/", views.tercerizados,  name='tercerizados'),
     path("bandeiras/mais-inclusao-tea/", views.maisinclusao,  name='mais-inclusao-tea'),
     path("bandeiras/mulheres-em-defesa-das-mulheres/", views.mulheres,  name='mulheres'),
+    path("bandeiras/defesa-dos-advogados/", views.defesaadvogados,  name='defesa-advogados'),
 ]
 
 if settings.DEBUG:

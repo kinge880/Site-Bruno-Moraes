@@ -38,14 +38,17 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = bool(int(os.getenv('DEBUG', 0)))
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     h.strip() for h in os.getenv('ALLOWED_HOSTS', '').split(',')
     if h.strip()
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+CSRF_TRUSTED_ORIGINS = [
+    h.strip() for h in os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
+    if h.strip()
+]
 
 # Application definition
 INSTAGRAM_ACCESS_TOKEN = os.getenv("INSTAGRAM_ACCESS_TOKEN")
@@ -67,12 +70,16 @@ INSTALLED_APPS = [
     'auditlog',
     'blog',
     'instagram_profile',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+    'soucat',
+    'django_cleanup.apps.CleanupConfig',
+    
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'project.middlewares.domain_router.DomainRouterMiddleware',  # <-- ajusta assim
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -98,7 +105,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:1337/',
     'http://200.129.173.118:1337',  # Para HTTP
     'https://200.129.173.118:1337', # Para HTTPS (se for o caso)
-    'https://2b8e-170-83-175-210.ngrok-free.app'
+    'https://2b8e-170-83-175-210.ngrok-free.app',
+    'http://localhost:1337'
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -195,6 +203,8 @@ LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = '/'
 LOGOUT_URL = 'logout'
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
@@ -207,3 +217,22 @@ CACHES = {
 }
 
 AUDITLOG_INCLUDE_ALL_MODELS=True
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
+# Configurações de E-mail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')  # padrão para Gmail se não vier do .env
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')

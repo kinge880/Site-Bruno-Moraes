@@ -485,6 +485,10 @@ input[type="date" i] {
   border-top: 5px solid #68458C;
 }
 
+.wrap-menu-header-soucap {
+  border-top: 5px solid #FF6600 !important;
+}
+
 .menu-header{
   position: sticky;
   width: 100%;
@@ -808,6 +812,28 @@ input[type="date" i] {
   background-color: rgba(236,29,37,0.7);
 }
 
+@media (max-width: 768px) {
+  .item-slick1 {
+    height: 60vh; /* reduz um pouco a altura em tablets e celulares */
+    min-height: 300px; /* altura mínima para não ficar esmagado */
+  }
+}
+
+@media (max-width: 576px) {
+  .item-slick1 {
+    height: 50vh;
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 576px) {
+  .arrow-slick1,
+  .arrow-slick2,
+  .arrow-slick3 {
+    display: none;
+  }
+}
+
 @media (max-width: 576px) {
   .wrap_header {
     height: 80px;
@@ -817,6 +843,12 @@ input[type="date" i] {
     padding-left: 20px;
     padding-right: 20px;
   }
+}
+
+.wrap-slick1:hover .arrow-slick1,
+.wrap-slick2:hover .arrow-slick2,
+.wrap-slick3:hover .arrow-slick3 {
+  opacity: 0.8; /* em vez de 0.5 */
 }
 
 
@@ -1023,6 +1055,17 @@ input[type="date" i] {
 }
 
 .btn2:hover {
+  background-color: #68458C;
+  color: white;
+}
+
+.btn4 {
+  background-color: rgb(190, 187, 192);
+  border-radius: 10px;
+  opacity: 0.9;
+}
+
+.btn4:hover {
   background-color: #68458C;
   color: white;
 }

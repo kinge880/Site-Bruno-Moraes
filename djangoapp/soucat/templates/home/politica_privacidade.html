@@ -1,0 +1,53 @@
+{% extends 'components/index_soucat.html' %}
+
+{% block title %}Política de Privacidade - Sou Terceirizado{% endblock %}
+
+{% block content %}
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <h1 class="mb-4 text-center font-weight-bold">Política de Privacidade</h1>
+
+            <p class="lead text-muted text-center mb-5">
+            Esta política descreve como coletamos, utilizamos e protegemos seus dados pessoais no Programa Sou Terceirizado.
+            </p>
+
+            <h4 class="mt-4 font-weight-bold">1. Coleta de Dados</h4>
+            <p>Ao preencher o formulário de inscrição, coletamos informações como nome completo, CPF, RG, telefone, e-mail, endereço, data de nascimento e dados sobre seu interesse nos cursos.</p>
+
+            <h4 class="mt-4 font-weight-bold">2. Finalidade do Uso</h4>
+            <p>As informações fornecidas serão utilizadas exclusivamente para:</p>
+            <ul>
+            <li>Realizar sua inscrição nos cursos oferecidos pelo programa;</li>
+            <li>Entrar em contato com você para orientações sobre o curso;</li>
+            <li>Enviar os dados à equipe terceirizada responsável por efetivar o seu cadastro na plataforma de ensino;</li>
+            <li>Gerar relatórios estatísticos internos (sempre de forma anonimizada).</li>
+            </ul>
+
+            <h4 class="mt-4 font-weight-bold">3. Compartilhamento com Terceiros</h4>
+            <p>Os dados são compartilhados apenas com a equipe técnica responsável pela plataforma educacional. Não vendemos, alugamos ou divulgamos seus dados a terceiros para fins comerciais.</p>
+
+            <h4 class="mt-4 font-weight-bold">4. Armazenamento e Segurança</h4>
+            <p>Seus dados são armazenados em ambiente seguro, com acesso restrito a pessoas autorizadas. Utilizamos medidas técnicas e administrativas para proteger suas informações.</p>
+
+            <h4 class="mt-4 font-weight-bold">5. Seus Direitos</h4>
+            <p>Você pode, a qualquer momento:</p>
+            <ul>
+            <li>Requerer a exclusão dos dados, quando permitido pela legislação;</li>
+            <li>Revogar o consentimento para o uso dos seus dados.</li>
+            </ul>
+
+            <p>Para exercer esses direitos, envie um e-mail para: <a href="mailto:apurinaagencia@gmail.com">apurinaagencia@gmail.com</a></p>
+
+            <h4 class="mt-4 font-weight-bold">6. Alterações</h4>
+            <p>Podemos atualizar esta política a qualquer momento. A versão mais recente estará sempre disponível nesta página.</p>
+
+            <div class="text-center mt-5">
+            <a href="{% url 'land_home' %}" class="btn btn-primary btn-lg">Voltar para o Início</a>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'components/index_soucat.html' %}
+
+{% block title %}Termos de Uso - Sou Terceirizado{% endblock %}
+
+{% block content %}
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h1 class="mb-4 text-center font-weight-bold">Termos de Uso</h1>
+
+                <p class="lead text-muted text-center mb-5">
+                    Estes Termos de Uso regulam a utilização da plataforma do Programa Sou Terceirizado, promovido pela Casa de Atendimento ao Terceirizado (CAT), que oferece cursos gratuitos voltados para trabalhadores terceirizados.
+                </p>
+
+                <h4 class="mt-4 font-weight-bold">1. Aceitação dos Termos</h4>
+                <p>
+                    Ao se inscrever e utilizar os serviços oferecidos pelo Programa Sou Terceirizado, você concorda integralmente com os presentes Termos de Uso e com a nossa Política de Privacidade.
+                </p>
+
+                <h4 class="mt-4 font-weight-bold">2. Cadastro e Acesso</h4>
+                <p>
+                    Para participar dos cursos, é necessário preencher o formulário de inscrição, fornecendo informações pessoais como nome completo, CPF, RG, telefone, e-mail, endereço e data de nascimento. O acesso aos cursos será liberado imediatamente após a inscrição ser finalizada na plataforma de destino.
+                </p>
+
+                <h4 class="mt-4 font-weight-bold">3. Uso da Plataforma</h4>
+                <p>
+                    A plataforma destina-se exclusivamente à capacitação de trabalhadores terceirizados. É proibido utilizar os serviços para quaisquer fins ilegais ou não autorizados. O conteúdo dos cursos é protegido por direitos autorais e não pode ser reproduzido sem autorização.
+                </p>
+
+                <h4 class="mt-4 font-weight-bold">4. Responsabilidades do Usuário</h4>
+                <ul>
+                    <li>Fornecer informações verídicas e atualizadas no momento da inscrição;</li>
+                    <li>Manter a confidencialidade de suas credenciais de acesso;</li>
+                    <li>Utilizar a plataforma de forma ética e respeitosa, sem prejudicar outros usuários ou o funcionamento do sistema.</li>
+                </ul>
+
+                <h4 class="mt-4 font-weight-bold">5. Certificação</h4>
+                <p>
+                    Ao concluir o curso e cumprir os requisitos estabelecidos, o participante terá direito a um certificado de conclusão, que será disponibilizado digitalmente.
+                </p>
+
+                <h4 class="mt-4 font-weight-bold">6. Modificações nos Termos</h4>
+                <p>
+                    Reservamo-nos o direito de modificar estes Termos de Uso a qualquer momento. As alterações serão comunicadas aos usuários por meio da plataforma ou por e-mail.
+                </p>
+
+                <h4 class="mt-4 font-weight-bold">7. Contato</h4>
+                <p>
+                    Em caso de dúvidas ou solicitações relacionadas a estes Termos de Uso, entre em contato conosco pelo e-mail: <a href="mailto:apurinaagencia@gmail.com">apurinaagencia@gmail.com</a>
+                </p>
+
+                <div class="text-center mt-5">
+                    <a href="{% url 'land_home' %}" class="btn btn-primary btn-lg">Voltar para o Início</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

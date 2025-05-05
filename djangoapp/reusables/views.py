@@ -27,6 +27,27 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 import requests
 from django.core.cache import cache
+import re
+
+# utils/validators.py
+def validar_cpf(cpf):
+    cpf = re.sub(r'[^0-9]', '', cpf)
+    if len(cpf) != 11 or cpf == cpf[0] * 11:
+        return False
+
+    for i in [9, 10]:
+        soma = sum(int(cpf[num]) * ((i+1) - num) for num in range(i))
+        digito = ((soma * 10) % 11) % 10
+        if digito != int(cpf[i]):
+            return False
+    return True
+
+def validar_rg(rg):
+    return len(rg.strip()) >= 5
+
+def validar_telefone(telefone):
+    telefone = re.sub(r'[^0-9]', '', telefone)
+    return len(telefone) in [10, 11]
 
 def is_strong_password(password):
     length_weight = 0.15
@@ -488,18 +509,19 @@ def deletar_proposta(request, id):
     
 def fale_comigo(request):
     context = defineNavLinks('menu_fixo')
+
     if request.method == "POST":
-        form = FaleComigoForm(request.POST)
+        form = FaleComigoForm(request.POST, request.FILES)  # adiciona suporte a arquivos
         if form.is_valid():
             form.save()
             messages.success(request, "Mensagem enviada com sucesso!")
-            return redirect('fale_comigo')  
+            return redirect('fale_comigo')
         else:
             messages.error(request, "Erro ao enviar a mensagem. Verifique os dados informados.")
     else:
         form = FaleComigoForm()
-        context['form'] = form
-    
+
+    context['form'] = form  # sempre injeta o form no context
     return render(request, 'faleconosco/formulario.html', context)
 
 def sobre_mim(request):
@@ -545,11 +567,17 @@ def maisinclusao(request):
     context = defineNavLinks('menu_fixo')
     return render(request, 'bandeiras/inclusaotea.html', context)
 
+def defesaadvogados(request):
+    context = defineNavLinks('menu_fixo')
+    return render(request, 'bandeiras/advogados.html', context)
+
 # View de listagem dos links
 def ancoraLinks(request):
     context = defineNavLinks('menu_fixo')
-    context['links'] = MeusLinks.objects.all()
+    context['links'] = MeusLinks.objects.all().filter(location_link='fagnerhome')
     context['form'] = MeusLinksForm()
+    context['location_link'] = 'fagnerhome'
+    context['linkcol'] = 'col-6'
     if request.method == 'POST':
         form = MeusLinksForm(request.POST, request.FILES)
         if form.is_valid():
@@ -559,11 +587,16 @@ def ancoraLinks(request):
 
 # View para cadastrar novos links
 def cadastrarLink(request):
+    location_link = request.POST.get('location_link', None)  # Pegando o location_link do formulário
+
     if request.method == 'POST':
         form = MeusLinksForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('ancora_links')  # nome da URL da página de listagem
+            if location_link == 'fagnerhome':
+                return redirect('ancora_links')
+            else:
+                return redirect('land_home')
     else:
         form = MeusLinksForm()
     return render(request, 'home/cadastrar_link.html', {'form': form})
@@ -571,5 +604,11 @@ def cadastrarLink(request):
 # View para deletar um link
 def deletarLink(request, link_id):
     link = get_object_or_404(MeusLinks, id=link_id)
+    location_link = getattr(link, 'location_link', None)  # Pegando o campo salvo no objeto
+
     link.delete()
-    return redirect('ancora_links')
+
+    if location_link == 'fagnerhome' or location_link is None:
+        return redirect('ancora_links')
+    else:
+        return redirect('land_home')

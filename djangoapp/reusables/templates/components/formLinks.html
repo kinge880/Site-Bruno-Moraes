@@ -1,0 +1,163 @@
+{% load static %}
+{% block content %}
+
+<style>
+    .link-card {
+        border-radius: 20px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transform-style: preserve-3d;
+    }
+
+    .link-card:hover {
+        transform: translateY(-6px) scale(1.02);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .link-card:active {
+        animation: card-flip 0.5s ease-in-out;
+    }
+
+    @keyframes card-flip {
+        0%   { transform: rotateY(0deg); }
+        50%  { transform: rotateY(180deg); }
+        100% { transform: rotateY(0deg); }
+    }
+
+    .link-card img {
+        max-height: {%if heigthcard %} {{heigthcard}}px; {% else %} 220px; {% endif %}
+        object-fit: cover;
+        width: 100%;
+        border-radius: 20px;
+        transition: transform 0.3s ease;
+    }
+
+    body{
+        background-image: url(../images/icons/pattern1.png);
+        background-repeat: repeat;
+    }
+
+    @media (max-width: 576px) {
+        .link-card img {
+            max-height: 1200px;
+        }
+    }
+</style>
+
+{% if request.user.is_authenticated and request.user.is_staff %}
+<div class="d-flex justify-content-end">
+    <button class="btn btn-link p-0 m-0" data-toggle="modal" data-target="#modalCadastro" aria-label="Abrir configurações">
+        Novo link
+    </button>
+</div>
+{% endif %}
+
+<!-- Modal -->
+<div class="modal fade" id="modalCadastro" tabindex="-1" aria-labelledby="modalCadastroLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" enctype="multipart/form-data" action="{% url 'cadastrar_link' %}">
+
+            {% csrf_token %}
+            <div class="modal-header">
+            <h5 class="modal-title" id="modalCadastroLabel">Cadastrar Novo Link</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 text-center mb-3">
+                        <div class="image-preview-container" style="position: relative; display: inline-block;">
+                            <img id="imagePreview" 
+                                src="https://placehold.co/1920x1080" 
+                                alt="Imagem" 
+                                class="preview-image" 
+                                style="max-width: 100%; height: 150px; object-fit: cover; margin-top: 10px; border-radius: 10px; cursor: pointer;" />
+                            {{ form.imagem }}
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                            {{ form.url }}
+                        </div>
+                    </div>
+                    <input name="location_link" value="{{location_link}}" class="d-none"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+
+<div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-between ">
+    {% for link in links %}
+        <div class="{{linkcol}} position-relative mt-3">
+            <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="d-block link-card">
+                <img src="{{ link.imagem.url }}" alt="{{ link.nome }}" class="img-fluid">
+            </a>
+            
+            {% if request.user.is_authenticated and request.user.is_staff %}
+                <form method="POST" action="{% url 'deletar_link' link.id %}" class="position-absolute top-0 end-0 m-2" style="z-index: 10;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este link?')" title="Excluir">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
+            {% endif %}
+        
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const imageInput = document.querySelector(".image-upload");
+        const imagePreview = document.querySelector("#imagePreview");
+
+        // Cria um objeto File a partir da URL da imagem
+        var imageUrl = imagePreview.src;
+        
+        fetch(imageUrl)
+            .then(res => res.blob())
+            .then(blob => {
+                var file = new File([blob], "image.jpg", { type: blob.type });
+                var dataTransfer = new DataTransfer(); // Cria uma nova instância do DataTransfer
+                dataTransfer.items.add(file); // Adiciona o arquivo
+                imageInput.files = dataTransfer.files; // Atribui o arquivo ao input file
+                console.log(imageInput.files)
+            })
+            .catch(err => console.log(err));
+    
+        if (imageInput && imagePreview) {
+            // Se já houver uma imagem carregada do banco, ela será exibida
+            if (imagePreview.src && imagePreview.src.trim() !== "") {
+                imagePreview.style.display = "block"; // Garante que a imagem apareça
+            }
+    
+            // Ao clicar na imagem, abre o input de upload
+            imagePreview.addEventListener("click", function () {
+                imageInput.click();
+            });
+    
+            // Upload de imagem com preview
+            imageInput.addEventListener("change", function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        imagePreview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+
+</script>
+
+{% endblock %}

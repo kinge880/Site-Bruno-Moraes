@@ -1,0 +1,58 @@
+{% extends 'components/index_soucat.html' %}
+
+{% block title %}Sobre Nós - Sou Terceirizado{% endblock %}
+
+{% block content %}
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h1 class="mb-4 text-center font-weight-bold">Sobre Nós</h1>
+
+                <p class="lead text-muted text-center mb-5">
+                    Conheça a Casa de Atendimento ao Terceirizado (CAT) e o Programa Sou Terceirizado, iniciativas dedicadas a valorizar e capacitar os trabalhadores terceirizados.
+                </p>
+
+                <h4 class="mt-4 font-weight-bold">Nossa Missão</h4>
+                <p>
+                    A CAT é um espaço criado especialmente para acolher, ouvir e apoiar quem trabalha como terceirizado. Aqui, cada trabalhador encontra um ponto de apoio real, com atendimento humanizado, escuta ativa e serviços pensados para garantir dignidade, orientação e direitos.
+                </p>
+
+                <h4 class="mt-4 font-weight-bold">O Programa Sou Terceirizado</h4>
+                <p>
+                    O Programa Sou Terceirizado tem como objetivo capacitar gratuitamente os trabalhadores terceirizados com cursos online de qualidade, acessíveis e voltados às demandas reais do mercado de trabalho. Buscamos fortalecer a autonomia profissional e ampliar as oportunidades de crescimento e empregabilidade desse público.
+                </p>
+
+                <h4 class="mt-4 font-weight-bold">Nossos Valores</h4>
+                <ul>
+                    <li>Inclusão e valorização dos trabalhadores terceirizados;</li>
+                    <li>Compromisso com a educação e o desenvolvimento profissional;</li>
+                    <li>Transparência e ética em todas as ações;</li>
+                    <li>Promoção da dignidade e dos direitos dos trabalhadores.</li>
+                </ul>
+
+                <h4 class="mt-4 font-weight-bold">Impacto Esperado</h4>
+                <ul>
+                    <li>Aumento da qualificação técnica dos trabalhadores terceirizados;</li>
+                    <li>Melhoria nas condições de trabalho e valorização profissional;</li>
+                    <li>Geração de novas oportunidades de emprego e renda;</li>
+                    <li>Redução da vulnerabilidade social por meio da educação continuada;</li>
+                    <li>Reconhecimento social do papel fundamental dos terceirizados na economia local.</li>
+                </ul>
+
+                <h4 class="mt-4 font-weight-bold">Cronograma</h4>
+                <ul>
+                    <li><strong>Período de Inscrição:</strong> A partir de 10/06/2025</li>
+                    <li><strong>Liberação dos Cursos:</strong> Imediato</li>
+                    <li><strong>Conclusão dos Cursos:</strong> Até 30/06/2025</li>
+                    <li><strong>Oficinas & Certificados:</strong> Ao encerrar o curso</li>
+                </ul>
+
+                <div class="text-center mt-5">
+                    <a href="{% url 'land_home' %}" class="btn btn-primary btn-lg">Voltar para o Início</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

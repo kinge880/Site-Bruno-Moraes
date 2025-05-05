@@ -8,7 +8,7 @@ services:
     volumes:
       - ./djangoapp:/djangoapp
       - ./data/web/static:/data/web/static/
-      - ./data/web/staticfiles:/data/web/staticfiles
+      - ./data/web/staticfiles:/data/web/staticfiles/
       - ./data/web/media:/data/web/media/
     env_file:
       - ./dotenv_files/.env
@@ -20,9 +20,9 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'  # Maximum of 0.5 CPU core
-          memory: 1G  # Maximum of 100MB memory
-    
+          cpus: '1'
+          memory: 1G
+
   psql:
     container_name: psql
     image: postgres:13-alpine
@@ -38,8 +38,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'  # Maximum of 0.5 CPU core
-          memory: 1G  # Maximum of 100MB memory
+          cpus: '1'
+          memory: 1G
 
   redis:
     image: redis:alpine
@@ -50,24 +50,40 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'  # Maximum of 0.5 CPU core
+          cpus: '1'
           memory: 1G
-  
+
   nginxconf:
     image: nginx:latest
     container_name: nginxconf
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./data/web/static:/data/web/static/
-      - ./data/web/staticfiles:/data/web/staticfiles
+      - ./data/web/staticfiles:/data/web/staticfiles/
       - ./data/web/media:/data/web/media/
+      - ./certbot/conf:/etc/letsencrypt   # <--- certificados aqui
+      - ./certbot/www:/var/www/certbot     # <--- validação do certbot aqui
+      - /dev/null:/etc/nginx/conf.d/default.conf
     ports:
-      - "1337:80"
+      - "80:80"
+      - "443:443"
     depends_on:
       - djangoapp
     networks:
       - gabriel1_net
-    
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    depends_on:
+      - nginxconf
+    networks:
+      - gabriel1_net
+    entrypoint: >
+      sh -c "trap exit TERM; while :; do sleep 12h & wait $${!}; certbot renew --webroot -w /var/www/certbot --quiet; done"
 
 networks:
   gabriel1_net:

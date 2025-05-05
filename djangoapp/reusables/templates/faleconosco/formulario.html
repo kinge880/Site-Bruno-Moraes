@@ -2,45 +2,224 @@
 {% load static %}
 {% block title %}Fale comigo{% endblock %}
 {% block content %}
+<style>
+    .step {
+        display: none;
+    }
+    .step.active {
+        display: block;
+    }
+    label {
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+</style>
 
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card shadow-sm">
-                <div class="text-center mt-5">
-                    <span class="tit2">Fale Comigo</span>
+        <div class="col-md-8">
+            <div class="card shadow-sm p-4">
+                <div class="progress mb-4" style="height: 6px;">
+                    <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%; background-color:rgb(158, 11, 243);"></div>
                 </div>
-                <div class="card-body">
-                    {% include 'components/message.html' %}
-                    
-                    <form class="needs-validation" method="post" novalidate>
-                        {% csrf_token %}
-                        <div class="row">
-                            <!-- Coluna com os inputs -->
-                            <div class="col-md-6">
-                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                                    {{ form.nome }}
-                                </div>
-                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                                    {{ form.email }}
-                                </div>
-                                <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                                    {{ form.telefone }}
-                                </div>
-                            </div>
-                            <!-- Coluna com o textarea -->
-                            <div class="col-md-6">
-                                {{ form.descricao }}
-                            </div>
-                        </div>
-                        <div class="col-12 text-center mb-5">
-                            <button type="submit" class="btn3 size31 txt11 trans-0-4">Enviar Mensagem</button>
-                        </div>
-                    </form>
+                
+                <div id="loadingSpinner" class="text-center mt-4" style="display: none;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Enviando...</span>
+                    </div>
+                    <p class="mt-2">Enviando sua mensagem...</p>
                 </div>
+
+                <form id="multiStepForm" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="step active">
+                        <label class="tit2">FALA COMIGO</label>
+                        <p class="tit11">Um canal direto com o nosso mandato!</p>
+                        <p class="tit12 mt-3 text-justify">
+                            Seja bem vindo! Esse é o espaço criado pra você falar com a gente, registrar sua solicitação e acompanhar o andamento da sua reivindicação de forma simples, rápida e sem burocracia.
+                        </p>
+                    </div>
+                    <div class="step">
+                        <label>👤 1. Qual o seu nome?</label>
+                        <div class="form-group">{{ form.nome }}</div>
+                    </div>
+                    <div class="step">
+                        <label>📞 2. Qual o número de telefone?</label>
+                        <div class="form-group">{{ form.telefone }}</div>
+                    </div>
+                    <div class="step">
+                        <label>🏠 3. Qual o seu endereço?</label>
+                        <div class="form-group">{{ form.endereco }}</div>
+                    </div>
+                    <div class="step">
+                        <label>✉️ 4. Quer incluir um e-mail?</label>
+                        <div class="form-group">{{ form.email }}</div>
+                    </div>
+                    <div class="step">
+                        <label>✊ Agora, vamos ao que interessa...</label>
+                    </div>
+                    <div class="step">
+                        <label>5. O que está acontecendo?</label>
+                        <div class="form-group">{{ form.descricao }}</div>
+                    </div>
+                    <div class="step">
+                        <label>📷 6. Gostaria de enviar uma imagem que ajude a justificar sua solicitação?</label>
+                        <div class="form-group">{{ form.imagem }}</div>
+                    </div>
+                    <div class="step">
+                        <label>📝 7. Deseja incluir mais alguma informação útil?</label>
+                        <div class="form-group">{{ form.informacoes_adicionais }}</div>
+                    </div>
+                    <div class="step active ">
+                        <p class="tit2">✅ Tudo certo!</p>
+                        <p class="tit11 mt-2">Recebemos sua mensagem no FALA COMIGO </p>
+                        <p class="mt-2">Nosso mandato já está com as informações e logo vamos entrar em contato, enquanto isso gostaria de acompanhar o andamento da sua solicitação, ou prefere voltar a página inicial?</p>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="https://wa.link/m4qjoh" class="btn btn3">Acompanhar pelo Fala Comigo</a>
+                            <br>
+                            <a href="/" class="btn btn4">Voltar para a página inicial</a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="button" class="btn btn-secondary" id="prevBtn" onclick="changeStep(-1)">Voltar</button>
+                        <button type="button" class="btn btn-warning" id="nextBtn" onclick="changeStep(1)">Próximo</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    let currentStep = 0;
+    const steps = document.querySelectorAll(".step");
+    const progressBar = document.getElementById("progressBar");
+
+    function showStep(n) {
+        steps.forEach((step, i) => {
+            step.style.display = i === n ? "block" : "none";
+        });
+
+        progressBar.style.width = ((n + 1) / steps.length * 100) + "%";
+        
+        document.getElementById("prevBtn").style.display = n === 0 ? "none" : "inline-block";
+        document.getElementById("nextBtn").innerText = 
+            n === steps.length - 1 ? "Enviar" : 
+            n === 0 ? "Vamos começar?" : "Próximo";
+    }
+
+    function changeStep(n) {
+        const inputs = steps[currentStep].querySelectorAll("input, textarea");
+        for (let input of inputs) {
+            if (!input.checkValidity()) {
+                input.reportValidity();
+                return;
+            }
+        }
+    
+        // Envio AJAX no penúltimo passo
+        if (n === 1 && currentStep === steps.length - 2) {
+            const form = document.getElementById("multiStepForm");
+            const formData = new FormData(form);
+    
+            document.getElementById("nextBtn").style.display = "none";
+            document.getElementById("prevBtn").style.display = "none";
+            document.getElementById("loadingSpinner").style.display = "block";
+    
+            fetch(form.action || window.location.href, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    currentStep += 1;
+                    showStep(currentStep);
+    
+                    // Esconde barra de progresso e spinner no final
+                    document.querySelector('.progress').style.display = "none";
+                    document.getElementById("loadingSpinner").style.display = "none";
+                    document.getElementById("nextBtn").style.display = "none";
+                    document.getElementById("prevBtn").style.display = "none";
+                } else {
+                    alert("Erro ao enviar. Tente novamente.");
+                    console.error("Erro na resposta", response);
+                    document.getElementById("loadingSpinner").style.display = "none";
+                    document.getElementById("nextBtn").style.display = "inline-block";
+                    document.getElementById("prevBtn").style.display = "inline-block";
+                }
+            })
+            .catch(error => {
+                alert("Erro inesperado. Verifique sua conexão.");
+                console.error("Erro no fetch", error);
+                document.getElementById("loadingSpinner").style.display = "none";
+                document.getElementById("nextBtn").style.display = "inline-block";
+                document.getElementById("prevBtn").style.display = "inline-block";
+            });
+    
+            return;
+        }
+    
+        if (n === 1 && currentStep === steps.length - 1) {
+            return;
+        }
+    
+        currentStep += n;
+        showStep(currentStep);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        showStep(currentStep);
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const imageInput = document.querySelector(".image-upload");
+        const imagePreview = document.querySelector("#imagePreview");
+
+        // Cria um objeto File a partir da URL da imagem
+        var imageUrl = imagePreview.src;
+        
+        fetch(imageUrl)
+            .then(res => res.blob())
+            .then(blob => {
+                var file = new File([blob], "image.jpg", { type: blob.type });
+                var dataTransfer = new DataTransfer(); // Cria uma nova instância do DataTransfer
+                dataTransfer.items.add(file); // Adiciona o arquivo
+                imageInput.files = dataTransfer.files; // Atribui o arquivo ao input file
+                console.log(imageInput.files)
+            })
+            .catch(err => console.log(err));
+    
+        if (imageInput && imagePreview) {
+            // Se já houver uma imagem carregada do banco, ela será exibida
+            if (imagePreview.src && imagePreview.src.trim() !== "") {
+                imagePreview.style.display = "block"; // Garante que a imagem apareça
+            }
+    
+            // Ao clicar na imagem, abre o input de upload
+            imagePreview.addEventListener("click", function () {
+                imageInput.click();
+            });
+    
+            // Upload de imagem com preview
+            imageInput.addEventListener("change", function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        imagePreview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+
+</script>
 
 {% endblock %}

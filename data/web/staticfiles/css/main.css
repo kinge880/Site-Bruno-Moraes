@@ -485,6 +485,10 @@ input[type="date" i] {
   border-top: 5px solid #68458C;
 }
 
+.wrap-menu-header-soucap {
+  border-top: 5px solid #04b987 !important;
+}
+
 .menu-header{
   position: sticky;
   width: 100%;
@@ -1023,6 +1027,17 @@ input[type="date" i] {
 }
 
 .btn2:hover {
+  background-color: #68458C;
+  color: white;
+}
+
+.btn4 {
+  background-color: rgb(190, 187, 192);
+  border-radius: 10px;
+  opacity: 0.9;
+}
+
+.btn4:hover {
   background-color: #68458C;
   color: white;
 }
@@ -1808,8 +1823,6 @@ body {padding-right: 0px !important;}
   position: absolute;
   top: -50%;
   left: -50%;
-  width: 200%;
-  height: 200%;
   background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
   transform: rotate(45deg);
   pointer-events: none;

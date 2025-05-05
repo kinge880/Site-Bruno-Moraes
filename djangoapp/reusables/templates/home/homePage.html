@@ -145,6 +145,7 @@
 	
 			<div class="wrap-slick1-dots"></div>
 		</div>
+		
 		{% include 'components/message.html' %}
 		{% if request.user.is_authenticated %}
 		{% with id="carrocelinicialModal" text="Editar Banner" classbutton="mt-3 btn1 flex-c-m size1 txt3 trans-0-4" classdiv="col-12 d-flex justify-content-center " anim="zoomIn" textModal="Editar banners no inicio da tela" %}
@@ -351,6 +352,18 @@
 						</div>
 					</a>
 				</div>
+
+				<!-- Em defesa dos advogados -->
+				<div class="col-md-6 mb-5">
+					<a href="bandeiras/defesa-dos-advogados/">
+						<div class="tech-card left-card shadow-lg p-4 h-100">
+							<div class="connector-dot"></div>
+							<i class="fas fa-users fa-2x mb-3 text-info"></i>
+							<h3>Defesa dos advogados</h3>
+							<p class="text-muted">Com uma trajetória marcada pelo compromisso com a justiça, ele tem levantado pautas fundamentais para garantir mais respeito, segurança e dignidade ao exercício da profissão...</p>
+						</div>
+					</a>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -432,5 +445,5 @@
 	</section>
 
 	{% include 'components/instagram_feed.html' %}
-
+</body>
 {% endblock %}

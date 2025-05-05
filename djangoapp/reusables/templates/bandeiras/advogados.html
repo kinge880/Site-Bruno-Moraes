@@ -1,0 +1,108 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Orgulho de ser Terceirizado - Deputado Fagner Calegário | Valorização Profissional{% endblock %}
+
+{% block extra_head %}
+{% include 'components/meta_tags.html' with 
+    meta_description="Ações transformadoras do deputado Fagner Calegário na defesa dos direitos e dignidade dos trabalhadores terceirizados no Acre"
+    meta_keywords="Terceirizados Acre, Direitos Trabalhistas, Fagner Calegário, Valorização Profissional, Condições de Trabalho"
+    meta_author="Deputado Fagner Calegário"
+    meta_url=SITE_DOMAIN|add:"orgulho-terceirizado"
+    meta_title="Orgulho de Ser Terceirizado - Fagner Calegário | Conquistas no Acre"
+    meta_og_description="Iniciativas pioneiras para dignidade e reconhecimento dos profissionais terceirizados"
+    meta_og_image=SITE_DOMAIN|add:"static/images/og-terceirizados.jpg"
+    meta_twitter_title="Orgulho de Ser Terceirizado - Fagner Calegário | Conquistas no Acre"
+    meta_twitter_description="Políticas públicas históricas para trabalhadores terceirizados"
+    meta_twitter_image=SITE_DOMAIN|add:"static/images/twitter-terceirizados.jpg"
+%}
+
+{% include 'components/SchemaMarkup.html' %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+    <!-- Cabeçalho Temático -->
+    <header class="tech-header mb-5 text-center position-relative overflow-hidden">
+        <div class="icon-container mb-4">
+            <i class="fas fa-hands-helping fa-3x mb-3" style="color: #2A5C82;" aria-hidden="true"></i>
+        </div>
+        <h1 class="mb-3 fw-bold" style="letter-spacing: -0.03em;">
+            Voz Ativa em Defesa dos Advogados no Acre!
+            <div class="title-divider mx-auto my-3" style="border-color: #2A5C82;"></div>
+        </h1>
+        <p class="lead-text mb-0 px-md-5 mx-auto text-secondary">
+            O deputado estadual Fagner Calegário tem se destacado na Assembleia Legislativa do Acre como um dos principais defensores da valorização e fortalecimento da advocacia no estado. Com uma trajetória marcada pelo compromisso com a justiça, ele tem levantado pautas fundamentais para garantir mais respeito, segurança e dignidade ao exercício da profissão.
+        </p>
+    </header>
+
+    <!-- Seção 1: A Revolução dos Direitos Trabalhistas -->
+    <section aria-labelledby="direitos-trabalhistas">
+        <div class="tech-card shadow-lg mb-5">
+            <div class="row g-0 align-items-center">
+                <div class="col-md-6">
+                    <img src="{% static 'images/advogados1.jpg' %}" 
+                        class="img-fluid rounded-start" 
+                        alt="Grupo de trabalhadores terceirizados em atividade coletiva"
+                        loading="lazy">
+                </div>
+                <div class="col-md-6 p-4">
+                    <div class="card-body">
+                        <h3 id="direitos-trabalhistas" class="card-title mb-3">Respeito institucional e prerrogativas dos advogados</h3>
+                        <p class="card-text text-justify">
+                            Uma das frentes mais firmes de Calegário é a defesa das prerrogativas da advocacia. O parlamentar tem se posicionado com veemência contra qualquer tipo de violação aos direitos dos advogados no exercício da profissão, reconhecendo o papel essencial que esses profissionais desempenham no sistema de justiça. Ele propõe e apoia medidas que reforcem o respeito às garantias legais dos advogados, especialmente em ambientes como delegacias, fóruns e repartições públicas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 2 -->
+    <section aria-labelledby="capacitacao-profissional">
+        <div class="tech-card shadow-lg mb-5">
+            <div class="row g-0 align-items-center flex-md-row-reverse">
+                <div class="col-md-6">
+                    <img src="{% static 'images/advogados2.jpeg' %}" 
+                        class="img-fluid rounded-start" 
+                        alt="Oficina de capacitação profissional para terceirizados"
+                        loading="lazy">
+                </div>
+                <div class="col-md-6 p-4">
+                    <div class="card-body">
+                        <h3 id="capacitacao-profissional" class="card-title mb-3">Valorização da Advocacia Acreana</h3>
+                        <p class="card-text text-justify">
+                            Demonstrando seu apreço pela classe, Calegário propôs a realização de uma sessão solene na Assembleia Legislativa do Acre em homenagem ao Dia do Advogado. O evento contou com a presença de diversas autoridades do sistema de justiça e serviu para reconhecer as conquistas e desafios enfrentados pelos profissionais do direito no estado. A iniciativa reforça o compromisso do deputado com a valorização e o respeito à advocacia acreana.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 3 -->
+    <section aria-labelledby="seguranca-trabalho">
+        <div class="tech-card shadow-lg mb-5">
+            <div class="row g-0 align-items-center">
+                <div class="col-md-6">
+                    <img src="{% static 'images/advogados3.jpeg' %}" 
+                        class="img-fluid rounded-start" 
+                        alt="Inspeção de segurança no trabalho com EPIs"
+                        loading="lazy">
+                </div>
+                <div class="col-md-6 p-4">
+                    <div class="card-body">
+                        <h3 id="seguranca-trabalho" class="card-title mb-3">Inclusão e Fortalecimento da Classe</h3>
+                        <p class="card-text text-justify">
+                            Calegário tem como uma de suas principais bandeiras a inclusão e o fortalecimento da advocacia no Acre. Ele apoia iniciativas que visam ampliar os espaços de trabalho e acolhimento para advogados, tanto na capital quanto no interior do estado. Durante a sessão solene em comemoração ao Dia do Advogado, foram destacadas ações como a reforma de salas existentes e a inauguração de novas unidades, proporcionando melhores condições de trabalho e atendimento à população.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}

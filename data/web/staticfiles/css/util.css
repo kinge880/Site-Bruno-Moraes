@@ -2983,7 +2983,15 @@ TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT
 	font-weight: 900; /* Black */
 	font-size: 30px;
 	line-height: 1.2;
-	color: #68458C;
+	color: #68458C ;
+}
+
+.titsoucap {
+	font-family: 'Metropolis', sans-serif;
+	font-weight: 900; /* Black */
+	font-size: 30px;
+	line-height: 1.2;
+	color: #04b987 !important;
 }
 
 .tit2new {
@@ -3604,6 +3612,7 @@ SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE
 .bg0 {background-color: #68458C;}
 .bg1 {background-color: #222222;}
 .bg2 {background-color: #111111;}
+.bg3 {background-color: #04b987;}
 
 .bg0-hov:hover {background-color: #68458C;}
 
