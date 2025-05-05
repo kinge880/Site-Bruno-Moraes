@@ -1,0 +1,53 @@
+{% extends 'base/dashboard_index.html' %}
+{% load static %}
+{% block title %}Categorias – FlowBi{% endblock %}
+
+{% block content %}
+<div x-data="{ open: false, openDelete: false, categoryToDelete: null }">
+    
+    {% include 'meu_painel/components/table.html'%}
+
+  <!-- Modal Nova Categoria -->
+  <div x-show="open" x-cloak style="display: none;" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div @click.away="open = false" class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6">
+      <h2 class="text-xl font-bold mb-4">Nova Categoria</h2>
+      <form method="POST" action="{% url 'category_create' %}">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        
+        <div class="mb-4">
+          <Label>Nome</Label>
+          {{ form.name }}
+          {{ form.name.errors }}
+        </div>
+        
+        <div class="mb-4">
+          <Label>Descrição</Label>
+          {{ form.description }}
+          {{ form.description.errors }}
+        </div>
+  
+        <div class="flex justify-end space-x-2">
+          <button type="button" @click="open = false" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Cancelar</button>
+          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Exclusão -->
+  <div x-show="openDelete" x-cloak style="display: none;" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div @click.away="openDelete = false" class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6">
+      <h2 class="text-xl font-semibold mb-4 text-red-600">Confirmar Exclusão</h2>
+      <p class="mb-4">Tem certeza que deseja excluir esta categoria? Essa ação não pode ser desfeita.</p>
+      <form method="POST" :action="'delete/' + categoryToDelete + '/'">
+        {% csrf_token %}
+        <div class="flex justify-end space-x-2">
+          <button type="button" @click="openDelete = false" class="px-4 py-2 bg-gray-300 rounded">Cancelar</button>
+          <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded">Excluir</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
