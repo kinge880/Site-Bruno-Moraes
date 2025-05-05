@@ -1,0 +1,40 @@
+{% load static %}
+<!-- Schema Markup -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Fagner Calegário",
+    "jobTitle": "Deputado Estadual",
+    "worksFor": {
+      "@type": "GovernmentOrganization",
+      "name": "Assembleia Legislativa do Acre"
+    },
+    "memberOf": {
+      "@type": "PoliticalParty",
+      "name": "Podemos"
+    },
+    "image": "{% static 'images/fagner-calegario-oficial.jpg' %}",
+    "sameAs": [
+      "https://www.tiktok.com/@calegariofagner?_t=8qux0zggtjk&_r=1",
+      "https://www.facebook.com/CalegarioFagner",
+      "https://www.instagram.com/calegariofagner"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Acre",
+      "addressRegion": "AC",
+      "addressCountry": "Brazil"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+55-68-3213-4000",
+      "contactType": "Customer Service",
+      "areaServed": "BR",
+      "availableLanguage": "Portuguese"
+    }
+  }
+</script>
+
+<!-- Canonical -->
+<link rel="canonical" href="{{ SITE_DOMAIN }}/orgulho-terceirizado">

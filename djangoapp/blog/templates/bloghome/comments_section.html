@@ -1,0 +1,287 @@
+{% load humanize %}
+
+<div class="comments-container mt-5 mb-5">
+    <div class="d-flex justify-content-left row">
+        <div class="d-flex flex-column col-12">
+            <!-- Formulário de Comentário -->
+            <form id="comment-form" method="POST" action="comment/" class="mt-3 d-flex justify-content-between mb-3">
+                {% csrf_token %}
+            
+                {% if not user.is_authenticated %}
+                    <input type="hidden" name="name" value="Anônimo">
+                    <input type="hidden" name="email" value="anonimo@agmail.com">
+                {% else %}
+                    <input type="hidden" name="name" value="{{ user.username }}">
+                    <input type="hidden" name="email" value="{{ user.email }}">
+                {% endif %}
+            
+                <div class="search-sidebar2 size12 bo2 pos-relative w-100 d-flex">
+                    {{ form.content }}
+                    <button type="submit" class="btn-search-sidebar5 flex-c-m ti-2 trans-0-4 p-1">Comentar</button>
+                </div>
+            </form>
+            
+            <div id="comments-section" class="comments-section"></div>
+            <button id="load-more" class="btn btn-primary mt-3" style="display:none;">Carregar Mais</button>
+        </div>
+    </div>
+</div>
+
+<!-- Indicador de carregamento com spinner -->
+<div id="loading" style="display:none; text-align: center;">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Carregando...</span>
+    </div>
+</div>
+
+<!-- CSS -->
+<style>
+    .comments-container {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .comment-box {
+        position: relative;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        background-color: #fff;
+    }
+
+    .comment-user h6 {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 2px;
+    }
+
+    .comment-user small {
+        font-size: 12px;
+        color: #777;
+    }
+
+    .comment-text {
+        font-size: 14px;
+        color: #333;
+        margin-top: 8px;
+    }
+
+    .comment-actions {
+        font-size: 14px;
+        color: #777;
+        display: flex;
+        align-items: center;
+    }
+
+    .btn-like {
+        background: none;
+        border: none;
+        color: #007bff;
+        cursor: pointer;
+        padding: 5px;
+    }
+
+    .btn-like:hover {
+        text-decoration: underline;
+    }
+
+    .comment-actions .btn-delete {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        color: #dc3545;
+        font-size: 14px;
+        cursor: pointer;
+        padding: 5px;
+    }
+
+    .comment-actions .btn-delete:hover {
+        color: #a71d2a;
+    }
+
+    .btn-delete i, .btn-like i {
+        margin-right: 3px;
+    }
+
+    .like-count {
+        font-size: 14px;
+        color: #555;
+        margin-left: 5px;
+    }
+
+    .g-color-gray-dark-v4 {
+        color: #777 !important;
+    }
+
+    .g-font-size-12 {
+        font-size: 0.85714rem !important;
+    }
+</style>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    const userIsAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
+</script>
+
+<script>
+    $(document).ready(function () {
+        var currentPage = 1;
+
+        function loadComments(page) {
+            $('#loading').show();
+            $.ajax({
+                url: 'get-comments/',
+                data: { 'page': page },
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    
+                    $('#loading').hide();
+                    var commentsHtml = '';
+                    response.comments.forEach(function (comment) {
+                        var iconColor = comment.liked_by_user ? 'text-primary' : 'g-color-gray-dark-v4';
+                        var createdText = comment.created_at.includes("atrás") ? comment.created_at : `${comment.created_at} atrás`;
+
+                        var deleteButton = '';
+                        if (comment.can_delete) {
+                            deleteButton = `
+                                <div class="comment-actions">
+                                    <button class="btn-delete" data-comment-id="${comment.id}" onclick="deleteComment(this)">
+                                        <i class="fa fa-trash"> Deletar</i>
+                                    </button>
+                                </div>`;
+                        }
+
+                        commentsHtml += `
+                            <div class="comment-box bg-white p-3 mb-2" data-comment-id="${comment.id}">
+                                ${deleteButton}
+                                <div class="comment-user">
+                                    <h6 class="mb-0">${comment.name}</h6>
+                                    <small>${createdText}</small>
+                                </div>
+                                <div class="text-wrap">
+                                    <p class="comment-text mt-2">${comment.content}</p>
+                                </div>
+                            </div>`;
+                    });
+
+                    $('#comments-section').append(commentsHtml);
+
+                    if (response.has_next) {
+                        $('#load-more').show();
+                    } else {
+                        $('#load-more').hide();
+                    }
+                },
+                error: function () {
+                    $('#loading').hide();
+                    alert('Erro ao carregar os comentários');
+                }
+            });
+        }
+
+        loadComments(currentPage);
+
+        $('#load-more').click(function () {
+            currentPage += 1;
+            loadComments(currentPage);
+        });
+
+        $('#comment-form').submit(function (event) {
+            event.preventDefault();
+
+            var formData = $(this).serialize();
+            var actionUrl = $(this).attr("action");
+
+            $.ajax({
+                type: "POST",
+                url: actionUrl,
+                data: formData,
+                dataType: "json",
+                headers: { "X-Requested-With": "XMLHttpRequest" },
+                success: function (response) {
+                    if (response.success) {
+                        var deleteButton = response.can_delete ? `
+                            <div class="comment-actions">
+                                <button class="btn-delete" data-comment-id="${response.id}" onclick="deleteComment(this)">
+                                    <i class="fa fa-trash"> Deletar</i>
+                                </button>
+                            </div>` : '';
+
+                        var newComment = `
+                            <div class="comment-box bg-white p-3 mb-2" data-comment-id="${response.id}">
+                                ${deleteButton}
+                                <div class="comment-user">
+                                    <h6 class="mb-0">${response.name}</h6>
+                                    <small>${response.created_at}</small>
+                                </div>
+                                <div class="text-wrap">
+                                    <p class="comment-text mt-2">${response.content}</p>
+                                </div>
+                                
+                            </div>`;
+
+                        $('#comments-section').prepend(newComment);
+                        $('#comment-form')[0].reset();
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseJSON.errors);
+                }
+            });
+        });
+
+        $(document).on('click', '.btn-like', function (event) {
+            event.preventDefault();
+            var button = $(this);
+            var commentId = button.closest('.comment-box').data("comment-id");
+            var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+
+            $.ajax({
+                type: "POST",
+                url: `comment/${commentId}/like/`,
+                data: {
+                    'comment_id': commentId,
+                    'csrfmiddlewaretoken': csrfToken,
+                },
+                success: function (response) {
+                    var countSpan = button.closest('.comment-box').find('.like-count');
+                    var currentCount = parseInt(countSpan.text());
+                    if (response.action === 'added') {
+                        countSpan.text(currentCount + 1);
+                        button.addClass('liked');
+                    } else if (response.action === 'removed') {
+                        countSpan.text(currentCount - 1);
+                        button.removeClass('liked');
+                    }
+                }
+            });
+        });
+    });
+
+    function deleteComment(button) {
+        let commentId = button.getAttribute("data-comment-id");
+        let commentBox = button.closest(".comment-box");
+    
+        fetch(`comment/${commentId}/delete/`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                commentBox.remove();
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => console.error("Erro ao excluir comentário:", error));
+    }
+</script>

@@ -1,0 +1,115 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Serviços Públicos no Acre - Deputado Fagner Calegário | Modernização e Transparência{% endblock %}
+
+{% block extra_head %}
+{% include 'components/meta_tags.html' with 
+    meta_description="Ações do deputado Fagner Calegário para modernização dos serviços públicos no Acre: saúde mental, inclusão social, proteção animal e transparência na gestão governamental."
+    meta_keywords="Serviços Públicos Acre, Fagner Calegário, Gestão Pública, Transparência Governamental, Saúde Mental Idosos, Inclusão Social Mulheres, Modernização Administrativa Acre"
+    meta_author="Deputado Fagner Calegário"
+    meta_url=SITE_DOMAIN|add:"servicos-publicos"
+    meta_title="Serviços Públicos no Acre - Fagner Calegário | Modernização e Transparência"
+    meta_og_description="Conheça as iniciativas do deputado Fagner Calegário para modernização dos serviços públicos no Acre com transparência e eficiência."
+    meta_og_image=SITE_DOMAIN|add:"static/images/og-servicos-publicos.jpg"
+    meta_twitter_title="Serviços Públicos no Acre - Fagner Calegário | Modernização e Transparência"
+    meta_twitter_description="Ações concretas para melhorar os serviços públicos no Acre através de gestão moderna e transparente."
+    meta_twitter_image=SITE_DOMAIN|add:"static/images/twitter-servicos-publicos.jpg"
+%}
+
+{% include 'components/SchemaMarkup.html' %}
+
+{% endblock %}
+{% block content %}
+
+<div class="container my-5">
+    <!-- Cabeçalho Temático -->
+    <div class="tech-header mb-5 text-center position-relative overflow-hidden">
+        <div class="icon-container mb-4">
+        <i class="fas fa-hand-holding-heart fa-3x mb-3 text-warning"></i>
+        </div>
+        <h1 class="mb-3 fw-bold" style="letter-spacing: -0.03em;">
+            Mais Inclusão: TEA!
+        <div class="title-divider mx-auto my-3"></div>
+        </h1>
+        <p class="lead-text mb-0 px-md-5 mx-auto text-secondary">
+            O deputado estadual Fagner Calegário tem se destacado no Acre por sua atuação em prol da inclusão de pessoas com Transtorno do Espectro Autista (TEA), implementando políticas públicas que promovem acessibilidade, atendimento especializado e valorização da neurodiversidade.​
+        </p>
+    </div>
+
+    <!-- Seção 1 - Saúde Pública -->
+    <div class="tech-card shadow-lg mb-5">
+        <div class="row g-0 align-items-center">
+        <div class="col-md-6">
+            <img src="{% static 'images/teamor.jpg' %}" class="img-fluid rounded-start" alt="Saúde Pública">
+        </div>
+        <div class="col-md-6 p-4">
+            <div class="card-body">
+            <h3 class="card-title mb-3">Projeto TEAmor: Atendimento Multidisciplinar para Crianças Autistas</h3>
+            <p class="card-text text-justify">
+                Calegário destinou emendas parlamentares para a criação do projeto TEAmor, que atende inicialmente famílias com crianças no espectro autista. Executado pelo Sindicato das Empresas Terceirizadas (SEAC), o projeto oferece tratamento completo com profissionais como fonoaudiólogos, psicólogos, psicopedagogos, assistentes sociais e médicos, visando o desenvolvimento infantil e suporte integral às famílias.
+            </p>
+            <ul class="custom-list pl-3 mt-2">
+                <li>R$ 1 milhão em emendas parlamentares para a criação do projeto</li>
+                <li>Diversas famílias atendidas</li>
+            </ul>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Seção 2 - Inclusão Social e Direitos das Mulheres -->
+    <div class="tech-card shadow-lg mb-5">
+        <div class="row g-0 align-items-center flex-md-row-reverse">
+        <div class="col-md-6">
+            <img src="{% static 'images/inclusaotea.jpg' %}" class="img-fluid rounded-start" alt="Inclusão Social">
+        </div>
+        <div class="col-md-6 p-4">
+            <div class="card-body">
+            <h3 class="card-title mb-3">Propostas Legislativas para Inclusão de Pessoas com TEA</h3>
+            <p class="card-text text-justify">
+                Calegário propôs alterações na Lei Estadual nº 2.976/2015, assegurando adaptações no ambiente de trabalho para servidores públicos com TEA, como salas privativas, teletrabalho, adaptações sensoriais e avaliações de desempenho adaptadas. 
+            </p>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    
+
+  <!-- Seção 3 - Modernização e Transparência na Gestão Pública -->
+  <div class="tech-card shadow-lg mb-5">
+    <div class="row g-0 align-items-center">
+        <div class="col-md-6">
+            <img src="{% static 'images/abafadores.jpg' %}" class="img-fluid rounded-start" alt="Modernização na Gestão Pública">
+          </div>
+      <div class="col-md-6 p-4">
+        <div class="card-body">
+          <h3 class="card-title mb-3">Proposta de Distribuição de Abafadores de Ruídos nas Escolas</h3>
+            <p class="card-text text-justify">
+                O deputado apresentou proposta para distribuição de abafadores de ruídos em escolas públicas, visando beneficiar alunos com TEA que enfrentam dificuldades em ambientes ruidosos, melhorando seu desempenho escolar e convivência. 
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tech-card shadow-lg mb-5">
+    <div class="row g-0 align-items-center flex-md-row-reverse">
+      <div class="col-md-6">
+        <img src="{% static 'images/educadorestea.jpg' %}" class="img-fluid rounded-start" alt="Formação de Professores">
+      </div>
+      <div class="col-md-6 p-4">
+        <div class="card-body">
+          <h3 class="card-title mb-3">Capacitação de Educadores em Autismo</h3>
+          <p class="card-text text-justify">
+            Em parceria com a Prefeitura de Epitaciolândia, Calegário apoiou a formação de 63 professores no curso de pós-graduação em Autismo e Gestão da Educação. A iniciativa amplia a qualificação de educadores da rede pública, promovendo uma educação mais inclusiva para crianças com TEA.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+{% endblock %}
